@@ -228,6 +228,7 @@ public class SpriteManager : MonoBehaviour
         {
             return newList[Random.Range(0, newList.Count)].name;
         }
+        Debug.Log("No parts of animal type" + animal + "found");
         return "No parts of animal type" + animal + "found";
     }
 
@@ -245,7 +246,7 @@ public class SpriteManager : MonoBehaviour
         {
             return newList[Random.Range(0, newList.Count)].name;
         }
+        Debug.Log("No parts of animal type" + animal + "found");
         return "No parts of animal type" + animal + "found";
-        return "blub";
     }
 }
