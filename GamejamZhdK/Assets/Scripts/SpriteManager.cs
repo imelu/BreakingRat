@@ -214,7 +214,7 @@ public class SpriteManager : MonoBehaviour
         return getRandomBodyPart(animal, Mouths);
     }
 
-    private string getRandomBodyPart(string animal, List<BodyPart> listOfParts) 
+    public string getRandomBodyPart(string animal, List<BodyPart> listOfParts) 
     {
         List<BodyPart> newList = new List<BodyPart>();
         foreach(BodyPart part in listOfParts)
@@ -232,7 +232,7 @@ public class SpriteManager : MonoBehaviour
         return "No parts of animal type" + animal + "found";
     }
 
-    private string getRandomBodyPart(string animal, List<BodyPartGO> listOfParts)
+    public string getRandomBodyPart(string animal, List<BodyPartGO> listOfParts)
     {
         List<BodyPartGO> newList = new List<BodyPartGO>();
         foreach (BodyPartGO part in listOfParts)
