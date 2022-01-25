@@ -14,8 +14,23 @@ public class TraitSelector : MonoBehaviour
     string[] BodypartsOut = { "head", "body", "eye1", "eye2", "ear1", "ear2", "mouth", "arm1", "arm2", "leg1", "leg2", "tail" };
     //string[] BodypartsRandom = { "Heads", "Bodies", "Eyes", "Eyes", "Ears", "Ears", "Mouths", "Arms", "Arms", "Legs", "Legs", "Tails" };
     //body, head gameobject
+    string tempAnimal;
+
     int GetRandomValue()
     {
+        int randomanimal = Random.Range(1, 4);
+        if (randomanimal==1)
+        {
+            mainAnimalType =  "weasel"; 
+        }
+        else if (randomanimal == 2)
+        {
+            mainAnimalType = "frog";
+        }
+        else if (randomanimal == 3)
+        {
+            mainAnimalType = "rat";
+        }
         /*
         float rand = Random.value;
         if (rand <= .47f)
@@ -39,6 +54,7 @@ public class TraitSelector : MonoBehaviour
         /*
         ChosenParent = Parents[index];
         mainAnimalType = ChosenParent.GetComponent<TraitSelector>().mainAnimalType;*/
+        
 
         int bodyPartCounter=0;
         foreach(string bodypart in BodypartsIn)
@@ -53,7 +69,6 @@ public class TraitSelector : MonoBehaviour
             if (traitOrigin == 1)
             {
                 animalType = Parent1.GetComponent<TraitSelector>().mainAnimalType;
-                print(Parent1.GetComponent<BodyParts>().GetType().GetField(BodypartsIn[bodyPartCounter]).GetValue(Parent1.GetComponent<BodyParts>()).ToString());
                 BodypartsOut[bodyPartCounter] = Parent1.GetComponent<BodyParts>().GetType().GetField(BodypartsIn[bodyPartCounter]).GetValue(Parent1.GetComponent<BodyParts>()).ToString();
 
                 //Bodyparts[bodyPartCounter]
@@ -61,7 +76,6 @@ public class TraitSelector : MonoBehaviour
             }
             else if(traitOrigin == 2)
             {
-                print(Parent1.GetComponent<BodyParts>().GetType().GetField(BodypartsIn[bodyPartCounter]).GetValue(Parent1.GetComponent<BodyParts>()).ToString());
                 BodypartsOut[bodyPartCounter] = Parent2.GetComponent<BodyParts>().GetType().GetField(BodypartsIn[bodyPartCounter]).GetValue(Parent1.GetComponent<BodyParts>()).ToString();
                 //get Bodypart with index bodyPartCounter of Parent2
             }
@@ -71,7 +85,6 @@ public class TraitSelector : MonoBehaviour
                 ChosenParent = Parents[index];
                 animalType = ChosenParent.GetComponent<TraitSelector>().mainAnimalType;
 
-                print(animalType);
                 if (bodypart == "body")
                 {
                     BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomBody(animalType);
@@ -80,27 +93,49 @@ public class TraitSelector : MonoBehaviour
                 {
                     BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomHead(animalType);
                 }
-                else if (bodypart == "arm")
+                else if (bodypart == "arm1")
                 {
                     BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomArm(animalType);
                 }
-                else if (bodypart == "leg")
+                else if (bodypart == "arm2")
+                {
+                    BodypartsOut[bodyPartCounter] = BodypartsOut[bodyPartCounter-1];
+                }
+                else if (bodypart == "leg1")
                 {
                     BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomLeg(animalType);
+                }
+                else if (bodypart == "leg2")
+                {
+                    BodypartsOut[bodyPartCounter] = BodypartsOut[bodyPartCounter-1];
                 }
                 else if (bodypart == "tail")
                 {
                     BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomTail(animalType);
                 }
-                else if (bodypart == "ear")
+                else if (bodypart == "eye1")
+                {
+                    BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomEye(animalType);
+                    tempAnimal = animalType;
+                }
+                else if (bodypart == "eye2")
+                {
+                    BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomEye(tempAnimal);
+                }
+                else if (bodypart == "ear1")
                 {
                     BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomEar(animalType);
+                    tempAnimal = animalType;
+                }
+                else if (bodypart == "ear2")
+                {
+                    BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomEar(tempAnimal);
                 }
                 else if (bodypart == "mouth")
                 {
                     BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomMouth(animalType);
                 }
-
+                //augen: andere Augen, aber anderes Auge von gleichem Tier
 
 
                 //get Random bodypart with bodypartindex bodyPartCounter and filtered animalType
