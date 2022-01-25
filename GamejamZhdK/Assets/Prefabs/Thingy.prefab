@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5994279071791056528}
   - component: {fileID: 2771095580471289358}
+  - component: {fileID: 5439717176313812913}
+  - component: {fileID: 6901362053918361369}
   m_Layer: 0
   m_Name: Thingy
   m_TagString: Untagged
@@ -55,3 +57,41 @@ MonoBehaviour:
   tail: 
   head: 
   body: 
+--- !u!114 &5439717176313812913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8061117255156222391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870e0256a8e67ab4f815d6cd79b7ec5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LVL: 1
+  MAX: 10
+  ATKGrowth: 0.5
+  DEFGrowth: 0.5
+  HPGrowth: 0.5
+  SPDGrowth: 0.5
+  CRITGrowth: 0.5
+  ATK: 0
+  DEF: 0
+  HP: 0
+  SPD: 0
+  CRIT: 0
+  demGeenes: 0
+  shiny: 0
+--- !u!114 &6901362053918361369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8061117255156222391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c078ea716d2a4c469aadac8a96a6b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

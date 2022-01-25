@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class HeadSprites : MonoBehaviour
 {
+    private ColorManager colorManager;
+
     [SerializeField] private SpriteRenderer eye1;
     [SerializeField] private SpriteRenderer eye2;
     [SerializeField] private SpriteRenderer ear1;
     [SerializeField] private SpriteRenderer ear2;
     [SerializeField] private SpriteRenderer mouth;
+
+    void Start()
+    {
+        colorManager = GetComponentInParent<ColorManager>();
+        colorManager.Sprites.Add(ear1);
+        colorManager.Sprites.Add(ear2);
+        colorManager.Sprites.Add(mouth);
+        colorManager.Sprites.Add(GetComponent<SpriteRenderer>());
+    }
 
     public void ChangeSprites(Sprite _eye1, Sprite _eye2, Sprite _ear1, Sprite _ear2, Sprite _mouth)
     {
