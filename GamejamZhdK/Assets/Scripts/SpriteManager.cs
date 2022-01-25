@@ -7,7 +7,8 @@ public enum Animal
     frog,
     rat,
     buffweasel,
-    fatfrog
+    fatfrog,
+    END
 }
 
 [System.Serializable]

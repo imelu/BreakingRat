@@ -9,33 +9,47 @@ public class ColorManager : MonoBehaviour
     public float speed = 0.3f;
 
     private Color rainbowColor;
+    private Color setColor;
+    private bool colorReady = false;
 
-    private Stats stats;
+    public Stats stats;
 
     // Start is called before the first frame update
     void Start()
     {
-        stats = GetComponent<Stats>();
+
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if (stats.shiny)
+    {/*
+        if(stats == null)
         {
-            rainbowColor = HSBColor.ToColor(new HSBColor(Mathf.PingPong(Time.time * speed, 1), 1, 1));
-            foreach (SpriteRenderer sprite in Sprites)
+            stats = gameObject.GetComponent<Stats>();
+        }*/
+        if(Sprites.Count >= 0)
+        {
+            if (stats.shiny)
             {
-                sprite.material.SetColor("_Color", rainbowColor);
+                rainbowColor = HSBColor.ToColor(new HSBColor(Mathf.PingPong(Time.time * speed, 1), 1, 1));
+                foreach (SpriteRenderer sprite in Sprites)
+                {
+                    sprite.material.SetColor("_Color", rainbowColor);
+                }
+            }
+            else if (colorReady)
+            {
+                foreach (SpriteRenderer sprite in Sprites)
+                {
+                    sprite.material.SetColor("_Color", setColor);
+                }
             }
         }
     }
 
     public void SetColor(Color _color)
     {
-        if (!stats.shiny)
-        {
-            
-        }
+        setColor = _color;
+        colorReady = true;
     }
 }
