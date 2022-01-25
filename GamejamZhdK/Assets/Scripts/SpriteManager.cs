@@ -5,7 +5,9 @@ public enum Animal
 {
     weasel,
     frog,
-    rat
+    rat,
+    buffweasel,
+    fatfrog
 }
 
 [System.Serializable]
