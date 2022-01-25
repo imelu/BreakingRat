@@ -109,14 +109,13 @@ public class SpriteManager : MonoBehaviour
         }
     }
 
-    public void GenerateThingy(string _head, string _body, string _eye1, string _eye2, string _ear1, string _ear2, string _mouth, string _arm1, string _arm2, string _leg1, string _leg2, string _tail)
+    public GameObject GenerateThingy(string _head, string _body, string _eye1, string _eye2, string _ear1, string _ear2, string _mouth, string _arm1, string _arm2, string _leg1, string _leg2, string _tail)
     {
         BodyParts bodyParts;
         GameObject _thingy;
         GameObject body;
         GameObject head;
         GameObject temp;
-        string temp2;
 
         Sprite eye1;
         Sprite eye2;
@@ -172,6 +171,8 @@ public class SpriteManager : MonoBehaviour
         bodyParts.leg1 = _leg1;
         bodyParts.leg2 = _leg2;
         bodyParts.tail = _tail;
+
+        return _thingy;
     }
 
     public string getRandomBody(string animal)

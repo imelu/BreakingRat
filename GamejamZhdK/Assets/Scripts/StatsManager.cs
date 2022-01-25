@@ -2,13 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stats : MonoBehaviour
+public class StatsManager : MonoBehaviour
 {
-    private float ATK;
-    private float DEF;
-    private float HP;
-    private float SPD;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -19,5 +14,10 @@ public class Stats : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void CalculateStats(GameObject _Parent1, GameObject _Parent2)
+    {
+
     }
 }
