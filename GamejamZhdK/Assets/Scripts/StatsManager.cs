@@ -16,9 +16,10 @@ public class StatsManager : MonoBehaviour
     private float demGeenesMult = 0.5f;
 
     //Debug
+    /*
     [SerializeField] private GameObject p1;
     [SerializeField] private GameObject p2;
-    [SerializeField] private GameObject thingy;
+    [SerializeField] private GameObject thingy;*/
 
     #region Singleton
     public static StatsManager Instance;
@@ -41,14 +42,14 @@ public class StatsManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {/*
         // Debug
         if (Input.GetKeyDown(KeyCode.Space))
         {
             GameObject _thingy;
             _thingy = Instantiate(thingy);
             CalculateStats(p1, p2, _thingy);
-        }
+        }*/
     }
 
     public void CalculateStats(GameObject _Parent1, GameObject _Parent2, GameObject _Child)
