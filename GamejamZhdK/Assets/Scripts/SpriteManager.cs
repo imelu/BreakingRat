@@ -6,8 +6,8 @@ public enum Animal
     weasel,
     frog,
     rat,
-    buffweasel,
     fatfrog,
+    generic,
     END
 }
 
@@ -226,6 +226,10 @@ public class SpriteManager : MonoBehaviour
         foreach(BodyPart part in listOfParts)
         {
             if (System.Enum.GetName(typeof(Animal), part.animal).Equals(animal))
+            {
+                newList.Add(part);
+            }
+            if (System.Enum.GetName(typeof(Animal), Animal.generic).Equals(animal))
             {
                 newList.Add(part);
             }

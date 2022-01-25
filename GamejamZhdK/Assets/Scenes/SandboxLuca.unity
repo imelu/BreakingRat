@@ -524,6 +524,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7605163725691493876, guid: 25fd3b2f3dce28b41bd1f2e177467a51, type: 3}
+      propertyPath: Arms.Array.size
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7605163725691493877, guid: 25fd3b2f3dce28b41bd1f2e177467a51, type: 3}
       propertyPath: m_Name
       value: SpriteManager

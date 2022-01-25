@@ -14,6 +14,10 @@ public class EncounterManager : MonoBehaviour
     private int stage;
     private int avgEnemyLVL;
 
+    private bool encounterClear = true;
+
+    private List<GameObject> Enemies = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,16 +32,28 @@ public class EncounterManager : MonoBehaviour
             //SpawnRandomThingy(spawnSlots[0]);
             generateEncounter();
         }
+
+        if(Enemies.Count <= 0)
+        {
+            encounterClear = true;
+        }
+
+        if (encounterClear)
+        {
+            generateEncounter();
+        }
+
+        Enemies.RemoveAll(item => item == null);
     }
 
     public void generateEncounter()
     {
+        encounterClear = false;
         nmbrOfEnemies = Random.Range(1, maxEnemies + 1);
         for(int i = 0; i<nmbrOfEnemies; i++)
         {
             SpawnRandomThingy(spawnSlots[i]);
         }
-
 
     }
 
@@ -45,7 +61,7 @@ public class EncounterManager : MonoBehaviour
     {
         string[] BodypartsOut = new string[12];
         GameObject _thingy;
-        int _nmbrOfAnimalTypes = (int)Animal.END;
+        int _nmbrOfAnimalTypes = (int)Animal.END - 1;
         int _selectedAnimal;
 
         BodypartsOut[0] = SpriteManager.Instance.getRandomHead(System.Enum.GetName(typeof(Animal), Random.Range(0, _nmbrOfAnimalTypes)));
@@ -75,5 +91,6 @@ public class EncounterManager : MonoBehaviour
         _thingy.transform.position = _spawnslot.position;
         _thingy.transform.localScale = new Vector3(-1, 1, 1);
         _thingy.GetComponent<ColorManager>().SetColor(new Color(Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f)));
+        Enemies.Add(_thingy);
     }
 }
