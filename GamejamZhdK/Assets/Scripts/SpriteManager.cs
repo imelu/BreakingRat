@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public enum Animal
 {
     weasel,
@@ -48,6 +47,19 @@ public class SpriteManager : MonoBehaviour
 
     private Dictionary<string, GameObject> HeadDict = new Dictionary<string, GameObject>();
     private Dictionary<string, GameObject> BodyDict = new Dictionary<string, GameObject>();
+
+    #region Singleton
+    public static SpriteManager Instance;
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
+            Destroy(this.gameObject);
+
+        DontDestroyOnLoad(gameObject);
+    }
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -99,6 +111,7 @@ public class SpriteManager : MonoBehaviour
 
     public void GenerateThingy(string _head, string _body, string _eye1, string _eye2, string _ear1, string _ear2, string _mouth, string _arm1, string _arm2, string _leg1, string _leg2, string _tail)
     {
+        BodyParts bodyParts;
         GameObject _thingy;
         GameObject body;
         GameObject head;
@@ -118,6 +131,7 @@ public class SpriteManager : MonoBehaviour
         Sprite tail;
 
         _thingy = Instantiate(ThingyPrefab);
+        bodyParts = _thingy.GetComponent<BodyParts>();
 
         BodyDict.TryGetValue(_body, out temp);
         body = Instantiate(temp, _thingy.transform);
@@ -145,19 +159,93 @@ public class SpriteManager : MonoBehaviour
         TailDict.TryGetValue(_tail, out tail);
 
         body.GetComponent<BodySprites>().ChangeSprites(arm1, arm2, leg1, leg2, tail);
+
+        bodyParts.body = _body;
+        bodyParts.head = _head;
+        bodyParts.eye1 = _eye1;
+        bodyParts.eye2 = _eye2;
+        bodyParts.ear1 = _ear1;
+        bodyParts.ear2 = _ear2;
+        bodyParts.mouth = _mouth;
+        bodyParts.arm1 = _arm1;
+        bodyParts.arm2 = _arm2;
+        bodyParts.leg1 = _leg1;
+        bodyParts.leg2 = _leg2;
+        bodyParts.tail = _tail;
     }
 
-    public string getRandomLeg()
+    public string getRandomBody(string animal)
     {
+        return getRandomBodyPart(animal, Bodies);
+    }
 
+    public string getRandomHead(string animal)
+    {
+        return getRandomBodyPart(animal, Heads);
+    }
 
-        return "blub";
+    public string getRandomArm(string animal)
+    {
+        return getRandomBodyPart(animal, Arms);
     }
 
     public string getRandomLeg(string animal)
     {
+        return getRandomBodyPart(animal, Legs);
+    }
 
+    public string getRandomTail(string animal)
+    {
+        return getRandomBodyPart(animal, Tails);
+    }
 
+    public string getRandomEye(string animal)
+    {
+        return getRandomBodyPart(animal, Eyes);
+    }
+
+    public string getRandomEar(string animal)
+    {
+        return getRandomBodyPart(animal, Ears);
+    }
+
+    public string getRandomMouth(string animal)
+    {
+        return getRandomBodyPart(animal, Mouths);
+    }
+
+    private string getRandomBodyPart(string animal, List<BodyPart> listOfParts) 
+    {
+        List<BodyPart> newList = new List<BodyPart>();
+        foreach(BodyPart part in listOfParts)
+        {
+            if (System.Enum.GetName(typeof(Animal), part.animal).Equals(animal))
+            {
+                newList.Add(part);
+            }
+        }
+        if(newList.Count > 0)
+        {
+            return newList[Random.Range(0, newList.Count)].name;
+        }
+        return "No parts of animal type" + animal + "found";
+    }
+
+    private string getRandomBodyPart(string animal, List<BodyPartGO> listOfParts)
+    {
+        List<BodyPartGO> newList = new List<BodyPartGO>();
+        foreach (BodyPartGO part in listOfParts)
+        {
+            if (System.Enum.GetName(typeof(Animal), part.animal).Equals(animal))
+            {
+                newList.Add(part);
+            }
+        }
+        if (newList.Count > 0)
+        {
+            return newList[Random.Range(0, newList.Count)].name;
+        }
+        return "No parts of animal type" + animal + "found";
         return "blub";
     }
 }
