@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7605163725691493877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7605163725691493879}
+  - component: {fileID: 7605163725691493876}
+  m_Layer: 0
+  m_Name: SpriteManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7605163725691493879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7605163725691493877}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.546584, y: 0.70562077, z: -3.67313}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7605163725691493876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7605163725691493877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571d81800d7fa1840b7ae3764d08b993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThingyPrefab: {fileID: 8061117255156222391, guid: e231e75a9ad9eea49988a88078bc764b, type: 3}
+  Ears:
+  - animal: 0
+    name: weasel1
+    sprite: {fileID: 21300000, guid: eb07ad606aa0c574a86c6bf3d5092462, type: 3}
+  - animal: 2
+    name: rat1
+    sprite: {fileID: 21300000, guid: caedff451dc6632419caae1a982c005c, type: 3}
+  Eyes:
+  - animal: 0
+    name: weasel1
+    sprite: {fileID: 21300000, guid: b938e7ff7a705074887712b999986a6e, type: 3}
+  - animal: 1
+    name: frog1
+    sprite: {fileID: 21300000, guid: df166dc42febd284a87c90925a8f6ffe, type: 3}
+  Mouths:
+  - animal: 0
+    name: weasel1
+    sprite: {fileID: 21300000, guid: 0712ab50632ca9d4cacb515441fde357, type: 3}
+  - animal: 1
+    name: frog1
+    sprite: {fileID: 21300000, guid: 675263a014cb6f642b0df19dd3e13c52, type: 3}
+  - animal: 2
+    name: rat1
+    sprite: {fileID: 21300000, guid: 5a4ee40ff8d4cc544b6f77f264c9260a, type: 3}
+  Arms:
+  - animal: 0
+    name: weasel1
+    sprite: {fileID: 21300000, guid: 190bc6686149d36479ca5c131ee3b38c, type: 3}
+  - animal: 1
+    name: frog1
+    sprite: {fileID: 21300000, guid: ead7e400f5ca1ae4d95c6095781ad76f, type: 3}
+  - animal: 2
+    name: rat1
+    sprite: {fileID: 21300000, guid: e946989a9df6e6945990fa798119ff4b, type: 3}
+  Legs:
+  - animal: 0
+    name: weasel1
+    sprite: {fileID: 21300000, guid: 8ee5f06cfc9f42449ba82427ebe40db0, type: 3}
+  - animal: 1
+    name: frog1
+    sprite: {fileID: 21300000, guid: c04b78a4967944748959fe4ee7236310, type: 3}
+  - animal: 2
+    name: rat1
+    sprite: {fileID: 21300000, guid: bdf59a97a75398840960c5a1e238f57f, type: 3}
+  Tails:
+  - animal: 0
+    name: weasel1
+    sprite: {fileID: 21300000, guid: 5a4735cdc352d2b4eb604c4ef2f7c86f, type: 3}
+  - animal: 2
+    name: rat1
+    sprite: {fileID: 21300000, guid: 9cac18181ad418543844ac75e233f21a, type: 3}
+  Heads:
+  - animal: 0
+    name: weasel1
+    prefab: {fileID: 7798260108135172425, guid: 084cd4d0967523d469d4e09521dccfd5, type: 3}
+  - animal: 1
+    name: frog1
+    prefab: {fileID: 6039184503346318751, guid: 1eeb7ce9024aea14fa73ff9d7018a248, type: 3}
+  - animal: 2
+    name: rat1
+    prefab: {fileID: 1790309316633678289, guid: fa1458db24ff77f4a902756d241934a4, type: 3}
+  Bodies:
+  - animal: 0
+    name: weasel1
+    prefab: {fileID: 8323160999871635731, guid: dccbdbcd494c16141ae20b0c2cac8085, type: 3}
+  - animal: 1
+    name: frog1
+    prefab: {fileID: 6627966591130132273, guid: 56fce0eaffd85724893fc63564ca641b, type: 3}
+  - animal: 2
+    name: rat1
+    prefab: {fileID: 5201995330617926839, guid: c3840980ac6d586478de1574937710be, type: 3}
