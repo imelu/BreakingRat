@@ -7,16 +7,52 @@ public class animalMovement : MonoBehaviour
     Vector2 destinationP;
     bool moveable = true;
     bool checkable = true;
+    private bool isDragging;
+
     void Start()
     {
-        float randomx = Random.Range(0f, 10.0f);
-        float randomy = Random.Range(0f, 2.5f);
+        float randomx = Random.Range(-8.3f, 8.3f);
+        float randomy = Random.Range(-2.8f, 1.25f);
+        RaycastHit hit;
+        if (Physics.Raycast(new Vector3(randomx, randomy, 0), Vector3.forward, out hit, Mathf.Infinity))
+        {
+            Debug.DrawRay(new Vector3(randomx, randomy, 0), Vector3.forward * 1000);
+
+            while (hit.collider.gameObject.name.Equals("Collider"))
+            {
+                Debug.Log("hit");
+                randomx = Random.Range(-8.3f, 8.3f);
+                randomy = Random.Range(-2.8f, 1.25f);
+
+                if (!Physics.Raycast(new Vector3(randomx, randomy, 0), Vector3.forward, out hit, Mathf.Infinity))
+                {
+                    break;
+                }
+            }
+        }
+
         destinationP = new Vector2(randomx, randomy);
     }
 
-    
+    public void OnMouseDown()
+    {
+        isDragging = true;
+        moveable = false;
+    }
+    public void OnMouseUp()
+    {
+        isDragging = false;
+        moveable = false;
+        fallAnimal();
+    }
+
     void Update()
     {
+        if (isDragging)
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            transform.Translate(mousePosition);
+        }
         if (new Vector2(transform.position.x, transform.position.y) == destinationP && checkable == true)
         {
             checkable = false;
@@ -31,9 +67,9 @@ public class animalMovement : MonoBehaviour
         {
             Move();
         }
-
-
     }
+
+    
 
     void Move()
     {
@@ -41,10 +77,35 @@ public class animalMovement : MonoBehaviour
         transform.position = Vector2.MoveTowards(new Vector2(transform.position.x,transform.position.y),destinationP,step);
         checkable = true;
     }
+    void fallAnimal()
+    {
+        float step = 10 * Time.deltaTime;
+        destinationP = new Vector2(transform.position.x, transform.position.y - 1);
+        transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), destinationP, step);
+        checkable = true;
+        moveable = true;
+    }
     IEnumerator nextMovement()
     {
-        float randomx = Random.Range(0f, 10.0f);
-        float randomy = Random.Range(0f, 2.5f);
+        float randomx = Random.Range(-8.3f, 8.3f);
+        float randomy = Random.Range(-2.8f, 1.25f);
+        RaycastHit hit;
+        if (Physics.Raycast(new Vector3(randomx, randomy, 0), Vector3.forward, out hit, Mathf.Infinity))
+        {
+            Debug.DrawRay(new Vector3(randomx, randomy, 0), Vector3.forward * 1000);
+
+            while (hit.collider.gameObject.name.Equals("Collider"))
+            {
+                Debug.Log("hit");
+                randomx = Random.Range(-8.3f, 8.3f);
+                randomy = Random.Range(-2.8f, 1.25f);
+
+                if (!Physics.Raycast(new Vector3(randomx, randomy, 0), Vector3.forward, out hit, Mathf.Infinity))
+                {
+                    break;
+                }
+            }
+        }
         yield return new WaitForSeconds(Random.Range(1f,3f));
         moveable = true;
         destinationP = new Vector2(randomx, randomy);
