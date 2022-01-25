@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 92813889}
+  - component: {fileID: 92813890}
   m_Layer: 0
   m_Name: Thingy
   m_TagString: Untagged
@@ -155,6 +156,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &92813890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92813888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb412883f1feb0345a63f27e0a52edc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ear1: 
+  ear2: 
+  eye1: 
+  eye2: 
+  mouth: 
+  arm1: 
+  arm2: 
+  leg1: 
+  leg2: 
+  tail: 
+  head: 
+  body: 
 --- !u!1 &741149727
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,6 +437,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796a218cfa322b94d9b3d0f5f7af5d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arm1: {fileID: 0}
+  arm2: {fileID: 0}
+  leg1: {fileID: 0}
+  leg2: {fileID: 0}
+  tail: {fileID: 0}
 --- !u!4 &1756650609 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7798260108135172424, guid: 084cd4d0967523d469d4e09521dccfd5, type: 3}
