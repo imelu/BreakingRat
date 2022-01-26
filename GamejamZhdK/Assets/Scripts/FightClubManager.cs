@@ -5,6 +5,7 @@ using UnityEngine;
 public class FightClubManager : MonoBehaviour
 {
 
+    public GameObject PlayerThingy;
 
 
     // Start is called before the first frame update

@@ -87,7 +87,7 @@ public class StatsManager : MonoBehaviour
 
         _cs.ATK = baseStatLevel * _cs.ATKGrowth;
         _cs.DEF = baseStatLevel * _cs.DEFGrowth;
-        _cs.HP = baseStatLevel * _cs.HPGrowth;
+        _cs.HPMAX = baseStatLevel * _cs.HPGrowth;
         _cs.SPD = baseStatLevel * _cs.SPDGrowth;
         _cs.CRIT = baseStatLevel * _cs.CRITGrowth;
     }

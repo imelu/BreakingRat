@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
+    public bool isPlayer = true;
+
     public int LVL;
     public int MAX;
 
@@ -15,12 +17,16 @@ public class Stats : MonoBehaviour
 
     public float ATK;
     public float DEF;
+    public float HPMAX;
     public float HP;
     public float SPD;
     public float CRIT;
 
     public bool demGeenes = false;
     public bool shiny = false;
+
+    //Debug
+    public bool update = true;
 
     /* additional stat ideas:
      * lifesteal -> regain life on hit
@@ -42,14 +48,20 @@ public class Stats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateStats();
+        //Debug
+        if (update)
+        {
+            UpdateStats();
+            update = false;
+        }
     }
 
-    private void UpdateStats()
+    public void UpdateStats()
     {
         ATK = (StatsManager.Instance.baseStatLevel + LVL) * ATKGrowth;
         DEF = (StatsManager.Instance.baseStatLevel + LVL) * DEFGrowth;
-        HP = (StatsManager.Instance.baseStatLevel + LVL) * HPGrowth;
+        HPMAX = (StatsManager.Instance.baseStatLevel + LVL) * HPGrowth;
+        HP = HPMAX;
         SPD = (StatsManager.Instance.baseStatLevel + LVL) * SPDGrowth;
         CRIT = (StatsManager.Instance.baseStatLevel + LVL) * CRITGrowth;
     }

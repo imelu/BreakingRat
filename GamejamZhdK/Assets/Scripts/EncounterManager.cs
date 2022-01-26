@@ -9,19 +9,23 @@ public class EncounterManager : MonoBehaviour
 
     [SerializeField] private Transform[] spawnSlots = new Transform[3];
 
+    private CombatManager CManager;
+
     private int maxEnemies = 3;
     private int nmbrOfEnemies;
     private int stage;
-    private int avgEnemyLVL;
+    private float avgEnemyLVL;
+    private float lvlGrowth = 0.3f;
+    private float growthMax = 0.7f;
+    private float growthMin = 0.4f;
+    
 
-    private bool encounterClear = true;
-
-    private List<GameObject> Enemies = new List<GameObject>();
+    public List<GameObject> Enemies = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        CManager = GetComponent<CombatManager>();
     }
 
     // Update is called once per frame
@@ -33,28 +37,26 @@ public class EncounterManager : MonoBehaviour
             generateEncounter();
         }
 
-        if(Enemies.Count <= 0)
-        {
-            encounterClear = true;
-        }
-
+        
+        /*
         if (encounterClear)
         {
             generateEncounter();
-        }
+        }*/
 
         Enemies.RemoveAll(item => item == null);
     }
 
     public void generateEncounter()
     {
-        encounterClear = false;
+        //encounterClear = false;
         nmbrOfEnemies = Random.Range(1, maxEnemies + 1);
-        for(int i = 0; i<nmbrOfEnemies; i++)
+        avgEnemyLVL = lvlGrowth * stage;
+        for (int i = 0; i < nmbrOfEnemies; i++)
         {
             SpawnRandomThingy(spawnSlots[i]);
         }
-
+        CManager.GetEnemies();
     }
 
     private void SpawnRandomThingy(Transform _spawnslot)
@@ -91,6 +93,15 @@ public class EncounterManager : MonoBehaviour
         _thingy.transform.position = _spawnslot.position;
         _thingy.transform.localScale = new Vector3(-1, 1, 1);
         _thingy.GetComponent<ColorManager>().SetColor(new Color(Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f)));
+        _thingy.GetComponent<Stats>().isPlayer = false;
+        _thingy.GetComponent<Stats>().DEFGrowth = 0;
+        _thingy.GetComponent<Stats>().LVL = (int)avgEnemyLVL;
+        _thingy.GetComponent<Stats>().UpdateStats();
         Enemies.Add(_thingy);
+    }
+
+    private void AllocateStats()
+    {
+
     }
 }
