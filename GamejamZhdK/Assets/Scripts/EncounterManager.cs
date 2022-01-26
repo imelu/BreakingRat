@@ -2,6 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class CalcStats
+{
+    public float ATK;
+    public float HP;
+    public float HPMAX;
+    public float SPD;
+    public float DEF;
+
+    public float ATKGrowth;
+    public float HPGrowth;
+    public float SPDGrowth;
+
+    public int LVL;
+    public bool isPlayer = true;
+}
+
 public class EncounterManager : MonoBehaviour
 {
     // Bossstages
@@ -18,7 +34,9 @@ public class EncounterManager : MonoBehaviour
     private float lvlGrowth = 0.3f;
     private float growthMax = 0.7f;
     private float growthMin = 0.4f;
-    
+
+    private List<CalcStats> StageSetup = new List<CalcStats>();
+    private List<List<CalcStats>> Stages = new List<List<CalcStats>>();
 
     public List<GameObject> Enemies = new List<GameObject>();
 
@@ -95,23 +113,28 @@ public class EncounterManager : MonoBehaviour
         _thingy.transform.localScale = new Vector3(-1, 1, 1);
         _thingy.GetComponent<ColorManager>().SetColor(new Color(Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f)));
 
-        AllocateStats(_thingy.GetComponent<Stats>());
+        //AllocateStats(_thingy.GetComponent<Stats>());
 
         Enemies.Add(_thingy);
     }
 
-    private void AllocateStats(Stats _thingystats)
+    private void AllocateStats(ThingyManager _thingystats)
     {
-        _thingystats.ATKGrowth = Random.Range(growthMin, growthMax);
-        _thingystats.HPGrowth = Random.Range(growthMin, growthMax);
-        _thingystats.SPDGrowth = Random.Range(growthMin, growthMax);
-        _thingystats.CRITGrowth = Random.Range(growthMin, growthMax);
-        _thingystats.DEFGrowth = 0;
+        _thingystats.stats.ATKGrowth = Random.Range(growthMin, growthMax);
+        _thingystats.stats.HPGrowth = Random.Range(growthMin, growthMax);
+        _thingystats.stats.SPDGrowth = Random.Range(growthMin, growthMax);
 
-        _thingystats.isPlayer = false;
+        _thingystats.stats.isPlayer = false;
 
-        _thingystats.LVL = (int)avgEnemyLVL;
+        avgEnemyLVL = lvlGrowth * stage;
+        _thingystats.stats.LVL = (int)avgEnemyLVL;
 
-        _thingystats.UpdateStats();
+        _thingystats.stats.ATK = (StatsManager.Instance.baseStatLevel + _thingystats.stats.LVL) * _thingystats.stats.ATKGrowth;
+        _thingystats.stats.DEF = 0;
+        _thingystats.stats.HPMAX = (StatsManager.Instance.baseStatLevel + _thingystats.stats.LVL) * _thingystats.stats.HPGrowth;
+        _thingystats.stats.HP = _thingystats.stats.HPMAX;
+        _thingystats.stats.SPD = (StatsManager.Instance.baseStatLevel + _thingystats.stats.LVL) * _thingystats.stats.SPDGrowth;
+
+        StatsManager.Instance.UpdateStats(_thingystats);
     }
 }
