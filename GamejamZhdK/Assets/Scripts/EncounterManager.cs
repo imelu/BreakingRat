@@ -13,7 +13,7 @@ public class EncounterManager : MonoBehaviour
 
     private int maxEnemies = 3;
     private int nmbrOfEnemies;
-    private int stage;
+    private int stage = 1;
     private float avgEnemyLVL;
     private float lvlGrowth = 0.3f;
     private float growthMax = 0.7f;
@@ -57,6 +57,7 @@ public class EncounterManager : MonoBehaviour
             SpawnRandomThingy(spawnSlots[i]);
         }
         CManager.GetEnemies();
+        stage++;
     }
 
     private void SpawnRandomThingy(Transform _spawnslot)
@@ -89,19 +90,28 @@ public class EncounterManager : MonoBehaviour
 
         BodypartsOut[11] = SpriteManager.Instance.getRandomTail(System.Enum.GetName(typeof(Animal), Random.Range(0, _nmbrOfAnimalTypes)));
 
-        _thingy = SpriteManager.Instance.GenerateThingy(BodypartsOut[0], BodypartsOut[1], BodypartsOut[2], BodypartsOut[3], BodypartsOut[4], BodypartsOut[5], BodypartsOut[6], BodypartsOut[7], BodypartsOut[8], BodypartsOut[9], BodypartsOut[10], BodypartsOut[11]);
-        _thingy.transform.position = _spawnslot.position;
+        _thingy = SpriteManager.Instance.GenerateThingy(BodypartsOut[0], BodypartsOut[1], BodypartsOut[2], BodypartsOut[3], BodypartsOut[4], BodypartsOut[5], BodypartsOut[6], BodypartsOut[7], BodypartsOut[8], BodypartsOut[9], BodypartsOut[10], BodypartsOut[11], _spawnslot.position);
+        //_thingy.transform.position = _spawnslot.position;
         _thingy.transform.localScale = new Vector3(-1, 1, 1);
         _thingy.GetComponent<ColorManager>().SetColor(new Color(Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f)));
-        _thingy.GetComponent<Stats>().isPlayer = false;
-        _thingy.GetComponent<Stats>().DEFGrowth = 0;
-        _thingy.GetComponent<Stats>().LVL = (int)avgEnemyLVL;
-        _thingy.GetComponent<Stats>().UpdateStats();
+
+        AllocateStats(_thingy.GetComponent<Stats>());
+
         Enemies.Add(_thingy);
     }
 
-    private void AllocateStats()
+    private void AllocateStats(Stats _thingystats)
     {
+        _thingystats.ATKGrowth = Random.Range(growthMin, growthMax);
+        _thingystats.HPGrowth = Random.Range(growthMin, growthMax);
+        _thingystats.SPDGrowth = Random.Range(growthMin, growthMax);
+        _thingystats.CRITGrowth = Random.Range(growthMin, growthMax);
+        _thingystats.DEFGrowth = 0;
 
+        _thingystats.isPlayer = false;
+
+        _thingystats.LVL = (int)avgEnemyLVL;
+
+        _thingystats.UpdateStats();
     }
 }
