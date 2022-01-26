@@ -112,7 +112,8 @@ public class SpriteManager : MonoBehaviour
         }
     }
 
-    public GameObject GenerateThingy(string _head, string _body, string _eye1, string _eye2, string _ear1, string _ear2, string _mouth, string _arm1, string _arm2, string _leg1, string _leg2, string _tail)
+
+    public GameObject GenerateThingy(string _head, string _body, string _eye1, string _eye2, string _ear1, string _ear2, string _mouth, string _arm1, string _arm2, string _leg1, string _leg2, string _tail, Vector3 pos)
     {
         BodyParts bodyParts;
         GameObject _thingy;

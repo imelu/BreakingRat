@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 6627966591130132274}
   - component: {fileID: 6627966591130132275}
   - component: {fileID: 2916796176625196297}
+  - component: {fileID: 3056405277486417863}
   m_Layer: 0
   m_Name: FrogBody
   m_TagString: Untagged
@@ -268,6 +269,47 @@ MonoBehaviour:
   leg1: {fileID: 6627966591817712448}
   leg2: {fileID: 6627966591124611482}
   tail: {fileID: 6627966593137762449}
+--- !u!60 &3056405277486417863
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6627966591130132273}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.46, y: 2.47}
+    newSize: {x: 2.46, y: 2.47}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.61, y: -0.074999996}
+      - {x: 0.58, y: -0.024999999}
+      - {x: 0.53, y: -0.035}
+      - {x: 0.42, y: 0.095}
+      - {x: 0.35999998, y: 0.105}
+      - {x: -0.14999999, y: 0.105}
+      - {x: -0.7, y: -0.085}
+      - {x: -0.75, y: -0.175}
+      - {x: -0.75, y: -0.285}
+      - {x: -0.53999996, y: -0.48499998}
+      - {x: -0.38, y: -0.575}
+      - {x: 0.089999996, y: -0.575}
+      - {x: 0.22999999, y: -0.565}
+      - {x: 0.47, y: -0.48499998}
+      - {x: 0.55, y: -0.305}
+      - {x: 0.61, y: -0.265}
 --- !u!1 &6627966591138688413
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ public class TraitSelector : MonoBehaviour
 
     int GetRandomValue()
     {
+        /*
         int randomanimal = Random.Range(1, 4);
         if (randomanimal==1)
         {
@@ -31,16 +32,13 @@ public class TraitSelector : MonoBehaviour
         {
             mainAnimalType = "rat";
         }
-        /*
+        */
+
         float rand = Random.value;
         if (rand <= .47f)
             return 1;
         if (rand <= .94f)
             return 2;
-
-        return 3;*/
-        float rand = Random.value;
-        
 
         return 3;
     }
@@ -50,7 +48,7 @@ public class TraitSelector : MonoBehaviour
         GameObject[] Parents = { Parent1, Parent2 };
         GameObject ChosenParent;
         
-        int index = Random.Range(0, 2);
+        int index = Random.Range(0, 3);
         /*
         ChosenParent = Parents[index];
         mainAnimalType = ChosenParent.GetComponent<TraitSelector>().mainAnimalType;*/
@@ -76,7 +74,8 @@ public class TraitSelector : MonoBehaviour
             }
             else if(traitOrigin == 2)
             {
-                BodypartsOut[bodyPartCounter] = Parent2.GetComponent<BodyParts>().GetType().GetField(BodypartsIn[bodyPartCounter]).GetValue(Parent1.GetComponent<BodyParts>()).ToString();
+                animalType = Parent2.GetComponent<TraitSelector>().mainAnimalType;
+                BodypartsOut[bodyPartCounter] = Parent2.GetComponent<BodyParts>().GetType().GetField(BodypartsIn[bodyPartCounter]).GetValue(Parent2.GetComponent<BodyParts>()).ToString();
                 //get Bodypart with index bodyPartCounter of Parent2
             }
             else if (traitOrigin == 3)
@@ -146,13 +145,8 @@ public class TraitSelector : MonoBehaviour
             // int randomPicker = Random.Range(0, ParentTraits.Count);
         }
         bodyPartCounter = 0;
-        SpriteManager.Instance.GenerateThingy(BodypartsOut[0], BodypartsOut[1], BodypartsOut[2], BodypartsOut[3], BodypartsOut[4], BodypartsOut[5], BodypartsOut[6], BodypartsOut[7], BodypartsOut[8], BodypartsOut[9], BodypartsOut[10], BodypartsOut[11]);
-
+        SpriteManager.Instance.GenerateThingy(BodypartsOut[0], BodypartsOut[1], BodypartsOut[2], BodypartsOut[3], BodypartsOut[4], BodypartsOut[5], BodypartsOut[6], BodypartsOut[7], BodypartsOut[8], BodypartsOut[9], BodypartsOut[10], BodypartsOut[11], Parent1.transform.position);
 
     }
-    
-    void Update()
-    {
-        
-    }
+
 }

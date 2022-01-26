@@ -8,7 +8,8 @@ public class animalMovement : MonoBehaviour
     bool moveable = true;
     bool checkable = true;
     private bool isDragging;
-
+    int mergeable;
+    GameObject MergeObject;
     void Start()
     {
         float randomx = Random.Range(-8.3f, 8.3f);
@@ -20,7 +21,6 @@ public class animalMovement : MonoBehaviour
 
             while (hit.collider.gameObject.name.Equals("Collider"))
             {
-                Debug.Log("hit");
                 randomx = Random.Range(-8.3f, 8.3f);
                 randomy = Random.Range(-2.8f, 1.25f);
 
@@ -43,7 +43,17 @@ public class animalMovement : MonoBehaviour
     {
         isDragging = false;
         moveable = false;
-        fallAnimal();
+        if(mergeable==1)
+        {
+            TraitSelector createChild = gameObject.GetComponent<TraitSelector>();
+            createChild.SetTraits(this.gameObject, MergeObject);
+            mergeable = 0;
+        }
+        else
+        {
+            mergeable = 0;
+            fallAnimal();
+        }
     }
 
     void Update()
@@ -96,7 +106,6 @@ public class animalMovement : MonoBehaviour
 
             while (hit.collider.gameObject.name.Equals("Collider"))
             {
-                Debug.Log("hit");
                 randomx = Random.Range(-8.3f, 8.3f);
                 randomy = Random.Range(-2.8f, 1.25f);
 
@@ -107,8 +116,32 @@ public class animalMovement : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(Random.Range(1f,3f));
-        moveable = true;
-        destinationP = new Vector2(randomx, randomy);
+        if(!isDragging)
+        {
+            moveable = true;
+            destinationP = new Vector2(randomx, randomy);
+        }
     }
-
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (isDragging)
+        {
+            if (collider.transform.parent.tag == "thingy"&&mergeable==0)
+            {
+                Debug.Log("newcol");
+                mergeable++;
+                MergeObject = collider.transform.parent.gameObject;
+            }
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (isDragging)
+        {
+            if (collider.transform.parent.tag == "thingy"&&mergeable>0)
+            {
+                mergeable--;
+            }
+        }
+    }
 }
