@@ -18,9 +18,13 @@ public class layerOrderScript : MonoBehaviour
     GameObject eye1Obj;
     GameObject eye2Obj;
     GameObject mouthObj;
+    animalMovement moveScript;
+    List<GameObject> bodyparts;
 
     void Start()
     {
+       moveScript = GetComponent<animalMovement>();
+
         bodyObj = transform.GetChild(0).gameObject;
         tailObj = transform.GetChild(0).GetChild(1).gameObject;
         leg1Obj = transform.GetChild(0).GetChild(2).GetChild(0).gameObject;
@@ -34,6 +38,20 @@ public class layerOrderScript : MonoBehaviour
         eye1Obj = transform.GetChild(0).GetChild(4).GetChild(1).GetChild(0).gameObject;
         eye2Obj = transform.GetChild(0).GetChild(4).GetChild(1).GetChild(1).gameObject;
         mouthObj = transform.GetChild(0).GetChild(4).GetChild(2).gameObject;
+
+
+        bodyparts.Add(bodyObj);
+        bodyparts.Add(tailObj);
+        bodyparts.Add(leg1Obj);
+        bodyparts.Add(leg2Obj);
+        bodyparts.Add(arm1Obj);
+        bodyparts.Add(arm2Obj);
+        bodyparts.Add(headObj);
+        bodyparts.Add(ear1Obj);
+        bodyparts.Add(ear2Obj);
+        bodyparts.Add(eye1Obj);
+        bodyparts.Add(eye2Obj);
+        bodyparts.Add(mouthObj);
     }
 
     // Update is called once per frame
@@ -53,6 +71,11 @@ public class layerOrderScript : MonoBehaviour
         eye1Obj.GetComponent<SpriteRenderer>().sortingOrder = mainOrder + 1;
         eye2Obj.GetComponent<SpriteRenderer>().sortingOrder = mainOrder + 1;
         mouthObj.GetComponent<SpriteRenderer>().sortingOrder = mainOrder + 1;
+
+        //if(moveScript.destinationP
+
+
+
 
     }
 }

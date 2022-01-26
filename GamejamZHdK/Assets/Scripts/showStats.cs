@@ -7,7 +7,7 @@ public class showStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        
     }
 
     // Update is called once per frame
