@@ -73,20 +73,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 870e0256a8e67ab4f815d6cd79b7ec5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LVL: 1
-  MAX: 10
-  ATKGrowth: 0.5
-  DEFGrowth: 0.5
-  HPGrowth: 0.5
-  SPDGrowth: 0.5
-  CRITGrowth: 0.5
-  ATK: 0
-  DEF: 0
-  HP: 0
-  SPD: 0
-  CRIT: 0
-  demGeenes: 0
-  shiny: 0
+  stats:
+    isPlayer: 1
+    isDead: 0
+    LVL: 1
+    MAX: 0
+    ATKGrowth: 0.5
+    DEFGrowth: 0.15
+    HPGrowth: 5
+    SPDGrowth: 1
+    ATK: 0
+    DEF: 0
+    HPMAX: 0
+    HP: 0
+    SPD: 0
+    demGeenes: 0
+    shiny: 0
+    gameObject: {fileID: 0}
 --- !u!114 &6901362053918361369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e948ec5a37bb97743b279989c28a8b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destinationP: {x: 0, y: 0}
 --- !u!114 &5919667400683992593
 MonoBehaviour:
   m_ObjectHideFlags: 0

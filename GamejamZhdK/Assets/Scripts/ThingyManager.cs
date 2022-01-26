@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Stats
 {
     public bool isPlayer = true;
+    public bool isDead = false;
 
     public int LVL = 1;
     public int MAX;
 
     public float ATKGrowth = 0.5f;
-    public float DEFGrowth = 0.5f;
-    public float HPGrowth = 0.5f;
-    public float SPDGrowth = 0.5f;
+    public float DEFGrowth = 0.15f;
+    public float HPGrowth = 5f;
+    public float SPDGrowth = 1f;
 
     public float ATK;
     public float DEF;
@@ -44,7 +46,7 @@ public class ThingyManager : MonoBehaviour
     void Start()
     {
         stats.gameObject = gameObject;
-        StatsManager.Instance.UpdateStats(stats);
+        if(stats.isPlayer) StatsManager.Instance.UpdateStats(stats);
     }
 
     // Update is called once per frame

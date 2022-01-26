@@ -10,25 +10,32 @@ public class EncounterManager : MonoBehaviour
 
     [SerializeField] private Transform[] spawnSlots = new Transform[3];
 
+    private int hpMult = 3;
+    private int spdMult = 2;
+
     private CombatManager CManager;
+    private CombatCalculator CCalc;
 
     private int maxEnemies = 3;
     private int nmbrOfEnemies;
-    private int stage = 1;
+    public int stage = 1;
+    public int stagecalc = 1;
     private float avgEnemyLVL;
     private float lvlGrowth = 0.3f;
     private float growthMax = 0.7f;
     private float growthMin = 0.4f;
 
-    private List<Stats> StageSetup = new List<Stats>();
-    private List<List<Stats>> Stages = new List<List<Stats>>();
+    
+    [SerializeField] public List<List<Stats>> Stages = new List<List<Stats>>();
 
     public List<GameObject> Enemies = new List<GameObject>();
+    
 
     // Start is called before the first frame update
     void Start()
     {
         CManager = GetComponent<CombatManager>();
+        CCalc = GetComponent<CombatCalculator>();
     }
 
     // Update is called once per frame
@@ -37,7 +44,9 @@ public class EncounterManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //SpawnRandomThingy(spawnSlots[0]);
-            generateEncounter();
+            //generateEncounter();
+            generateStage();
+            //CCalc.nmbrOfAttacks = 0;
         }
 
         
@@ -50,24 +59,41 @@ public class EncounterManager : MonoBehaviour
         Enemies.RemoveAll(item => item == null);
     }
 
-    public void generateEncounter()
+    public void generateStage()
     {
-        //encounterClear = false;
+        List<Stats> StageSetup = new List<Stats>();
         nmbrOfEnemies = Random.Range(1, maxEnemies + 1);
-        avgEnemyLVL = lvlGrowth * stage;
+        avgEnemyLVL = lvlGrowth * stagecalc;
         for (int i = 0; i < nmbrOfEnemies; i++)
         {
-            SpawnRandomThingy(spawnSlots[i]);
+            Stats _temp = new Stats();
+            AllocateEnemyStats(_temp);
+            StageSetup.Add(_temp);
+        }
+        Stages.Add(StageSetup);
+        CCalc.GetEnemies();
+        stagecalc++;
+    }
+
+    public void generateEncounter()
+    {
+        Enemies.Clear();
+        int i = 0;
+        foreach (Stats Enemy in Stages[stage-1])
+        {
+            Debug.Log(i);
+            SpawnRandomThingy(Enemy, spawnSlots[i]);
+            i++;
         }
         CManager.GetEnemies();
         stage++;
     }
 
-    private void SpawnRandomThingy(Transform _spawnslot)
+    private void SpawnRandomThingy(Stats _Enemy, Transform _spawnslot)
     {
         string[] BodypartsOut = new string[12];
         GameObject _thingy;
-        int _nmbrOfAnimalTypes = (int)Animal.END - 1;
+        int _nmbrOfAnimalTypes = (int)Animal.END - 1; // -1 bc of the "generic" animal type
         int _selectedAnimal;
 
         BodypartsOut[0] = SpriteManager.Instance.getRandomHead(System.Enum.GetName(typeof(Animal), Random.Range(0, _nmbrOfAnimalTypes)));
@@ -98,16 +124,21 @@ public class EncounterManager : MonoBehaviour
         _thingy.transform.localScale = new Vector3(-1, 1, 1);
         _thingy.GetComponent<ColorManager>().SetColor(new Color(Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f)));
 
-        AllocateStats(_thingy.GetComponent<ThingyManager>().stats);
+        // AllocateStats(_thingy.GetComponent<ThingyManager>().stats);
+        // Fetch Stats
+        _thingy.GetComponent<ThingyManager>().stats = _Enemy;
+        _thingy.GetComponent<ThingyManager>().stats.HP = _thingy.GetComponent<ThingyManager>().stats.HPMAX;
+        _thingy.GetComponent<ThingyManager>().stats.isDead = false;
 
         Enemies.Add(_thingy);
     }
 
-    private void AllocateStats(Stats _thingystats)
+    private void AllocateEnemyStats(Stats _thingystats)
     {
         _thingystats.ATKGrowth = Random.Range(growthMin, growthMax);
-        _thingystats.HPGrowth = Random.Range(growthMin, growthMax);
-        _thingystats.SPDGrowth = Random.Range(growthMin, growthMax);
+        _thingystats.HPGrowth = Random.Range(growthMin * hpMult, growthMax * hpMult);
+        _thingystats.SPDGrowth = Random.Range(growthMin * spdMult, growthMax * spdMult);
+        _thingystats.DEFGrowth = 0;
 
         _thingystats.isPlayer = false;
 

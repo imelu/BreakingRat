@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatManager : MonoBehaviour
+public class CombatCalculator : MonoBehaviour
 {
     public FightClubManager FCManager;
     public EncounterManager EncManager;
@@ -11,18 +11,14 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private Stats Player;
 
     public List<Stats> Enemies = new List<Stats>();
-
     public List<Stats> TurnOrder = new List<Stats>();
-    
+
     private bool encounterClear = true;
 
-    private int nmbrOfAttacks = 0;
+    public int nmbrOfAttacks = 0;
 
-    private bool simulating = false;
-
+    private bool calculating = true;
     private bool playerDefeated = false;
-
-    private float delay = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -36,18 +32,19 @@ public class CombatManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Enemies.RemoveAll(item => item == null);
-        //TurnOrder.RemoveAll(item => item == null);
-        if (Input.GetKeyDown(KeyCode.V))
+        //Enemies.RemoveAll(item => item == null);
+        TurnOrder.RemoveAll(item => item == null);
+        
+
+        if (Input.GetKeyDown(KeyCode.C))
         {
             //CalculateBattle();
         }
-        
 
-        if (Enemies.Count <= 0 && simulating)
+        if (Enemies.Count <= 0 && calculating)
         {
-            encounterClear = true;
-            EncManager.generateEncounter();
+            //encounterClear = true;
+            EncManager.generateStage();
         }
     }
 
@@ -65,27 +62,21 @@ public class CombatManager : MonoBehaviour
 
     public void GetEnemies()
     {
-        simulating = true;
-        foreach (GameObject Enemy in EncManager.Enemies)
+        foreach (Stats Enemy in EncManager.Stages[EncManager.stagecalc - 1])
         {
-            Enemy.GetComponent<ThingyManager>().stats.isDead = false;
-            Enemies.Add(Enemy.GetComponent<ThingyManager>().stats);
-        }
-        foreach(Stats Enemy in Enemies)
-        {
-            Enemy.isDead = false;
+            Enemies.Add(Enemy);
         }
         CombatOrder();
-        StartCoroutine(CalculateBattle());
+        CalculateBattle();
     }
 
     private int CompareSpeeds(Stats _Element1, Stats _Element2)
     {
-        if(_Element1.SPD < _Element2.SPD)
+        if (_Element1.SPD < _Element2.SPD)
         {
             return 1;
         }
-        else if(_Element1.SPD > _Element2.SPD)
+        else if (_Element1.SPD > _Element2.SPD)
         {
             return -1;
         }
@@ -95,10 +86,10 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    IEnumerator CalculateBattle()
+    private void CalculateBattle()
     {
         bool clear = true;
-        foreach (Stats Unit in Enemies)
+        foreach(Stats Unit in Enemies)
         {
             if (!Unit.isDead)
             {
@@ -107,14 +98,17 @@ public class CombatManager : MonoBehaviour
         }
         if (clear)
         {
+            foreach (Stats Unit in Enemies)
+            {
+                Unit.isDead = false;
+            }
             Enemies.Clear();
-            yield break;
+            return;
         }
 
         foreach (Stats Unit in TurnOrder)
         {
-            if (playerDefeated) yield break;
-
+            if (playerDefeated) return;
             if (!Unit.isDead)
             {
                 if (!Unit.isPlayer)
@@ -122,12 +116,11 @@ public class CombatManager : MonoBehaviour
                     Debug.Log("enemyattack");
                     DealDamage(Player, Unit.ATK);
                     nmbrOfAttacks++;
-                    yield return new WaitForSecondsRealtime(delay);
                 }
                 else
                 {
                     Debug.Log("playerattack");
-                    for (int i = 0; i < Enemies.Count; i++)
+                    for(int i = 0; i < Enemies.Count; i++)
                     {
                         if (!Enemies[i].isDead && Enemies[i] != null)
                         {
@@ -136,43 +129,38 @@ public class CombatManager : MonoBehaviour
                             break;
                         }
                     }
-                    yield return new WaitForSecondsRealtime(delay);
+                    
                 }
             }
         }
 
-        yield return null;
         if (Enemies.Count > 0 && !playerDefeated)
         {
-            StartCoroutine(CalculateBattle());
+            CalculateBattle();
         }
     }
 
     private void DealDamage(Stats _Target, float _ATK)
     {
         float _damage = _ATK - _Target.DEF;
+        if (_damage < 0) _damage = 0;
         _Target.HP -= _damage;
-
         if (_Target.HP <= 0)
         {
             _Target.HP = 0;
             if (_Target.isPlayer)
             {
                 playerDefeated = true;
-                Debug.Log(EncManager.stage-1);
+                Debug.Log(EncManager.stagecalc);
                 Debug.Log(nmbrOfAttacks);
-                simulating = false;
+                _Target.HP = _Target.HPMAX;
+                calculating = false;
+                EncManager.generateEncounter();
             }
             else
             {
                 _Target.isDead = true;
-                Destroy(_Target.gameObject);
             }
         }
-    }
-
-    IEnumerator AttackDelay()
-    {
-        yield return null;
     }
 }
