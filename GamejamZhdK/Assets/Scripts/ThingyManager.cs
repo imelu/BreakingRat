@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stats : MonoBehaviour
+public class Stats
 {
     public bool isPlayer = true;
 
@@ -13,20 +13,15 @@ public class Stats : MonoBehaviour
     public float DEFGrowth;
     public float HPGrowth;
     public float SPDGrowth;
-    public float CRITGrowth;
 
     public float ATK;
     public float DEF;
     public float HPMAX;
     public float HP;
     public float SPD;
-    public float CRIT;
 
     public bool demGeenes = false;
     public bool shiny = false;
-
-    //Debug
-    public bool update = true;
 
     /* additional stat ideas:
      * lifesteal -> regain life on hit
@@ -38,31 +33,20 @@ public class Stats : MonoBehaviour
      * dem geeenes -> better chances at better stats/mutations when breeding
      * negative effect
      */
+}
 
+public class ThingyManager : MonoBehaviour
+{
+    public Stats stats = new Stats();
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug
-        if (update)
-        {
-            UpdateStats();
-            update = false;
-        }
-    }
 
-    public void UpdateStats()
-    {
-        ATK = (StatsManager.Instance.baseStatLevel + LVL) * ATKGrowth;
-        DEF = (StatsManager.Instance.baseStatLevel + LVL) * DEFGrowth;
-        HPMAX = (StatsManager.Instance.baseStatLevel + LVL) * HPGrowth;
-        HP = HPMAX;
-        SPD = (StatsManager.Instance.baseStatLevel + LVL) * SPDGrowth;
-        CRIT = (StatsManager.Instance.baseStatLevel + LVL) * CRITGrowth;
     }
 }

@@ -176,7 +176,7 @@ public class SpriteManager : MonoBehaviour
         bodyParts.leg2 = _leg2;
         bodyParts.tail = _tail;
 
-        if (Random.Range(1, 8193) == 420) _thingy.GetComponent<Stats>().shiny = true;
+        if (Random.Range(1, 8193) == 420) _thingy.GetComponent<ThingyManager>().stats.shiny = true;
 
         return _thingy;
     }

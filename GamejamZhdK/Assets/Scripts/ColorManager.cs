@@ -12,7 +12,7 @@ public class ColorManager : MonoBehaviour
     private Color setColor;
     private bool colorReady = false;
 
-    public Stats stats;
+    public ThingyManager stats;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +29,7 @@ public class ColorManager : MonoBehaviour
         }*/
         if(Sprites.Count >= 0)
         {
-            if (stats.shiny)
+            if (stats.stats.shiny)
             {
                 rainbowColor = HSBColor.ToColor(new HSBColor(Mathf.PingPong(Time.time * speed, 1), 1, 1));
                 foreach (SpriteRenderer sprite in Sprites)

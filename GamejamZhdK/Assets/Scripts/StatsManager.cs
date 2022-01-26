@@ -54,41 +54,48 @@ public class StatsManager : MonoBehaviour
 
     public void CalculateStats(GameObject _Parent1, GameObject _Parent2, GameObject _Child)
     {
-        Stats _p1s = _Parent1.GetComponent<Stats>();
-        Stats _p2s = _Parent2.GetComponent<Stats>();
-        Stats _cs = _Child.GetComponent<Stats>();
+        ThingyManager _p1s = _Parent1.GetComponent<ThingyManager>();
+        ThingyManager _p2s = _Parent2.GetComponent<ThingyManager>();
+        ThingyManager _cs = _Child.GetComponent<ThingyManager>();
 
-        float p1mult = _p1s.LVL * levelAffectGrowth;
+        float p1mult = _p1s.stats.LVL * levelAffectGrowth;
         if (p1mult < 1) p1mult = 1;
-        float p2mult = _p2s.LVL * levelAffectGrowth;
+        float p2mult = _p2s.stats.LVL * levelAffectGrowth;
         if (p2mult < 1) p2mult = 1;
 
-        float p1multLVL = _p1s.LVL * levelAffectMaxLevel;
+        float p1multLVL = _p1s.stats.LVL * levelAffectMaxLevel;
         if (p1multLVL < 1) p1multLVL = 1;
-        float p2multLVL = _p2s.LVL * levelAffectMaxLevel;
+        float p2multLVL = _p2s.stats.LVL * levelAffectMaxLevel;
         if (p2multLVL < 1) p2multLVL = 1;
 
         float _percentUp = percentUp;
         float _percentDown = percentDown;
 
-        if(_p1s.demGeenes || _p2s.demGeenes)
+        if(_p1s.stats.demGeenes || _p2s.stats.demGeenes)
         {
             _percentUp = percentUp + percentUp * demGeenesMult;
             _percentDown = percentDown - percentDown * demGeenesMult;
         }
 
-        _cs.ATKGrowth = ((_p1s.ATKGrowth * p1mult + _p2s.ATKGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
-        _cs.DEFGrowth = ((_p1s.DEFGrowth * p1mult + _p2s.DEFGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
-        _cs.HPGrowth = ((_p1s.HPGrowth * p1mult + _p2s.HPGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
-        _cs.SPDGrowth = ((_p1s.SPDGrowth * p1mult + _p2s.SPDGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
-        _cs.CRITGrowth = ((_p1s.CRITGrowth * p1mult + _p2s.CRITGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
+        _cs.stats.ATKGrowth = ((_p1s.stats.ATKGrowth * p1mult + _p2s.stats.ATKGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
+        _cs.stats.DEFGrowth = ((_p1s.stats.DEFGrowth * p1mult + _p2s.stats.DEFGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
+        _cs.stats.HPGrowth = ((_p1s.stats.HPGrowth * p1mult + _p2s.stats.HPGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
+        _cs.stats.SPDGrowth = ((_p1s.stats.SPDGrowth * p1mult + _p2s.stats.SPDGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
 
-        _cs.MAX = (int)(((_p1s.MAX * p1multLVL + _p2s.MAX * p2multLVL) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100));
+        _cs.stats.MAX = (int)(((_p1s.stats.MAX * p1multLVL + _p2s.stats.MAX * p2multLVL) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100));
 
-        _cs.ATK = baseStatLevel * _cs.ATKGrowth;
-        _cs.DEF = baseStatLevel * _cs.DEFGrowth;
-        _cs.HPMAX = baseStatLevel * _cs.HPGrowth;
-        _cs.SPD = baseStatLevel * _cs.SPDGrowth;
-        _cs.CRIT = baseStatLevel * _cs.CRITGrowth;
+        _cs.stats.ATK = baseStatLevel * _cs.stats.ATKGrowth;
+        _cs.stats.DEF = baseStatLevel * _cs.stats.DEFGrowth;
+        _cs.stats.HPMAX = baseStatLevel * _cs.stats.HPGrowth;
+        _cs.stats.SPD = baseStatLevel * _cs.stats.SPDGrowth;
+    }
+
+    public void UpdateStats(ThingyManager _stats)
+    {
+        _stats.stats.ATK = (StatsManager.Instance.baseStatLevel + _stats.stats.LVL) * _stats.stats.ATKGrowth;
+        _stats.stats.DEF = (StatsManager.Instance.baseStatLevel + _stats.stats.LVL) * _stats.stats.DEFGrowth;
+        _stats.stats.HPMAX = (StatsManager.Instance.baseStatLevel + _stats.stats.LVL) * _stats.stats.HPGrowth;
+        _stats.stats.HP = _stats.stats.HPMAX;
+        _stats.stats.SPD = (StatsManager.Instance.baseStatLevel + _stats.stats.LVL) * _stats.stats.SPDGrowth;
     }
 }
