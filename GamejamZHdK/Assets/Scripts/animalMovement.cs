@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class animalMovement : MonoBehaviour
 {
-    Vector2 destinationP;
+    public Vector2 destinationP;
     bool moveable = true;
     bool checkable = true;
     private bool isDragging;
