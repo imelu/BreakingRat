@@ -6,13 +6,13 @@ public class Stats
 {
     public bool isPlayer = true;
 
-    public int LVL;
+    public int LVL = 1;
     public int MAX;
 
-    public float ATKGrowth;
-    public float DEFGrowth;
-    public float HPGrowth;
-    public float SPDGrowth;
+    public float ATKGrowth = 0.5f;
+    public float DEFGrowth = 0.5f;
+    public float HPGrowth = 0.5f;
+    public float SPDGrowth = 0.5f;
 
     public float ATK;
     public float DEF;
@@ -22,6 +22,8 @@ public class Stats
 
     public bool demGeenes = false;
     public bool shiny = false;
+
+    public GameObject gameObject;
 
     /* additional stat ideas:
      * lifesteal -> regain life on hit
@@ -41,7 +43,8 @@ public class ThingyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        stats.gameObject = gameObject;
+        StatsManager.Instance.UpdateStats(stats);
     }
 
     // Update is called once per frame

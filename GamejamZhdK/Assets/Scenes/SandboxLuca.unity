@@ -186,7 +186,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thingy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5919667400683992593, guid: e231e75a9ad9eea49988a88078bc764b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e231e75a9ad9eea49988a88078bc764b, type: 3}
 --- !u!1 &174381481 stripped
 GameObject:
@@ -769,7 +770,6 @@ GameObject:
   - component: {fileID: 1844564181}
   - component: {fileID: 1844564182}
   - component: {fileID: 1844564183}
-  - component: {fileID: 1844564184}
   m_Layer: 0
   m_Name: FightClub
   m_TagString: Untagged
@@ -838,18 +838,6 @@ MonoBehaviour:
   Player: {fileID: 0}
   Enemies: []
   TurnOrder: []
---- !u!114 &1844564184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1844564179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcb7229a82bfee44aa7ae1dcd8672030, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1860325033
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,12 +8,12 @@ public class CombatManager : MonoBehaviour
     public EncounterManager EncManager;
 
 
-    [SerializeField] private ThingyManager Player;
+    [SerializeField] private Stats Player;
 
-    public List<ThingyManager> Enemies = new List<ThingyManager>();
+    public List<Stats> Enemies = new List<Stats>();
 
-    public List<ThingyManager> TurnOrder = new List<ThingyManager>();
-
+    public List<Stats> TurnOrder = new List<Stats>();
+    
     private bool encounterClear = true;
 
     private int nmbrOfAttacks = 0;
@@ -27,7 +27,7 @@ public class CombatManager : MonoBehaviour
         FCManager = GetComponent<FightClubManager>();
         EncManager = GetComponent<EncounterManager>();
 
-        Player = FCManager.PlayerThingy.GetComponent<ThingyManager>();
+        Player = FCManager.PlayerThingy.GetComponent<ThingyManager>().stats;
     }
 
     // Update is called once per frame
@@ -47,10 +47,10 @@ public class CombatManager : MonoBehaviour
 
     private void CombatOrder()
     {
-        //TurnOrder.RemoveAll(item => item);
+        TurnOrder.Clear();
         TurnOrder.Add(Player);
 
-        foreach (ThingyManager Enemy in Enemies)
+        foreach (Stats Enemy in Enemies)
         {
             TurnOrder.Add(Enemy);
         }
@@ -61,19 +61,19 @@ public class CombatManager : MonoBehaviour
     {
         foreach (GameObject Enemy in EncManager.Enemies)
         {
-            Enemies.Add(Enemy.GetComponent<ThingyManager>());
+            Enemies.Add(Enemy.GetComponent<ThingyManager>().stats);
         }
         CombatOrder();
         CalculateBattle();
     }
 
-    private int CompareSpeeds(ThingyManager _Element1, ThingyManager _Element2)
+    private int CompareSpeeds(Stats _Element1, Stats _Element2)
     {
-        if(_Element1.stats.SPD < _Element2.stats.SPD)
+        if(_Element1.SPD < _Element2.SPD)
         {
             return 1;
         }
-        else if(_Element1.stats.SPD > _Element2.stats.SPD)
+        else if(_Element1.SPD > _Element2.SPD)
         {
             return -1;
         }
@@ -87,18 +87,18 @@ public class CombatManager : MonoBehaviour
     {
         nmbrOfAttacks = 0;
 
-        foreach (ThingyManager Unit in TurnOrder)
+        foreach (Stats Unit in TurnOrder)
         {
             nmbrOfAttacks++;
-            if (!Unit.stats.isPlayer)
+            if (!Unit.isPlayer)
             {
                 Debug.Log("enemyattack");
-                DealDamage(Player, Unit.stats.ATK);
+                DealDamage(Player, Unit.ATK);
             }
             else
             {
                 Debug.Log("playerattack");
-                DealDamage(Enemies[Random.Range(0, Enemies.Count)], Unit.stats.ATK);
+                DealDamage(Enemies[Random.Range(0, Enemies.Count)], Unit.ATK);
             }
         }
 
@@ -109,21 +109,21 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private void DealDamage(ThingyManager _Target, float _ATK)
+    private void DealDamage(Stats _Target, float _ATK)
     {
-        float _damage = _ATK - _Target.stats.DEF;
+        float _damage = _ATK - _Target.DEF;
         if (_damage < 0) _damage = 0;
-        _Target.stats.HP -= _damage;
-        if(_Target.stats.HP <= 0)
+        _Target.HP -= _damage;
+        if(_Target.HP <= 0)
         {
-            _Target.stats.HP = 0;
-            if (_Target.stats.isPlayer)
+            _Target.HP = 0;
+            if (_Target.isPlayer)
             {
                 playerDefeated = true;
             }
             else
             {
-                //Destroy(_Target.gameObject);
+                Destroy(_Target.gameObject);
             }
         }
     }

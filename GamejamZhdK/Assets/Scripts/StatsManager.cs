@@ -90,12 +90,12 @@ public class StatsManager : MonoBehaviour
         _cs.stats.SPD = baseStatLevel * _cs.stats.SPDGrowth;
     }
 
-    public void UpdateStats(ThingyManager _stats)
+    public void UpdateStats(Stats _stats)
     {
-        _stats.stats.ATK = (StatsManager.Instance.baseStatLevel + _stats.stats.LVL) * _stats.stats.ATKGrowth;
-        _stats.stats.DEF = (StatsManager.Instance.baseStatLevel + _stats.stats.LVL) * _stats.stats.DEFGrowth;
-        _stats.stats.HPMAX = (StatsManager.Instance.baseStatLevel + _stats.stats.LVL) * _stats.stats.HPGrowth;
-        _stats.stats.HP = _stats.stats.HPMAX;
-        _stats.stats.SPD = (StatsManager.Instance.baseStatLevel + _stats.stats.LVL) * _stats.stats.SPDGrowth;
+        _stats.ATK = (baseStatLevel + _stats.LVL) * _stats.ATKGrowth;
+        _stats.DEF = (baseStatLevel + _stats.LVL) * _stats.DEFGrowth;
+        _stats.HPMAX = (baseStatLevel + _stats.LVL) * _stats.HPGrowth;
+        _stats.HP = _stats.HPMAX;
+        _stats.SPD = (baseStatLevel + _stats.LVL) * _stats.SPDGrowth;
     }
 }
