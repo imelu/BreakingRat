@@ -19,7 +19,7 @@ public class layerOrderScript : MonoBehaviour
     GameObject eye2Obj;
     GameObject mouthObj;
     animalMovement moveScript;
-    List<GameObject> bodyparts;
+    List<GameObject> bodyparts = new List<GameObject>();
 
     void Start()
     {
@@ -72,7 +72,7 @@ public class layerOrderScript : MonoBehaviour
         eye2Obj.GetComponent<SpriteRenderer>().sortingOrder = mainOrder + 1;
         mouthObj.GetComponent<SpriteRenderer>().sortingOrder = mainOrder + 1;
 
-        //if(moveScript.destinationP
+        //if(transform.position-moveScript.destinationP)
 
 
 
