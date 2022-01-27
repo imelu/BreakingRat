@@ -139,7 +139,7 @@ public class StatsManager : MonoBehaviour
         int rand;
         while (checkedTraits.Count < 9 && addedTraits < 3)
         {
-            rand = Random.Range(0, 8);
+            rand = Random.Range(0, 9);
             switch (rand)
             {
                 case 0:
