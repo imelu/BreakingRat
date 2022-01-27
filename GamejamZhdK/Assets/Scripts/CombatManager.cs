@@ -6,9 +6,12 @@ public class CombatManager : MonoBehaviour
 {
     public FightClubManager FCManager;
     public EncounterManager EncManager;
+    private EnemyHPBar enemyHPBar;
+
+    [SerializeField] List<ParticleSystem> hitParticle = new List<ParticleSystem>();
 
 
-    [SerializeField] private Stats Player;
+    private Stats Player;
 
     public List<Stats> Enemies = new List<Stats>();
 
@@ -22,13 +25,15 @@ public class CombatManager : MonoBehaviour
 
     private bool playerDefeated = false;
 
-    private float delay = 0.5f;
+    private float delay;
+    private float maxDelay = 0.5f;
 
     // Start is called before the first frame update
     void Start()
     {
         FCManager = GetComponent<FightClubManager>();
         EncManager = GetComponent<EncounterManager>();
+        enemyHPBar = GetComponent<EnemyHPBar>();
 
         Player = FCManager.PlayerThingy.GetComponent<ThingyManager>().stats;
     }
@@ -49,6 +54,8 @@ public class CombatManager : MonoBehaviour
             encounterClear = true;
             EncManager.generateEncounter();
         }
+
+        delay = calculateDelay(nmbrOfAttacks);
     }
 
     private void CombatOrder()
@@ -75,6 +82,7 @@ public class CombatManager : MonoBehaviour
         {
             Enemy.isDead = false;
         }
+        enemyHPBar.FetchHP();
         CombatOrder();
         StartCoroutine(CalculateBattle());
     }
@@ -120,7 +128,8 @@ public class CombatManager : MonoBehaviour
                 if (!Unit.isPlayer)
                 {
                     Debug.Log("enemyattack");
-                    DealDamage(Player, Unit.ATK);
+                    DealDamage(Unit, Player, Unit.ATK);
+                    hitParticle[3].Play();
                     nmbrOfAttacks++;
                     yield return new WaitForSecondsRealtime(delay);
                 }
@@ -131,12 +140,21 @@ public class CombatManager : MonoBehaviour
                     {
                         if (!Enemies[i].isDead && Enemies[i] != null)
                         {
-                            DealDamage(Enemies[i], Unit.ATK);
+                            DealDamage(Unit, Enemies[i], Unit.ATK);
+                            hitParticle[i].Play();
                             nmbrOfAttacks++;
                             break;
                         }
                     }
                     yield return new WaitForSecondsRealtime(delay);
+                }
+
+                foreach (Stats Enemy in Enemies)
+                {
+                    if (Enemy.isPoisoned)
+                    {
+                        Enemy.HP -= Player.poisonValue;
+                    }
                 }
             }
         }
@@ -148,11 +166,27 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private void DealDamage(Stats _Target, float _ATK)
+    private void DealDamage(Stats _Attacker, Stats _Target, float _ATK)
     {
         float _damage = _ATK - _Target.DEF;
+        if (_damage < 0) _damage = 0;
         _Target.HP -= _damage;
 
+        if (!_Target.isPlayer)
+        {
+            // if player is attacking steal life
+            _Attacker.HP += _damage * _Attacker.lifestealValue;
+            // if player has posion, posion enemy
+            if (_Attacker.poison)
+            {
+                _Target.isPoisoned = true;
+            }
+        }
+        else
+        {
+            // if player is attacked reflect damage
+            _Attacker.HP -= _Target.DEF * _Target.reflectValue;
+        }
         if (_Target.HP <= 0)
         {
             _Target.HP = 0;
@@ -171,8 +205,8 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    IEnumerator AttackDelay()
+    public float calculateDelay(int _currentNmbrOfAttacks)
     {
-        yield return null;
+        return maxDelay / (EncManager.CalcNmbrOfAttacks / Mathf.Sqrt(_currentNmbrOfAttacks));
     }
 }

@@ -7,6 +7,7 @@ public class Stats
 {
     public bool isPlayer = true;
     public bool isDead = false;
+    public bool isPoisoned = false;
 
     public int LVL = 1;
     public int MAX;
@@ -24,6 +25,18 @@ public class Stats
 
     public bool demGeenes = false;
     public bool shiny = false;
+    public bool lifesteal = false;
+    public bool reflect = false;
+    public bool poison = false;
+    public bool looter = false;
+
+    public bool weak = false;
+    public bool frail = false;
+    public bool slow = false;
+
+    public float lifestealValue = 0;
+    public float reflectValue = 0;
+    public float poisonValue = 0;
 
     public GameObject gameObject;
 

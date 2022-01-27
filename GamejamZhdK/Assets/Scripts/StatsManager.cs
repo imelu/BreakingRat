@@ -14,6 +14,10 @@ public class StatsManager : MonoBehaviour
     public int baseStatLevel = 4; // baseStatLevel * all growth values determines base stats
 
     private float demGeenesMult = 0.5f;
+    
+    // Trait Settings
+    private float buff = 1.5f;
+    private float debuff = 0.7f;
 
     //Debug
     /*
@@ -58,6 +62,11 @@ public class StatsManager : MonoBehaviour
         ThingyManager _p2s = _Parent2.GetComponent<ThingyManager>();
         ThingyManager _cs = _Child.GetComponent<ThingyManager>();
 
+        float _shiny = 1;
+        float _frail = 1;
+        float _weak = 1;
+        float _slow = 1;
+
         float p1mult = _p1s.stats.LVL * levelAffectGrowth;
         if (p1mult < 1) p1mult = 1;
         float p2mult = _p2s.stats.LVL * levelAffectGrowth;
@@ -71,16 +80,26 @@ public class StatsManager : MonoBehaviour
         float _percentUp = percentUp;
         float _percentDown = percentDown;
 
-        if(_p1s.stats.demGeenes || _p2s.stats.demGeenes)
+
+        // calculate traits passed down
+
+        // set buffs/nerfs according to traits
+        if (_cs.stats.shiny) _shiny = buff;
+        if (_cs.stats.slow) _slow = debuff;
+        if (_cs.stats.frail) _frail = debuff;
+        if (_cs.stats.weak) _weak = debuff;
+
+
+        if (_p1s.stats.demGeenes || _p2s.stats.demGeenes)
         {
             _percentUp = percentUp + percentUp * demGeenesMult;
             _percentDown = percentDown - percentDown * demGeenesMult;
         }
 
-        _cs.stats.ATKGrowth = ((_p1s.stats.ATKGrowth * p1mult + _p2s.stats.ATKGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
-        _cs.stats.DEFGrowth = ((_p1s.stats.DEFGrowth * p1mult + _p2s.stats.DEFGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
+        _cs.stats.ATKGrowth = _shiny * _weak * ((_p1s.stats.ATKGrowth * p1mult + _p2s.stats.ATKGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
+        _cs.stats.DEFGrowth = _shiny * _frail * ((_p1s.stats.DEFGrowth * p1mult + _p2s.stats.DEFGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
         _cs.stats.HPGrowth = ((_p1s.stats.HPGrowth * p1mult + _p2s.stats.HPGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
-        _cs.stats.SPDGrowth = ((_p1s.stats.SPDGrowth * p1mult + _p2s.stats.SPDGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
+        _cs.stats.SPDGrowth = _shiny * _slow * ((_p1s.stats.SPDGrowth * p1mult + _p2s.stats.SPDGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
 
         _cs.stats.MAX = (int)(((_p1s.stats.MAX * p1multLVL + _p2s.stats.MAX * p2multLVL) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100));
 

@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 
 public class EncounterManager : MonoBehaviour
 {
     // Bossstages
     private List<int> FixedStages = new List<int>();
 
-    [SerializeField] private Transform[] spawnSlots = new Transform[3];
+    public Transform[] spawnSlots = new Transform[3];
+
+    [SerializeField] private TMP_Text stageText;
 
     private int hpMult = 3;
     private int spdMult = 2;
@@ -24,6 +26,8 @@ public class EncounterManager : MonoBehaviour
     private float lvlGrowth = 0.3f;
     private float growthMax = 0.7f;
     private float growthMin = 0.4f;
+
+    public int CalcNmbrOfAttacks;
 
     
     [SerializeField] public List<List<Stats>> Stages = new List<List<Stats>>();
@@ -86,6 +90,7 @@ public class EncounterManager : MonoBehaviour
             i++;
         }
         CManager.GetEnemies();
+        stageText.text = "Stage: " + stage; 
         stage++;
     }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class animalMovement : MonoBehaviour
 {
     public Vector2 destinationP;
-    bool moveable = true;
+    bool moveable = false;
     bool checkable = true;
     private bool isDragging;
     int mergeable;

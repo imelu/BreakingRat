@@ -6,7 +6,8 @@ public class CombatCalculator : MonoBehaviour
 {
     public FightClubManager FCManager;
     public EncounterManager EncManager;
-
+    private CombatManager CManager;
+    [SerializeField] private Timer timer;
 
     [SerializeField] private Stats Player;
 
@@ -17,15 +18,17 @@ public class CombatCalculator : MonoBehaviour
 
     public int nmbrOfAttacks = 0;
 
-    private bool calculating = true;
+    private bool calculating = false;
     private bool playerDefeated = false;
+
+    private float timeOfBattle;
 
     // Start is called before the first frame update
     void Start()
     {
         FCManager = GetComponent<FightClubManager>();
         EncManager = GetComponent<EncounterManager>();
-
+        CManager = GetComponent<CombatManager>();
         Player = FCManager.PlayerThingy.GetComponent<ThingyManager>().stats;
     }
 
@@ -39,6 +42,7 @@ public class CombatCalculator : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             //CalculateBattle();
+            calculating = true;
         }
 
         if (Enemies.Count <= 0 && calculating)
@@ -114,7 +118,7 @@ public class CombatCalculator : MonoBehaviour
                 if (!Unit.isPlayer)
                 {
                     Debug.Log("enemyattack");
-                    DealDamage(Player, Unit.ATK);
+                    DealDamage(Unit, Player, Unit.ATK);
                     nmbrOfAttacks++;
                 }
                 else
@@ -124,12 +128,19 @@ public class CombatCalculator : MonoBehaviour
                     {
                         if (!Enemies[i].isDead && Enemies[i] != null)
                         {
-                            DealDamage(Enemies[i], Unit.ATK);
+                            DealDamage(Unit, Enemies[i], Unit.ATK);
                             nmbrOfAttacks++;
                             break;
                         }
                     }
-                    
+                }
+
+                foreach(Stats Enemy in Enemies)
+                {
+                    if (Enemy.isPoisoned)
+                    {
+                        Enemy.HP -= Player.poisonValue;
+                    }   
                 }
             }
         }
@@ -140,11 +151,26 @@ public class CombatCalculator : MonoBehaviour
         }
     }
 
-    private void DealDamage(Stats _Target, float _ATK)
+    private void DealDamage(Stats _Attacker, Stats _Target, float _ATK)
     {
         float _damage = _ATK - _Target.DEF;
         if (_damage < 0) _damage = 0;
         _Target.HP -= _damage;
+
+        if (!_Target.isPlayer)
+        {
+            // if player is attacking steal life
+            _Attacker.HP += _damage * _Attacker.lifestealValue;
+            if (_Attacker.poison)
+            {
+                _Target.isPoisoned = true;
+            }
+        }
+        else
+        {
+            // if player is attacked reflect damage
+            _Attacker.HP -= _Target.DEF * _Target.reflectValue;
+        }
         if (_Target.HP <= 0)
         {
             _Target.HP = 0;
@@ -153,8 +179,15 @@ public class CombatCalculator : MonoBehaviour
                 playerDefeated = true;
                 Debug.Log(EncManager.stagecalc);
                 Debug.Log(nmbrOfAttacks);
+                EncManager.CalcNmbrOfAttacks = nmbrOfAttacks;
                 _Target.HP = _Target.HPMAX;
                 calculating = false;
+
+                for(int i = 0; i<nmbrOfAttacks; i++)
+                {
+                    timeOfBattle += CManager.calculateDelay(i);
+                }
+                timer.StartTimer(timeOfBattle);
                 EncManager.generateEncounter();
             }
             else
