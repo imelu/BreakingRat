@@ -113,7 +113,7 @@ public class SpriteManager : MonoBehaviour
     }
 
 
-    public GameObject GenerateThingy(string _head, string _body, string _eye1, string _eye2, string _ear1, string _ear2, string _mouth, string _arm1, string _arm2, string _leg1, string _leg2, string _tail, Vector3 pos)
+    public GameObject GenerateThingy(string _head, string _body, string _eye1, string _eye2, string _ear1, string _ear2, string _mouth, string _arm1, string _arm2, string _leg1, string _leg2, string _tail, Vector3 pos, string animalType)
     {
         BodyParts bodyParts;
         GameObject _thingy;
@@ -135,6 +135,8 @@ public class SpriteManager : MonoBehaviour
 
         _thingy = Instantiate(ThingyPrefab, pos, Quaternion.identity);
         bodyParts = _thingy.GetComponent<BodyParts>();
+
+        _thingy.GetComponent<TraitSelector>().mainAnimalType = animalType;
 
         BodyDict.TryGetValue(_body, out temp);
         body = Instantiate(temp, _thingy.transform);

@@ -5,7 +5,7 @@ using UnityEngine;
 public class animalMovement : MonoBehaviour
 {
     public Vector2 destinationP;
-    bool moveable = false;
+    public bool moveable = true;
     bool checkable = true;
     private bool isDragging;
     int mergeable;
@@ -30,8 +30,8 @@ public class animalMovement : MonoBehaviour
                 }
             }
         }
-
         destinationP = new Vector2(randomx, randomy);
+        StartCoroutine(nextMovement());
     }
 
     public void OnMouseDown()

@@ -19,8 +19,10 @@ public class layerOrderScript : MonoBehaviour
     GameObject eye2Obj;
     GameObject mouthObj;
     animalMovement moveScript;
-    List<GameObject> bodyparts = new List<GameObject>();
 
+
+    bool RLeft;
+    bool RRight;
     void Start()
     {
        moveScript = GetComponent<animalMovement>();
@@ -39,19 +41,6 @@ public class layerOrderScript : MonoBehaviour
         eye2Obj = transform.GetChild(0).GetChild(4).GetChild(1).GetChild(1).gameObject;
         mouthObj = transform.GetChild(0).GetChild(4).GetChild(2).gameObject;
 
-
-        bodyparts.Add(bodyObj);
-        bodyparts.Add(tailObj);
-        bodyparts.Add(leg1Obj);
-        bodyparts.Add(leg2Obj);
-        bodyparts.Add(arm1Obj);
-        bodyparts.Add(arm2Obj);
-        bodyparts.Add(headObj);
-        bodyparts.Add(ear1Obj);
-        bodyparts.Add(ear2Obj);
-        bodyparts.Add(eye1Obj);
-        bodyparts.Add(eye2Obj);
-        bodyparts.Add(mouthObj);
     }
 
     // Update is called once per frame
@@ -72,10 +61,45 @@ public class layerOrderScript : MonoBehaviour
         eye2Obj.GetComponent<SpriteRenderer>().sortingOrder = mainOrder + 1;
         mouthObj.GetComponent<SpriteRenderer>().sortingOrder = mainOrder + 1;
 
-        //if(transform.position-moveScript.destinationP)
+        if (transform.position.x - moveScript.destinationP.x > 0)
+        {
+            transform.localScale = new Vector3(-1,1,1);
+        }
+        else if (transform.position.x - moveScript.destinationP.x < 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
 
 
+        if (RLeft)
+        {
+            if (moveScript.moveable == false)
+            {
+                if(leg1Obj.transform.eulerAngles.z<=0.1 && leg1Obj.transform.eulerAngles.z >= -0.1)
+                {
+                    RLeft = false;
+                }
+            }
+            leg1Obj.transform.rotation = Quaternion.Euler(0.0f, 0.0f, Mathf.PingPong(Time.time * 50, 12.0f) - 6);
+            arm1Obj.transform.rotation = Quaternion.Euler(0.0f, 0.0f, -(Mathf.PingPong(Time.time * 50, 12.0f) - 6));
+            leg2Obj.transform.rotation = Quaternion.Euler(0.0f, 0.0f, -(Mathf.PingPong(Time.time * 50, 12.0f) - 6));
+            arm2Obj.transform.rotation = Quaternion.Euler(0.0f, 0.0f, Mathf.PingPong(Time.time * 50, 12.0f) - 6);
 
-
+            headObj.transform.rotation = Quaternion.Euler(0.0f, 0.0f, Mathf.PingPong(Time.time * 10, 3.0f) - 1.5f);
+        }
     }
+    public IEnumerator animationMove()
+    {
+        if(moveScript.moveable==false)
+        {
+            yield break;
+        }
+        RLeft = true;
+
+
+        //StartCoroutine(animationMove());
+
+        yield return null;
+    }
+   
 }
