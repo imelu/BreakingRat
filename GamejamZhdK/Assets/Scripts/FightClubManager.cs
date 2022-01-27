@@ -30,6 +30,7 @@ public class FightClubManager : MonoBehaviour
     public void ButtonGoBack()
     {
         // switch camera to main screen
+        GlobalGameManager.Instance.SetMainWindowCamera();
         Debug.Log("GoBack");
     }
 

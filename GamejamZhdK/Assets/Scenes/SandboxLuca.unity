@@ -136,15 +136,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5439717176313812913, guid: e231e75a9ad9eea49988a88078bc764b, type: 3}
       propertyPath: stats.poison
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5439717176313812913, guid: e231e75a9ad9eea49988a88078bc764b, type: 3}
       propertyPath: stats.reflect
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5439717176313812913, guid: e231e75a9ad9eea49988a88078bc764b, type: 3}
       propertyPath: stats.lifesteal
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5994279071791056528, guid: e231e75a9ad9eea49988a88078bc764b, type: 3}
       propertyPath: m_RootOrder
