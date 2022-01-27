@@ -45,21 +45,14 @@ public class EncounterManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //SpawnRandomThingy(spawnSlots[0]);
             //generateEncounter();
             generateStage();
             //CCalc.nmbrOfAttacks = 0;
-        }
-
-        
-        /*
-        if (encounterClear)
-        {
-            generateEncounter();
         }*/
-
         Enemies.RemoveAll(item => item == null);
     }
 
@@ -134,6 +127,8 @@ public class EncounterManager : MonoBehaviour
         _thingy.GetComponent<ThingyManager>().stats = _Enemy;
         _thingy.GetComponent<ThingyManager>().stats.HP = _thingy.GetComponent<ThingyManager>().stats.HPMAX;
         _thingy.GetComponent<ThingyManager>().stats.isDead = false;
+
+        Destroy(_thingy.GetComponent<animalMovement>());
 
         Enemies.Add(_thingy);
     }

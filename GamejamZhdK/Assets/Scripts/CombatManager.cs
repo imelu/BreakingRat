@@ -16,8 +16,6 @@ public class CombatManager : MonoBehaviour
     public List<Stats> Enemies = new List<Stats>();
 
     public List<Stats> TurnOrder = new List<Stats>();
-    
-    private bool encounterClear = true;
 
     private int nmbrOfAttacks = 0;
 
@@ -51,7 +49,6 @@ public class CombatManager : MonoBehaviour
 
         if (Enemies.Count <= 0 && simulating)
         {
-            encounterClear = true;
             EncManager.generateEncounter();
         }
 

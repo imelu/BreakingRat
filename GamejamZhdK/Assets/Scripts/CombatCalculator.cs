@@ -14,11 +14,9 @@ public class CombatCalculator : MonoBehaviour
     public List<Stats> Enemies = new List<Stats>();
     public List<Stats> TurnOrder = new List<Stats>();
 
-    private bool encounterClear = true;
-
     public int nmbrOfAttacks = 0;
 
-    private bool calculating = false;
+    private bool calculating = true;
     private bool playerDefeated = false;
 
     private float timeOfBattle;
@@ -47,7 +45,6 @@ public class CombatCalculator : MonoBehaviour
 
         if (Enemies.Count <= 0 && calculating)
         {
-            //encounterClear = true;
             EncManager.generateStage();
         }
     }
