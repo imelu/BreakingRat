@@ -103,4 +103,9 @@ public class GlobalGameManager : MonoBehaviour
             _thingySpawned.GetComponent<ThingyManager>().data = _thingy;
         }
     }
+
+    public void SaveData()
+    {
+        SaveSystem.SaveData(CurrentThingies.Instance.thingies);
+    }
 }
