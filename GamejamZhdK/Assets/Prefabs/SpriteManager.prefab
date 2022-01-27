@@ -76,6 +76,9 @@ MonoBehaviour:
   - animal: 1
     name: frog4
     sprite: {fileID: 21300000, guid: f8992770fe0f25b4385b5e3aabee7802, type: 3}
+  - animal: 1
+    name: frog5
+    sprite: {fileID: 21300000, guid: 5101a6dc05d97de4e86e29afc48b3571, type: 3}
   - animal: 2
     name: rat1
     sprite: {fileID: 21300000, guid: cc7f828ac49463043b99deab38295aca, type: 3}
@@ -94,6 +97,9 @@ MonoBehaviour:
   - animal: 3
     name: fatfrog4
     sprite: {fileID: 21300000, guid: f8992770fe0f25b4385b5e3aabee7802, type: 3}
+  - animal: 3
+    name: fatfrog5
+    sprite: {fileID: 21300000, guid: 5101a6dc05d97de4e86e29afc48b3571, type: 3}
   Mouths:
   - animal: 0
     name: weasel1
@@ -129,9 +135,6 @@ MonoBehaviour:
   - animal: 1
     name: frog1
     sprite: {fileID: 21300000, guid: ead7e400f5ca1ae4d95c6095781ad76f, type: 3}
-  - animal: 1
-    name: frog2
-    sprite: {fileID: 21300000, guid: 3cc9e0b59ccd3204fb358b92ccb015ce, type: 3}
   - animal: 2
     name: rat1
     sprite: {fileID: 21300000, guid: e946989a9df6e6945990fa798119ff4b, type: 3}
@@ -157,6 +160,9 @@ MonoBehaviour:
   - animal: 2
     name: rat1
     sprite: {fileID: 21300000, guid: bdf59a97a75398840960c5a1e238f57f, type: 3}
+  - animal: 2
+    name: rat2
+    sprite: {fileID: 21300000, guid: 514bc7bc8c3991a47b29a4e08d686d01, type: 3}
   - animal: 3
     name: fatfrog1
     sprite: {fileID: 21300000, guid: 780716afdf3782e4e8b49b507f0f0b0e, type: 3}
@@ -196,15 +202,27 @@ MonoBehaviour:
   - animal: 0
     name: weasel2
     prefab: {fileID: 4706240377181408584, guid: 06a3a872454f7c2478326d99645915f4, type: 3}
+  - animal: 0
+    name: weasel3
+    prefab: {fileID: 2296216001686477530, guid: deb337bafda4f0544b25459c2a27396d, type: 3}
   - animal: 1
     name: frog1
     prefab: {fileID: 6627966591130132273, guid: 56fce0eaffd85724893fc63564ca641b, type: 3}
+  - animal: 1
+    name: frog2
+    prefab: {fileID: 3177303439239044255, guid: a817d401413955644bc5fba888d09281, type: 3}
   - animal: 2
     name: rat1
     prefab: {fileID: 5201995330617926839, guid: c3840980ac6d586478de1574937710be, type: 3}
   - animal: 2
     name: rat2
     prefab: {fileID: 8145508277703794662, guid: a1f309b3403f54348aac4af59ad09006, type: 3}
+  - animal: 2
+    name: rat3
+    prefab: {fileID: 2117058935565929046, guid: bbf7c573bac13084d8c7c09e4e35e72f, type: 3}
   - animal: 3
     name: fatfrog1
     prefab: {fileID: 1406965645991347867, guid: eb4e8296e8016274bbc7bce081e9f5df, type: 3}
+  - animal: 3
+    name: fatfrog2
+    prefab: {fileID: 2031940217289936372, guid: 521e5c6df28ed814591269e2106406d9, type: 3}

@@ -12,12 +12,16 @@ public class StatsManager : MonoBehaviour
     private float levelAffectMaxLevel = 0.15f;
 
     public int baseStatLevel = 4; // baseStatLevel * all growth values determines base stats
-
-    private float demGeenesMult = 0.5f;
     
     // Trait Settings
     private float buff = 1.5f;
     private float debuff = 0.7f;
+    private float demGeenesMult = 0.5f;
+
+    // Trait inherit settings
+    private float mutationChance = 0.05f;
+    private float inheritChance = 0.3f;
+    private float inheritShinyChance = 0.005f;
 
     //Debug
     /*
@@ -80,8 +84,9 @@ public class StatsManager : MonoBehaviour
         float _percentUp = percentUp;
         float _percentDown = percentDown;
 
-
         // calculate traits passed down
+
+
 
         // set buffs/nerfs according to traits
         if (_cs.stats.shiny) _shiny = buff;
@@ -98,7 +103,7 @@ public class StatsManager : MonoBehaviour
 
         _cs.stats.ATKGrowth = _shiny * _weak * ((_p1s.stats.ATKGrowth * p1mult + _p2s.stats.ATKGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
         _cs.stats.DEFGrowth = _shiny * _frail * ((_p1s.stats.DEFGrowth * p1mult + _p2s.stats.DEFGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
-        _cs.stats.HPGrowth = ((_p1s.stats.HPGrowth * p1mult + _p2s.stats.HPGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
+        _cs.stats.HPGrowth = _shiny * ((_p1s.stats.HPGrowth * p1mult + _p2s.stats.HPGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
         _cs.stats.SPDGrowth = _shiny * _slow * ((_p1s.stats.SPDGrowth * p1mult + _p2s.stats.SPDGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
 
         _cs.stats.MAX = (int)(((_p1s.stats.MAX * p1multLVL + _p2s.stats.MAX * p2multLVL) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100));

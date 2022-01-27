@@ -127,7 +127,7 @@ public class CombatManager : MonoBehaviour
             {
                 if (!Unit.isPlayer)
                 {
-                    Debug.Log("enemyattack");
+                    //Debug.Log("enemyattack");
                     DealDamage(Unit, Player, Unit.ATK);
                     hitParticle[3].Play();
                     nmbrOfAttacks++;
@@ -135,7 +135,7 @@ public class CombatManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("playerattack");
+                    //Debug.Log("playerattack");
                     for (int i = 0; i < Enemies.Count; i++)
                     {
                         if (!Enemies[i].isDead && Enemies[i] != null)

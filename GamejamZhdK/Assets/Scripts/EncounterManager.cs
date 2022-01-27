@@ -85,7 +85,7 @@ public class EncounterManager : MonoBehaviour
         int i = 0;
         foreach (Stats Enemy in Stages[stage-1])
         {
-            Debug.Log(i);
+            //Debug.Log(i);
             SpawnRandomThingy(Enemy, spawnSlots[i]);
             i++;
         }
