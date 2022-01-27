@@ -86,7 +86,7 @@ public class StatsManager : MonoBehaviour
 
         // calculate traits passed down
 
-
+        CalculateTraits(_p1s.stats, _p2s.stats, _cs.stats);
 
         // set buffs/nerfs according to traits
         if (_cs.stats.shiny) _shiny = buff;
@@ -121,5 +121,117 @@ public class StatsManager : MonoBehaviour
         _stats.HPMAX = (baseStatLevel + _stats.LVL) * _stats.HPGrowth;
         _stats.HP = _stats.HPMAX;
         _stats.SPD = (baseStatLevel + _stats.LVL) * _stats.SPDGrowth;
+    }
+
+    private void CalculateTraits(Stats _p1s, Stats _p2s, Stats _cs)
+    {
+        int addedTraits = 0;
+        float _inheritChance = inheritChance;
+        float _mutationChance = mutationChance;
+        float _inheritShinyChance = inheritShinyChance;
+        if(_p1s.demGeenes || _p2s.demGeenes)
+        {
+            _inheritChance = inheritChance * (1+demGeenesMult);
+            _mutationChance = mutationChance * (1+demGeenesMult);
+            _inheritShinyChance = inheritShinyChance * (1+demGeenesMult);
+        }
+        List<int> checkedTraits = new List<int>();
+        int rand;
+        while (checkedTraits.Count < 9 && addedTraits < 3)
+        {
+            rand = Random.Range(0, 8);
+            switch (rand)
+            {
+                case 0:
+                    if (!checkedTraits.Contains(rand))
+                    {
+                        addedTraits++;
+                        checkedTraits.Add(rand);
+                        if (_p1s.demGeenes || _p2s.demGeenes && Random.Range(0f, 1f) <= _inheritChance) _cs.demGeenes = true;
+                        else if (Random.Range(0f, 1f) <= _mutationChance) _cs.demGeenes = true;
+                        else addedTraits--;
+                    }
+                    break;
+                case 1:
+                    if (!checkedTraits.Contains(rand))
+                    {
+                        addedTraits++;
+                        checkedTraits.Add(rand);
+                        if (_p1s.lifesteal || _p2s.lifesteal && Random.Range(0f, 1f) <= _inheritChance) _cs.lifesteal = true;
+                        else if (Random.Range(0f, 1f) <= _mutationChance) _cs.lifesteal = true;
+                        else addedTraits--;
+                    }
+                    break;
+                case 2:
+                    if (!checkedTraits.Contains(rand))
+                    {
+                        addedTraits++;
+                        checkedTraits.Add(rand);
+                        if (_p1s.reflect || _p2s.reflect && Random.Range(0f, 1f) <= _inheritChance) _cs.reflect = true;
+                        else if (Random.Range(0f, 1f) <= _mutationChance) _cs.reflect = true;
+                        else addedTraits--;
+                    }
+                    break;
+                case 3:
+                    if (!checkedTraits.Contains(rand))
+                    {
+                        addedTraits++;
+                        checkedTraits.Add(rand);
+                        if (_p1s.poison || _p2s.poison && Random.Range(0f, 1f) <= _inheritChance) _cs.poison = true;
+                        else if (Random.Range(0f, 1f) <= _mutationChance) _cs.poison = true;
+                        else addedTraits--;
+                    }
+                    break;
+                case 4:
+                    if (!checkedTraits.Contains(rand))
+                    {
+                        addedTraits++;
+                        checkedTraits.Add(rand);
+                        if (_p1s.looter || _p2s.looter && Random.Range(0f, 1f) <= _inheritChance) _cs.looter = true;
+                        else if (Random.Range(0f, 1f) <= _mutationChance) _cs.looter = true;
+                        else addedTraits--;
+                    }
+                    break;
+                case 5:
+                    if (!checkedTraits.Contains(rand))
+                    {
+                        addedTraits++;
+                        checkedTraits.Add(rand);
+                        if (_p1s.weak || _p2s.weak && Random.Range(0f, 1f) <= _inheritChance) _cs.weak = true;
+                        else if (Random.Range(0f, 1f) <= _mutationChance) _cs.weak = true;
+                        else addedTraits--;
+                    }
+                    break;
+                case 6:
+                    if (!checkedTraits.Contains(rand))
+                    {
+                        addedTraits++;
+                        checkedTraits.Add(rand);
+                        if (_p1s.frail || _p2s.frail && Random.Range(0f, 1f) <= _inheritChance) _cs.frail = true;
+                        else if (Random.Range(0f, 1f) <= _mutationChance) _cs.frail = true;
+                        else addedTraits--;
+                    }
+                    break;
+                case 7:
+                    if (!checkedTraits.Contains(rand))
+                    {
+                        addedTraits++;
+                        checkedTraits.Add(rand);
+                        if (_p1s.slow || _p2s.slow && Random.Range(0f, 1f) <= _inheritChance) _cs.slow = true;
+                        else if (Random.Range(0f, 1f) <= _mutationChance) _cs.slow = true;
+                        else addedTraits--;
+                    }
+                    break;
+                case 8:
+                    if (!checkedTraits.Contains(rand))
+                    {
+                        addedTraits++;
+                        checkedTraits.Add(rand);
+                        if (_p1s.shiny || _p2s.shiny && Random.Range(0f, 1f) <= _inheritShinyChance) _cs.shiny = true;
+                        else addedTraits--;
+                    }
+                    break;
+            }
+        }
     }
 }
