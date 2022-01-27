@@ -23,8 +23,10 @@ public class CombatManager : MonoBehaviour
 
     private bool playerDefeated = false;
 
-    private float delay;
-    private float maxDelay = 0.5f;
+    
+    private float maxDelay = 1f;
+    private float minDelay = 0.01f;
+    private float delay = 0.01f;
 
     // Start is called before the first frame update
     void Start()
@@ -59,8 +61,6 @@ public class CombatManager : MonoBehaviour
             TurnOrder.Clear();
             EncManager.generateEncounter();
         }
-
-        delay = calculateDelay(nmbrOfAttacks);
     }
 
     private void CombatOrder()
@@ -137,6 +137,7 @@ public class CombatManager : MonoBehaviour
                     DealDamage(Unit, Player, Unit.ATK);
                     hitParticle[3].Play();
                     nmbrOfAttacks++;
+                    delay = calculateDelay(nmbrOfAttacks);
                     yield return new WaitForSecondsRealtime(delay);
                 }
                 else
@@ -152,6 +153,7 @@ public class CombatManager : MonoBehaviour
                             break;
                         }
                     }
+                    delay = calculateDelay(nmbrOfAttacks);
                     yield return new WaitForSecondsRealtime(delay);
                 }
 
@@ -237,7 +239,12 @@ public class CombatManager : MonoBehaviour
 
     public float calculateDelay(int _currentNmbrOfAttacks)
     {
-        return maxDelay / (EncManager.CalcNmbrOfAttacks / Mathf.Sqrt(_currentNmbrOfAttacks));
+        float _delay;
+
+        _delay = maxDelay / (EncManager.CalcNmbrOfAttacks / Mathf.Sqrt(_currentNmbrOfAttacks));
+        if (_delay < minDelay) _delay = minDelay;
+
+        return _delay;
     }
 
     public void YeetEnemies()

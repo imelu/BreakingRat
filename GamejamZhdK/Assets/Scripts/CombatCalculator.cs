@@ -202,10 +202,13 @@ public class CombatCalculator : MonoBehaviour
 
                 for(int i = 0; i<nmbrOfAttacks; i++)
                 {
-                    timeOfBattle += CManager.calculateDelay(i);
+                    float _time = CManager.calculateDelay(i);
+                    if (_time == 0.01f) _time *= 3;
+                    timeOfBattle += _time;
                 }
                 timer.StartTimer(timeOfBattle);
                 FCManager.expGained = gainedExp;
+                GlobalGameManager.Instance.SetFightClubCamera();
                 EncManager.generateEncounter();
             }
             else

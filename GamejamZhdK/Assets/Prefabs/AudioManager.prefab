@@ -66,7 +66,7 @@ MonoBehaviour:
   - name: Hit
     clip: {fileID: 8300000, guid: ae729f301e344ec4f96ab2148ecdcdbf, type: 3}
     volume: 0.371
-    volumeVariance: 0.123
+    volumeVariance: 0.173
     pitch: 1
     pitchVariance: 0.123
     loop: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: Drap
+  - name: Drag
     clip: {fileID: 8300000, guid: 483ad26f3e5a9aa4081c2dad1bc52db9, type: 3}
     volume: 0.371
     volumeVariance: 0.123
@@ -97,5 +97,23 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0.123
     loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: FightMusic
+    clip: {fileID: 8300000, guid: 3580ebc26914275499a383a9817af61a, type: 3}
+    volume: 0.371
+    volumeVariance: 0.13
+    pitch: 1
+    pitchVariance: 0.123
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: BreedMusic
+    clip: {fileID: 8300000, guid: afa16301eaa90ba45b676d68e6235b6b, type: 3}
+    volume: 0.371
+    volumeVariance: 0.13
+    pitch: 1
+    pitchVariance: 0.123
+    loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
