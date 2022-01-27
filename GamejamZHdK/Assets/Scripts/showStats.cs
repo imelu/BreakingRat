@@ -10,6 +10,7 @@ public class showStats : MonoBehaviour
 
     public Transform headLoc;
     public Transform headLoc2;
+    public Transform headLoc3;
     GameObject Head = null;
     GameObject Head2 = null;
     GameObject Head3 = null;
