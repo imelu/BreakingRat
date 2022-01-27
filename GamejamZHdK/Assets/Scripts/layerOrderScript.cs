@@ -90,10 +90,11 @@ public class layerOrderScript : MonoBehaviour
     }
     public IEnumerator animationMove()
     {
-        if(moveScript.moveable==false)
+        if (moveScript.moveable==false)
         {
             yield break;
         }
+        
         RLeft = true;
 
 
