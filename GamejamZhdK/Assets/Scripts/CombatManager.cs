@@ -24,7 +24,7 @@ public class CombatManager : MonoBehaviour
     private bool playerDefeated = false;
 
     private float delay;
-    private float maxDelay = 0.5f;
+    private float maxDelay = 5f;
 
     // Start is called before the first frame update
     void Start()
@@ -193,6 +193,8 @@ public class CombatManager : MonoBehaviour
                 Debug.Log(EncManager.stage-1);
                 Debug.Log(nmbrOfAttacks);
                 simulating = false;
+                YeetEnemies();
+                GlobalGameManager.Instance.EndFightCub();
             }
             else
             {
@@ -205,5 +207,13 @@ public class CombatManager : MonoBehaviour
     public float calculateDelay(int _currentNmbrOfAttacks)
     {
         return maxDelay / (EncManager.CalcNmbrOfAttacks / Mathf.Sqrt(_currentNmbrOfAttacks));
+    }
+
+    public void YeetEnemies()
+    {
+        foreach (Stats Enemy in Enemies)
+        {
+            Destroy(Enemy.gameObject);
+        }
     }
 }

@@ -10,7 +10,10 @@ public class Stats
     public bool isPoisoned = false;
 
     public int LVL = 1;
-    public int MAX;
+    public int MAX = 10;
+
+    public int EXPReq;
+    public int EXPCurrent;
 
     public float ATKGrowth = 0.5f;
     public float DEFGrowth = 0.15f;
@@ -66,5 +69,30 @@ public class ThingyManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void AddExp(int _exp)
+    {
+        if(stats.LVL < stats.MAX)
+        {
+            while (_exp > 0)
+            {
+                if (_exp >= (stats.EXPReq - stats.EXPCurrent))
+                {
+                    _exp -= stats.EXPReq - stats.EXPCurrent;
+                    LVLUP();
+                }
+                else
+                {
+                    stats.EXPCurrent += _exp;
+                }
+            }
+        }
+    }
+
+    private void LVLUP()
+    {
+        stats.LVL++;
+        StatsManager.Instance.UpdateStats(stats);
     }
 }

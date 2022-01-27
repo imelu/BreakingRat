@@ -50,7 +50,7 @@ public class GlobalGameManager : MonoBehaviour
         FightClub = Instantiate(FightClubPrefab);
         Player.GetComponent<animalMovement>().moveable = false;
         Player.GetComponent<animalMovement>().enabled = false;
-        //Player.GetComponent<layerOrderScript>().rle
+        Player.GetComponent<layerOrderScript>().enabled = false;
         Player.transform.localScale = Vector3.one;
         SetFightClubCamera();
     }
@@ -58,7 +58,9 @@ public class GlobalGameManager : MonoBehaviour
     public void EndFightCub()
     {
         Destroy(FightClub);
+        Player.GetComponent<animalMovement>().moveable = true;
         Player.GetComponent<animalMovement>().enabled = true;
+        Player.GetComponent<layerOrderScript>().enabled = true;
         MovePlayer(OldPlayerPos);
         SetMainWindowCamera();
     }
