@@ -31,19 +31,22 @@ public class FightClubManager : MonoBehaviour
     {
         // switch camera to main screen
         GlobalGameManager.Instance.SetMainWindowCamera();
-        Debug.Log("GoBack");
+        //Debug.Log("GoBack");
+        AudioManager.instance.Play("Click");
     }
 
     public void ButtonRetreat()
     {
         // Show are you sure panel
         RetreatPanel.SetActive(true);
+        AudioManager.instance.Play("Click");
     }
 
     public void ButtonCancelRetreat()
     {
         // hide are you sure panel
         RetreatPanel.SetActive(false);
+        AudioManager.instance.Play("Click");
     }
 
     public void Retreat()
@@ -52,6 +55,7 @@ public class FightClubManager : MonoBehaviour
         // yeet FightClub
         CManager.YeetEnemies();
         GlobalGameManager.Instance.EndFightCub();
-        Debug.Log("Retreat");
+        //Debug.Log("Retreat");
+        AudioManager.instance.Play("Click");
     }
 }

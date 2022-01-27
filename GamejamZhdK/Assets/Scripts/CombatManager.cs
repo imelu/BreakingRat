@@ -24,7 +24,7 @@ public class CombatManager : MonoBehaviour
     private bool playerDefeated = false;
 
     private float delay;
-    private float maxDelay = 0.5f;
+    private float maxDelay = 50f;
 
     // Start is called before the first frame update
     void Start()
