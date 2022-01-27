@@ -41,8 +41,9 @@ public class animalMovement : MonoBehaviour
     public void OnMouseDown()
     {
         AudioManager.instance.Play("Drag");
-        isDragging = true;
-        moveable = false;
+            isDragging = true;
+            moveable = false;
+        
     }
     public void OnMouseUp()
     {

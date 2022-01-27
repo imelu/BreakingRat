@@ -54,96 +54,100 @@ public class showStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetMouseButtonDown(0))
+        if(Camera.main!=null)
         {
-            AudioManager.instance.Play("Click");
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
-            if (hit.collider != null && hit.collider.transform.parent.tag == "thingy")
+            if (Input.GetMouseButtonDown(0))
             {
-
-                if (Head != null)
+                AudioManager.instance.Play("Click");
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+                if (hit.collider != null && hit.collider.transform.parent.tag == "thingy")
                 {
+
+                    if (Head != null)
+                    {
+                        Clear();
+                    }
+                    Selected = hit.collider.transform.parent.gameObject;
+                    Player = Selected.GetComponent<ThingyManager>().stats;
+
+                    Infotexts.Add("Has 30% reduced ATK");
+                    Infotexts.Add("Has 30% reduced DEF");
+                    Infotexts.Add("Has 30% reduced SPD");
+                    Infotexts.Add("Heals for " + (int)(100 * Player.lifestealValue) + "% of damage dealt");
+                    Infotexts.Add("Deals " + (int)(Player.poisonValue * 100) + "% of ATK per tick when applied to enemies");
+                    Infotexts.Add("Throws " + (int)(Player.reflectValue * 100) + "% of blocked damage back to the attacker");
+                    Infotexts.Add("Gains 25% more exp from battles");
+                    Infotexts.Add("Increases chance for inherited, mutated traits and stats by 50%");
+                    Infotexts.Add("Deals " + (int)Player.ATK + " damage on every Attack");
+                    Infotexts.Add("Blocks " + (int)Player.DEF + " damage when attacked");
+                    Infotexts.Add("Determines who strikes first in battle");
+
+                    GlobalGameManager.Instance.SelectedThingy = hit.collider.transform.parent.gameObject;
+                    Head = Instantiate(hit.collider.transform.GetChild(4).gameObject, headLoc.position, Quaternion.identity);
+                    Head2 = Instantiate(hit.collider.transform.GetChild(4).gameObject, headLoc2.position, Quaternion.identity);
+
+
+                    TManager = hit.collider.transform.parent.GetComponent<ThingyManager>();
+                    atk = TManager.stats.ATK;
+                    def = TManager.stats.DEF;
+                    spd = TManager.stats.SPD;
+                    exp = TManager.stats.EXPCurrent;
+                    lvl = TManager.stats.LVL;
+
+                    hpbar.fillAmount = 1 / TManager.stats.HPMAX * TManager.stats.HP;
+                    stats[0].text = ((int)atk).ToString();
+                    stats[1].text = ((int)def).ToString();
+                    stats[2].text = ((int)spd).ToString();
+                    stats[3].text = ((int)exp).ToString();
+                    stats[4].text = ((int)lvl).ToString();
+                }
+                else if (hit.collider != null && hit.collider.transform.tag == "Kill")
+                {
+
+                    Kill();
                     Clear();
                 }
-                Selected = hit.collider.transform.parent.gameObject;
-                Player = Selected.GetComponent<ThingyManager>().stats;
+                else if (hit.collider != null && hit.collider.transform.tag == "Fight")
+                {
+                    if (Selected != null)
+                    {
+                        Head3 = Instantiate(Selected.transform.GetChild(0).GetChild(4).gameObject, headLoc3.position, Quaternion.identity);
+                        GlobalGameManager.Instance.Player = Selected;
+                        GlobalGameManager.Instance.StartFightClub();
+                        FCButton.SetActive(false);
+                        FCButtonEmpty.SetActive(true);
+                        Clear();
 
-                Infotexts.Add("Has 30% reduced ATK");
-                Infotexts.Add("Has 30% reduced DEF");
-                Infotexts.Add("Has 30% reduced SPD");
-                Infotexts.Add("Heals for " + (int)(100 * Player.lifestealValue) + "% of damage dealt");
-                Infotexts.Add("Deals " + (int)(Player.poisonValue * 100) + "% of ATK per tick when applied to enemies");
-                Infotexts.Add("Throws " + (int)(Player.reflectValue * 100) + "% of blocked damage back to the attacker");
-                Infotexts.Add("Gains 25% more exp from battles");
-                Infotexts.Add("Increases chance for inherited, mutated traits and stats by 50%");
-                Infotexts.Add("Deals " + (int)Player.ATK + " damage on every Attack");
-                Infotexts.Add("Blocks " + (int)Player.DEF + " damage when attacked");
-                Infotexts.Add("Determines who strikes first in battle");
+                    }
 
-                GlobalGameManager.Instance.SelectedThingy = hit.collider.transform.parent.gameObject;
-                Head = Instantiate(hit.collider.transform.GetChild(4).gameObject, headLoc.position, Quaternion.identity);
-                Head2 = Instantiate(hit.collider.transform.GetChild(4).gameObject, headLoc2.position, Quaternion.identity);
-                Head3 = Instantiate(hit.collider.transform.GetChild(4).gameObject, headLoc3.position, Quaternion.identity);
+                }
+                else if (hit.collider != null && hit.collider.transform.tag == "FightProgress")
+                {
+                    if (GlobalGameManager.Instance.FightClub != null)
+                    {
 
-                TManager = hit.collider.transform.parent.GetComponent<ThingyManager>();
-                atk = TManager.stats.ATK;
-                def = TManager.stats.DEF;
-                spd = TManager.stats.SPD;
-                exp = TManager.stats.EXPCurrent;
-                lvl = TManager.stats.LVL;
-
+                        GlobalGameManager.Instance.SetFightClubCamera();
+                    }
+                }
+                else
+                {
+                    if (Head != null)
+                    {
+                        Clear();
+                    }
+                }
+            }
+            if (TManager != null && Head != null)
+            {
                 hpbar.fillAmount = 1 / TManager.stats.HPMAX * TManager.stats.HP;
-                stats[0].text = ((int)atk).ToString();
-                stats[1].text = ((int)def).ToString();
-                stats[2].text = ((int)spd).ToString();
-                stats[3].text = ((int)exp).ToString();
-                stats[4].text = ((int)lvl).ToString();
             }
-            else if (hit.collider != null && hit.collider.transform.tag == "Kill")
+            if (Player != null)
             {
-
-                Kill();
-                Clear();
-            }
-            else if (hit.collider != null && hit.collider.transform.tag == "Fight")
-            {
-                if (Selected != null)
-                {
-                    GlobalGameManager.Instance.Player = Selected;
-                    GlobalGameManager.Instance.StartFightClub();
-                    FCButton.SetActive(false);
-                    FCButtonEmpty.SetActive(true);
-                    Clear();
-
-                }
-
-            }
-            else if (hit.collider != null && hit.collider.transform.tag == "FightProgress")
-            {
-                if (GlobalGameManager.Instance.FightClub != null)
-                {
-
-                    GlobalGameManager.Instance.SetFightClubCamera();
-                }
-            }
-            else
-            {
-                if (Head != null)
-                {
-                    Clear();
-                }
+                CheckForTraits();
             }
         }
-        if (TManager != null && Head != null)
-        {
-            hpbar.fillAmount = 1 / TManager.stats.HPMAX * TManager.stats.HP;
-        }
-        if (Player != null)
-        {
-            CheckForTraits();
-        }
+       
         
     }
     public void EndFC()
