@@ -14,6 +14,8 @@ public static class SaveSystem
 
         formatter.Serialize(stream, _data);
         stream.Close();
+
+        Debug.Log("saving");
     }
 
     public static List<ThingyData> LoadData()

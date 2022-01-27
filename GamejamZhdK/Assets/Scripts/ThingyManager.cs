@@ -101,41 +101,41 @@ public class ThingyManager : MonoBehaviour
 
     public void UpdateThingyData()
     {
-        data.stats.isPlayer = stats.isPlayer;
-        data.stats.isDead = stats.isDead;
-        data.stats.isPoisoned = stats.isPoisoned;
+        data.isPlayer = stats.isPlayer;
+        data.isDead = stats.isDead;
+        data.isPoisoned = stats.isPoisoned;
 
-        data.stats.LVL = stats.LVL;
-        data.stats.MAX = stats.MAX;
+        data.LVL = stats.LVL;
+        data.MAX = stats.MAX;
 
-        data.stats.EXPReq = stats.EXPReq;
-        data.stats.EXPCurrent = stats.EXPCurrent;
-        data.stats.expMod = stats.expMod;
+        data.EXPReq = stats.EXPReq;
+        data.EXPCurrent = stats.EXPCurrent;
+        data.expMod = stats.expMod;
 
-        data.stats.ATKGrowth = stats.ATKGrowth;
-        data.stats.DEFGrowth = stats.DEFGrowth;
-        data.stats.HPGrowth = stats.HPGrowth;
-        data.stats.SPDGrowth = stats.SPDGrowth;
+        data.ATKGrowth = stats.ATKGrowth;
+        data.DEFGrowth = stats.DEFGrowth;
+        data.HPGrowth = stats.HPGrowth;
+        data.SPDGrowth = stats.SPDGrowth;
 
-        data.stats.ATK = stats.ATK;
-        data.stats.DEF = stats.DEF;
-        data.stats.HPMAX = stats.HPMAX;
-        data.stats.HP = stats.HP;
-        data.stats.SPD = stats.SPD;
+        data.ATK = stats.ATK;
+        data.DEF = stats.DEF;
+        data.HPMAX = stats.HPMAX;
+        data.HP = stats.HP;
+        data.SPD = stats.SPD;
 
-        data.stats.demGeenes = stats.demGeenes;
-        data.stats.shiny = stats.shiny;
-        data.stats.lifesteal = stats.lifesteal;
-        data.stats.reflect = stats.reflect;
-        data.stats.poison = stats.poison;
-        data.stats.looter = stats.looter;
+        data.demGeenes = stats.demGeenes;
+        data.shiny = stats.shiny;
+        data.lifesteal = stats.lifesteal;
+        data.reflect = stats.reflect;
+        data.poison = stats.poison;
+        data.looter = stats.looter;
 
-        data.stats.weak = stats.weak;
-        data.stats.frail = stats.frail;
-        data.stats.slow = stats.slow;
+        data.weak = stats.weak;
+        data.frail = stats.frail;
+        data.slow = stats.slow;
 
-        data.stats.lifestealValue = stats.lifestealValue;
-        data.stats.reflectValue = stats.reflectValue;
-        data.stats.poisonValue = stats.poisonValue;
+        data.lifestealValue = stats.lifestealValue;
+        data.reflectValue = stats.reflectValue;
+        data.poisonValue = stats.poisonValue;
     }
 }
