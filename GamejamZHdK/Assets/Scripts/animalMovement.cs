@@ -10,8 +10,12 @@ public class animalMovement : MonoBehaviour
     private bool isDragging;
     int mergeable;
     GameObject MergeObject;
+
+    layerOrderScript layerScript;
     void Start()
     {
+        layerScript = GetComponent<layerOrderScript>();
+
         float randomx = Random.Range(-8.3f, 8.3f);
         float randomy = Random.Range(-2.8f, 1.25f);
         RaycastHit hit;
@@ -43,7 +47,7 @@ public class animalMovement : MonoBehaviour
     {
         isDragging = false;
         moveable = false;
-        if(mergeable==1)
+        if (mergeable == 1)
         {
             TraitSelector createChild = gameObject.GetComponent<TraitSelector>();
             createChild.SetTraits(this.gameObject, MergeObject);
@@ -60,6 +64,7 @@ public class animalMovement : MonoBehaviour
     {
         if (isDragging)
         {
+            moveable = false;
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             transform.Translate(mousePosition);
         }
@@ -71,15 +76,17 @@ public class animalMovement : MonoBehaviour
         }
         else
         {
-            
+
         }
         if (moveable == true)
         {
             Move();
         }
+
     }
 
     
+
 
     void Move()
     {
@@ -116,11 +123,14 @@ public class animalMovement : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(Random.Range(1f,3f));
+
         if(!isDragging)
         {
             moveable = true;
             destinationP = new Vector2(randomx, randomy);
         }
+        StartCoroutine(layerScript.animationMove());
+
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -128,7 +138,6 @@ public class animalMovement : MonoBehaviour
         {
             if (collider.transform.parent.tag == "thingy"&&mergeable==0)
             {
-                Debug.Log("newcol");
                 mergeable++;
                 MergeObject = collider.transform.parent.gameObject;
             }
