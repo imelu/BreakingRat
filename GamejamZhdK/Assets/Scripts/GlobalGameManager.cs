@@ -38,16 +38,18 @@ public class GlobalGameManager : MonoBehaviour
     {
         AudioManager.instance.Play("MenuMusic");
         genThiSpawner = GetComponent<GenericThingySpawner>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.C))
         {
             StartFightClub();
         }
-
+        
         if (Input.GetKeyDown(KeyCode.S))
         {
             SaveSystem.SaveData(CurrentThingies.Instance.thingies);
@@ -57,6 +59,16 @@ public class GlobalGameManager : MonoBehaviour
         {
             CurrentThingies.Instance.thingies = SaveSystem.LoadData();
             ReloadSaveState(CurrentThingies.Instance.thingies);
+        }
+
+        if(CameraMainWindow == null || CameraFightClub == null)
+        {
+            CameraMainWindow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            CameraFightClub = GameObject.FindGameObjectWithTag("FightCamera").GetComponent<Camera>();
+            if(CameraFightClub != null)
+            {
+                CameraFightClub.gameObject.SetActive(false);
+            }   
         }
     }
 
