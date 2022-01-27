@@ -132,11 +132,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5439717176313812913, guid: e231e75a9ad9eea49988a88078bc764b, type: 3}
       propertyPath: stats.LVL
-      value: 500
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5439717176313812913, guid: e231e75a9ad9eea49988a88078bc764b, type: 3}
       propertyPath: stats.MAX
-      value: 500
+      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: 5439717176313812913, guid: e231e75a9ad9eea49988a88078bc764b, type: 3}
       propertyPath: stats.poison
@@ -868,10 +868,6 @@ PrefabInstance:
       propertyPath: CameraFightClub
       value: 
       objectReference: {fileID: 909085405}
-    - target: {fileID: 8030459091584721625, guid: e6233d563e01cbd4aa502f02bd59446b, type: 3}
-      propertyPath: FightClubPrefab
-      value: 
-      objectReference: {fileID: 621861779026024287, guid: 98393f0d89c2f384f98ce9c55983f8fe, type: 3}
     - target: {fileID: 8030459091584721625, guid: e6233d563e01cbd4aa502f02bd59446b, type: 3}
       propertyPath: CameraMainWindow
       value: 

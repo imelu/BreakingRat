@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GlobalGameManager : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class GlobalGameManager : MonoBehaviour
     public Camera CameraFightClub;
     public Camera CameraMainWindow;
 
+    private GenericThingySpawner genThiSpawner;
+
+    public bool continueGame = false;
+
 
     public GameObject FightClub;
     private Transform OldPlayerPos;
@@ -32,6 +37,7 @@ public class GlobalGameManager : MonoBehaviour
     void Start()
     {
         AudioManager.instance.Play("MenuMusic");
+        genThiSpawner = GetComponent<GenericThingySpawner>();
     }
 
     // Update is called once per frame
@@ -63,7 +69,6 @@ public class GlobalGameManager : MonoBehaviour
         Player.GetComponent<animalMovement>().enabled = false;
         Player.GetComponent<layerOrderScript>().enabled = false;
         Player.transform.localScale = Vector3.one;
-        SetFightClubCamera();
     }
 
     public void EndFightCub()
@@ -82,12 +87,16 @@ public class GlobalGameManager : MonoBehaviour
     {
         CameraMainWindow.gameObject.SetActive(false);
         CameraFightClub.gameObject.SetActive(true);
+        AudioManager.instance.Stop("BreedMusic");
+        AudioManager.instance.Play("FightMusic");
     }
 
     public void SetMainWindowCamera()
     {
         CameraMainWindow.gameObject.SetActive(true);
         CameraFightClub.gameObject.SetActive(false);
+        AudioManager.instance.Play("BreedMusic");
+        AudioManager.instance.Stop("FightMusic");
     }
 
     public void MovePlayer(Transform _position)
