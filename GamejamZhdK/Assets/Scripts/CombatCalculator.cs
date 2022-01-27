@@ -169,6 +169,7 @@ public class CombatCalculator : MonoBehaviour
         {
             // if player is attacking steal life
             if (_Attacker.lifesteal) _Attacker.HP += _damage * _Attacker.lifestealValue;
+            if (_Attacker.HP > _Attacker.HPMAX) _Attacker.HP = _Attacker.HPMAX;
             if (_Attacker.poison)
             {
                 _Target.isPoisoned = true;

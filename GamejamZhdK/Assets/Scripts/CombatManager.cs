@@ -24,7 +24,7 @@ public class CombatManager : MonoBehaviour
     private bool playerDefeated = false;
 
     private float delay;
-    private float maxDelay = 50f;
+    private float maxDelay = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -192,6 +192,7 @@ public class CombatManager : MonoBehaviour
         {
             // if player is attacking steal life
             if(_Attacker.lifesteal) _Attacker.HP += _damage * _Attacker.lifestealValue;
+            if (_Attacker.HP > _Attacker.HPMAX) _Attacker.HP = _Attacker.HPMAX;
             // if player has posion, posion enemy
             if (_Attacker.poison)
             {
