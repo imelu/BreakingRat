@@ -75,7 +75,7 @@ public class layerOrderScript : MonoBehaviour
         {
             if (moveScript.moveable == false)
             {
-                if(leg1Obj.transform.eulerAngles.z<=0.1 && leg1Obj.transform.eulerAngles.z >= -0.1)
+                if(leg1Obj.transform.eulerAngles.z<=0.5 && leg1Obj.transform.eulerAngles.z >= -0.5)
                 {
                     RLeft = false;
                 }
