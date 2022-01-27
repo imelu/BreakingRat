@@ -19,6 +19,7 @@ public class GlobalGameManager : MonoBehaviour
     #endregion
 
     public GameObject Player;
+    public GameObject SelectedThingy;
 
     // Start is called before the first frame update
     void Start()

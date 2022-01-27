@@ -14,7 +14,15 @@ public class HeadSprites : MonoBehaviour
 
     void Start()
     {
-        colorManager = GetComponentInParent<ColorManager>();
+        if(transform.parent != null)
+        {
+            colorManager = GetComponentInParent<ColorManager>();
+        }
+        else
+        {
+            GlobalGameManager.Instance.SelectedThingy.GetComponent<ColorManager>();
+        }
+        
         colorManager.Sprites.Add(ear1);
         colorManager.Sprites.Add(ear2);
         colorManager.Sprites.Add(mouth);
