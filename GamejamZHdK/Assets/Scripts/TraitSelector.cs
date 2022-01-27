@@ -123,7 +123,8 @@ public class TraitSelector : MonoBehaviour
         GameObject child;
         child = SpriteManager.Instance.GenerateThingy(BodypartsOut[0], BodypartsOut[1], BodypartsOut[2], BodypartsOut[3], BodypartsOut[4], BodypartsOut[5], BodypartsOut[6], BodypartsOut[7], BodypartsOut[8], BodypartsOut[9], BodypartsOut[10], BodypartsOut[11], Parent1.transform.position, mainChildAnimalType);
         StatsManager.Instance.CalculateStats(Parent1,Parent2,child);
-        ThingyData _data = new ThingyData(child.GetComponent<ThingyManager>().stats, BodypartsOut.ToList());
+        ThingyData _data = new ThingyData(child.GetComponent<ThingyManager>().stats, BodypartsOut.ToList(), mainChildAnimalType);
+        child.GetComponent<ThingyManager>().data = _data;
         CurrentThingies.Instance.AddThingy(_data);
     }   
 

@@ -50,6 +50,7 @@ public class GlobalGameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             CurrentThingies.Instance.thingies = SaveSystem.LoadData();
+            ReloadSaveState(CurrentThingies.Instance.thingies);
         }
     }
 
@@ -91,5 +92,15 @@ public class GlobalGameManager : MonoBehaviour
     {
         Player.transform.position = _position.position;
         Player.transform.localScale = Vector3.one;
+    }
+
+    private void ReloadSaveState(List<ThingyData> _data)
+    {
+        foreach(ThingyData _thingy in _data)
+        {
+            List<string> BodypartsOut = _thingy.Bodyparts;
+            GameObject _thingySpawned = SpriteManager.Instance.GenerateThingy(BodypartsOut[0], BodypartsOut[1], BodypartsOut[2], BodypartsOut[3], BodypartsOut[4], BodypartsOut[5], BodypartsOut[6], BodypartsOut[7], BodypartsOut[8], BodypartsOut[9], BodypartsOut[10], BodypartsOut[11], new Vector3(Random.Range(-8f, 1f), Random.Range(-2.9f, 0), 0), _thingy.mainAnimalType);
+            _thingySpawned.GetComponent<ThingyManager>().data = _thingy;
+        }
     }
 }

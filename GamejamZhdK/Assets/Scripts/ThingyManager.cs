@@ -59,6 +59,7 @@ public class Stats
 public class ThingyManager : MonoBehaviour
 {
     public Stats stats = new Stats();
+    public ThingyData data;
     // Start is called before the first frame update
     void Start()
     {
@@ -69,7 +70,7 @@ public class ThingyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        UpdateThingyData();
     }
 
     public void AddExp(int _exp)
@@ -95,5 +96,46 @@ public class ThingyManager : MonoBehaviour
     {
         stats.LVL++;
         StatsManager.Instance.UpdateStats(stats);
+        UpdateThingyData();
+    }
+
+    public void UpdateThingyData()
+    {
+        data.stats.isPlayer = stats.isPlayer;
+        data.stats.isDead = stats.isDead;
+        data.stats.isPoisoned = stats.isPoisoned;
+
+        data.stats.LVL = stats.LVL;
+        data.stats.MAX = stats.MAX;
+
+        data.stats.EXPReq = stats.EXPReq;
+        data.stats.EXPCurrent = stats.EXPCurrent;
+        data.stats.expMod = stats.expMod;
+
+        data.stats.ATKGrowth = stats.ATKGrowth;
+        data.stats.DEFGrowth = stats.DEFGrowth;
+        data.stats.HPGrowth = stats.HPGrowth;
+        data.stats.SPDGrowth = stats.SPDGrowth;
+
+        data.stats.ATK = stats.ATK;
+        data.stats.DEF = stats.DEF;
+        data.stats.HPMAX = stats.HPMAX;
+        data.stats.HP = stats.HP;
+        data.stats.SPD = stats.SPD;
+
+        data.stats.demGeenes = stats.demGeenes;
+        data.stats.shiny = stats.shiny;
+        data.stats.lifesteal = stats.lifesteal;
+        data.stats.reflect = stats.reflect;
+        data.stats.poison = stats.poison;
+        data.stats.looter = stats.looter;
+
+        data.stats.weak = stats.weak;
+        data.stats.frail = stats.frail;
+        data.stats.slow = stats.slow;
+
+        data.stats.lifestealValue = stats.lifestealValue;
+        data.stats.reflectValue = stats.reflectValue;
+        data.stats.poisonValue = stats.poisonValue;
     }
 }

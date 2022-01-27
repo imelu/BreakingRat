@@ -7,13 +7,14 @@ public class ThingyData
 {
     public StatsData stats;
     public List<string> Bodyparts;
+    public string mainAnimalType;
 
-    public ThingyData(Stats _stats, List<string> _Bodyparts)
+    public ThingyData(Stats _stats, List<string> _Bodyparts, string _mainAnimalType)
     {
         StatsData _statsdata = new StatsData(_stats);
         stats = _statsdata;
         Bodyparts = _Bodyparts;
-
+        mainAnimalType = _mainAnimalType;
     }
 }
 
