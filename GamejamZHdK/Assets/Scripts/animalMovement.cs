@@ -40,11 +40,13 @@ public class animalMovement : MonoBehaviour
 
     public void OnMouseDown()
     {
+        AudioManager.instance.Play("Drag");
         isDragging = true;
         moveable = false;
     }
     public void OnMouseUp()
     {
+        AudioManager.instance.Play("Drop");
         isDragging = false;
         moveable = false;
         if (mergeable == 1)
@@ -136,7 +138,7 @@ public class animalMovement : MonoBehaviour
     {
         if (isDragging)
         {
-            if (collider.transform.parent.tag == "thingy"&&mergeable==0)
+            if (collider.transform.parent.tag == "thingy"&&mergeable==0&&CurrentThingies.Instance.thingies.Count<10)
             {
                 mergeable++;
                 MergeObject = collider.transform.parent.gameObject;

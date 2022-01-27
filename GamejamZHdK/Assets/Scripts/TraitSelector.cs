@@ -44,9 +44,9 @@ public class TraitSelector : MonoBehaviour
         */
         
         float rand = Random.value;
-        if (rand <= .47f)
+        if (rand <= .42f)
             return 1;
-        if (rand <= .94f)
+        if (rand <= .84f)
             return 2;
         
         return 3;

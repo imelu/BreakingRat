@@ -75,6 +75,7 @@ public class GlobalGameManager : MonoBehaviour
         MovePlayer(OldPlayerPos);
         SetMainWindowCamera();
         SaveData();
+        showStats.Instance.EndFC();
     }
 
     public void SetFightClubCamera()
