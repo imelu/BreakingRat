@@ -76,8 +76,12 @@ MonoBehaviour:
   stats:
     isPlayer: 1
     isDead: 0
+    isPoisoned: 0
     LVL: 1
-    MAX: 0
+    MAX: 10
+    EXPReq: 0
+    EXPCurrent: 0
+    expMod: 5
     ATKGrowth: 0.5
     DEFGrowth: 0.15
     HPGrowth: 5
@@ -89,6 +93,16 @@ MonoBehaviour:
     SPD: 0
     demGeenes: 0
     shiny: 0
+    lifesteal: 0
+    reflect: 0
+    poison: 0
+    looter: 0
+    weak: 0
+    frail: 0
+    slow: 0
+    lifestealValue: 0.3
+    reflectValue: 0.3
+    poisonValue: 0.15
     gameObject: {fileID: 0}
 --- !u!114 &6901362053918361369
 MonoBehaviour:
@@ -140,6 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodySprites: []
   mainAnimalType: weasel
+  SLegparent1: 
+  SLegparent2: 
 --- !u!114 &4461433595360000673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destinationP: {x: 0, y: 0}
+  moveable: 1
 --- !u!114 &5919667400683992593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,3 +182,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d73d4a6db311c4f99a3e9aa7f2caa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RLeft: 0

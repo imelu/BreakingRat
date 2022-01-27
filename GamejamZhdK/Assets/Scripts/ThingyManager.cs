@@ -14,32 +14,33 @@ public class Stats
 
     public int EXPReq;
     public int EXPCurrent;
+    public int expMod = 5;
 
     public float ATKGrowth = 0.5f;
     public float DEFGrowth = 0.15f;
     public float HPGrowth = 5f;
     public float SPDGrowth = 1f;
 
-    public float ATK;
-    public float DEF;
-    public float HPMAX;
+    public float ATK;               // deals ATK damage on every Attack
+    public float DEF;               // blocks DEF damage when attacked
+    public float HPMAX;             
     public float HP;
-    public float SPD;
+    public float SPD;               // determines who strikes first in battle
 
-    public bool demGeenes = false;
-    public bool shiny = false;
-    public bool lifesteal = false;
-    public bool reflect = false;
-    public bool poison = false;
-    public bool looter = false;
+    public bool demGeenes = false;  // increases chance for inherited, mutated traits and stats by 50%
+    public bool shiny = false;  
+    public bool lifesteal = false;  // heals for lifestealValue * ATK on every attack
+    public bool reflect = false;    // throws reflectValue of blocked damage back to the attacker
+    public bool poison = false;     // deals posionValue * ATK per tick when applied to enemies
+    public bool looter = false;     // gains 25% more exp from battles
 
-    public bool weak = false;
-    public bool frail = false;
-    public bool slow = false;
+    public bool weak = false;       // has 30% reduced ATK
+    public bool frail = false;      // has 30% reduced DEF
+    public bool slow = false;       // has 30% reduced SPD
 
-    public float lifestealValue = 0;
-    public float reflectValue = 0;
-    public float poisonValue = 0;
+    public float lifestealValue = 0.3f;
+    public float reflectValue = 0.3f;
+    public float poisonValue = 0.15f;
 
     public GameObject gameObject;
 
@@ -80,7 +81,7 @@ public class ThingyManager : MonoBehaviour
                 if (_exp >= (stats.EXPReq - stats.EXPCurrent))
                 {
                     _exp -= stats.EXPReq - stats.EXPCurrent;
-                    LVLUP();
+                    if(stats.LVL < stats.MAX) LVLUP();
                 }
                 else
                 {

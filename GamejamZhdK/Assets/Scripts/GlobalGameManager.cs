@@ -25,7 +25,7 @@ public class GlobalGameManager : MonoBehaviour
     public Camera CameraMainWindow;
 
 
-    private GameObject FightClub;
+    public GameObject FightClub;
     private Transform OldPlayerPos;
 
     // Start is called before the first frame update
@@ -40,6 +40,16 @@ public class GlobalGameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             StartFightClub();
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            SaveSystem.SaveData(CurrentThingies.Instance.thingies);
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            CurrentThingies.Instance.thingies = SaveSystem.LoadData();
         }
     }
 

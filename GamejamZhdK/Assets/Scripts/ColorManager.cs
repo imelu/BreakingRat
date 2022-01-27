@@ -34,14 +34,14 @@ public class ColorManager : MonoBehaviour
                 rainbowColor = HSBColor.ToColor(new HSBColor(Mathf.PingPong(Time.time * speed, 1), 1, 1));
                 foreach (SpriteRenderer sprite in Sprites)
                 {
-                    sprite.material.SetColor("_Color", rainbowColor);
+                    if(sprite != null) sprite.material.SetColor("_Color", rainbowColor);
                 }
             }
             else if (colorReady)
             {
                 foreach (SpriteRenderer sprite in Sprites)
                 {
-                    sprite.material.SetColor("_Color", setColor);
+                    if (sprite != null) sprite.material.SetColor("_Color", setColor);
                 }
             }
         }

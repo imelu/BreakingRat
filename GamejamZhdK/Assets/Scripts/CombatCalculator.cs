@@ -21,6 +21,9 @@ public class CombatCalculator : MonoBehaviour
 
     private float timeOfBattle;
 
+    private float gainedExp;
+    private float expMult = 1.2f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,7 @@ public class CombatCalculator : MonoBehaviour
         EncManager = GetComponent<EncounterManager>();
         CManager = GetComponent<CombatManager>();
         Player = FCManager.PlayerThingy.GetComponent<ThingyManager>().stats;
+        if (Player.looter) expMult *= 0.25f;
     }
 
     // Update is called once per frame
@@ -37,14 +41,15 @@ public class CombatCalculator : MonoBehaviour
         TurnOrder.RemoveAll(item => item == null);
         
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             //CalculateBattle();
-            calculating = true;
+            //calculating = true;
         }
 
         if (Enemies.Count <= 0 && calculating)
         {
+            TurnOrder.Clear();
             EncManager.generateStage();
         }
     }
@@ -63,6 +68,7 @@ public class CombatCalculator : MonoBehaviour
 
     public void GetEnemies()
     {
+        Player.isDead = false;
         foreach (Stats Enemy in EncManager.Stages[EncManager.stagecalc - 1])
         {
             Enemies.Add(Enemy);
@@ -134,9 +140,14 @@ public class CombatCalculator : MonoBehaviour
 
                 foreach(Stats Enemy in Enemies)
                 {
-                    if (Enemy.isPoisoned)
+                    if (Enemy.isPoisoned && !Enemy.isPlayer)
                     {
                         Enemy.HP -= Player.poisonValue;
+                        if(Enemy.HP <= 0)
+                        {
+                            gainedExp += expMult * Enemy.LVL;
+                            Enemy.isDead = true;
+                        }
                     }   
                 }
             }
@@ -154,10 +165,10 @@ public class CombatCalculator : MonoBehaviour
         if (_damage < 0) _damage = 0;
         _Target.HP -= _damage;
 
-        if (!_Target.isPlayer)
+        if (_Attacker.isPlayer)
         {
             // if player is attacking steal life
-            _Attacker.HP += _damage * _Attacker.lifestealValue;
+            if (_Attacker.lifesteal) _Attacker.HP += _damage * _Attacker.lifestealValue;
             if (_Attacker.poison)
             {
                 _Target.isPoisoned = true;
@@ -166,7 +177,15 @@ public class CombatCalculator : MonoBehaviour
         else
         {
             // if player is attacked reflect damage
-            _Attacker.HP -= _Target.DEF * _Target.reflectValue;
+            if (_Target.reflect)
+            {
+                _Attacker.HP -= _Target.DEF * _Target.reflectValue;
+                if (_Attacker.HP <= 0)
+                {
+                    gainedExp += expMult * _Target.LVL;
+                    _Attacker.isDead = true;
+                }
+            }
         }
         if (_Target.HP <= 0)
         {
@@ -185,10 +204,12 @@ public class CombatCalculator : MonoBehaviour
                     timeOfBattle += CManager.calculateDelay(i);
                 }
                 timer.StartTimer(timeOfBattle);
+                FCManager.expGained = gainedExp;
                 EncManager.generateEncounter();
             }
             else
             {
+                gainedExp += expMult * _Target.LVL;
                 _Target.isDead = true;
             }
         }

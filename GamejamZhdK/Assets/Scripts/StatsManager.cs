@@ -121,6 +121,7 @@ public class StatsManager : MonoBehaviour
         _stats.HPMAX = (baseStatLevel + _stats.LVL) * _stats.HPGrowth;
         _stats.HP = _stats.HPMAX;
         _stats.SPD = (baseStatLevel + _stats.LVL) * _stats.SPDGrowth;
+        _stats.EXPReq = _stats.LVL * _stats.LVL * _stats.expMod;
     }
 
     private void CalculateTraits(Stats _p1s, Stats _p2s, Stats _cs)
@@ -147,7 +148,7 @@ public class StatsManager : MonoBehaviour
                     {
                         addedTraits++;
                         checkedTraits.Add(rand);
-                        if (_p1s.demGeenes || _p2s.demGeenes && Random.Range(0f, 1f) <= _inheritChance) _cs.demGeenes = true;
+                        if ((_p1s.demGeenes || _p2s.demGeenes) && Random.Range(0f, 1f) <= _inheritChance) _cs.demGeenes = true;
                         else if (Random.Range(0f, 1f) <= _mutationChance) _cs.demGeenes = true;
                         else addedTraits--;
                     }
@@ -157,7 +158,7 @@ public class StatsManager : MonoBehaviour
                     {
                         addedTraits++;
                         checkedTraits.Add(rand);
-                        if (_p1s.lifesteal || _p2s.lifesteal && Random.Range(0f, 1f) <= _inheritChance) _cs.lifesteal = true;
+                        if ((_p1s.lifesteal || _p2s.lifesteal) && Random.Range(0f, 1f) <= _inheritChance) _cs.lifesteal = true;
                         else if (Random.Range(0f, 1f) <= _mutationChance) _cs.lifesteal = true;
                         else addedTraits--;
                     }
@@ -167,7 +168,7 @@ public class StatsManager : MonoBehaviour
                     {
                         addedTraits++;
                         checkedTraits.Add(rand);
-                        if (_p1s.reflect || _p2s.reflect && Random.Range(0f, 1f) <= _inheritChance) _cs.reflect = true;
+                        if ((_p1s.reflect || _p2s.reflect) && Random.Range(0f, 1f) <= _inheritChance) _cs.reflect = true;
                         else if (Random.Range(0f, 1f) <= _mutationChance) _cs.reflect = true;
                         else addedTraits--;
                     }
@@ -177,7 +178,7 @@ public class StatsManager : MonoBehaviour
                     {
                         addedTraits++;
                         checkedTraits.Add(rand);
-                        if (_p1s.poison || _p2s.poison && Random.Range(0f, 1f) <= _inheritChance) _cs.poison = true;
+                        if ((_p1s.poison || _p2s.poison) && Random.Range(0f, 1f) <= _inheritChance) _cs.poison = true;
                         else if (Random.Range(0f, 1f) <= _mutationChance) _cs.poison = true;
                         else addedTraits--;
                     }
@@ -187,7 +188,7 @@ public class StatsManager : MonoBehaviour
                     {
                         addedTraits++;
                         checkedTraits.Add(rand);
-                        if (_p1s.looter || _p2s.looter && Random.Range(0f, 1f) <= _inheritChance) _cs.looter = true;
+                        if ((_p1s.looter || _p2s.looter) && Random.Range(0f, 1f) <= _inheritChance) _cs.looter = true;
                         else if (Random.Range(0f, 1f) <= _mutationChance) _cs.looter = true;
                         else addedTraits--;
                     }
@@ -197,7 +198,7 @@ public class StatsManager : MonoBehaviour
                     {
                         addedTraits++;
                         checkedTraits.Add(rand);
-                        if (_p1s.weak || _p2s.weak && Random.Range(0f, 1f) <= _inheritChance) _cs.weak = true;
+                        if ((_p1s.weak || _p2s.weak) && Random.Range(0f, 1f) <= _inheritChance) _cs.weak = true;
                         else if (Random.Range(0f, 1f) <= _mutationChance) _cs.weak = true;
                         else addedTraits--;
                     }
@@ -207,7 +208,7 @@ public class StatsManager : MonoBehaviour
                     {
                         addedTraits++;
                         checkedTraits.Add(rand);
-                        if (_p1s.frail || _p2s.frail && Random.Range(0f, 1f) <= _inheritChance) _cs.frail = true;
+                        if ((_p1s.frail || _p2s.frail) && Random.Range(0f, 1f) <= _inheritChance) _cs.frail = true;
                         else if (Random.Range(0f, 1f) <= _mutationChance) _cs.frail = true;
                         else addedTraits--;
                     }
@@ -217,7 +218,7 @@ public class StatsManager : MonoBehaviour
                     {
                         addedTraits++;
                         checkedTraits.Add(rand);
-                        if (_p1s.slow || _p2s.slow && Random.Range(0f, 1f) <= _inheritChance) _cs.slow = true;
+                        if ((_p1s.slow || _p2s.slow) && Random.Range(0f, 1f) <= _inheritChance) _cs.slow = true;
                         else if (Random.Range(0f, 1f) <= _mutationChance) _cs.slow = true;
                         else addedTraits--;
                     }
@@ -227,7 +228,7 @@ public class StatsManager : MonoBehaviour
                     {
                         addedTraits++;
                         checkedTraits.Add(rand);
-                        if (_p1s.shiny || _p2s.shiny && Random.Range(0f, 1f) <= _inheritShinyChance) _cs.shiny = true;
+                        if ((_p1s.shiny || _p2s.shiny) && Random.Range(0f, 1f) <= _inheritShinyChance) _cs.shiny = true;
                         else addedTraits--;
                     }
                     break;

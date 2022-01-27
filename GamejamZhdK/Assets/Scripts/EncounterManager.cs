@@ -125,10 +125,13 @@ public class EncounterManager : MonoBehaviour
         // AllocateStats(_thingy.GetComponent<ThingyManager>().stats);
         // Fetch Stats
         _thingy.GetComponent<ThingyManager>().stats = _Enemy;
+        _thingy.GetComponent<ThingyManager>().stats.isPoisoned = false;
         _thingy.GetComponent<ThingyManager>().stats.HP = _thingy.GetComponent<ThingyManager>().stats.HPMAX;
         _thingy.GetComponent<ThingyManager>().stats.isDead = false;
 
         Destroy(_thingy.GetComponent<animalMovement>());
+
+        _thingy.transform.parent = GlobalGameManager.Instance.FightClub.transform;
 
         Enemies.Add(_thingy);
     }
@@ -142,7 +145,8 @@ public class EncounterManager : MonoBehaviour
 
         _thingystats.isPlayer = false;
 
-        avgEnemyLVL = lvlGrowth * stage;
+        avgEnemyLVL = lvlGrowth * stagecalc;
+        if (avgEnemyLVL < 1) avgEnemyLVL = 1;
         _thingystats.LVL = (int)avgEnemyLVL;
 
         _thingystats.ATK = (StatsManager.Instance.baseStatLevel + _thingystats.LVL) * _thingystats.ATKGrowth;

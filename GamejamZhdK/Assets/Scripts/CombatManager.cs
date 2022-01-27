@@ -24,7 +24,7 @@ public class CombatManager : MonoBehaviour
     private bool playerDefeated = false;
 
     private float delay;
-    private float maxDelay = 5f;
+    private float maxDelay = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +49,14 @@ public class CombatManager : MonoBehaviour
 
         if (Enemies.Count <= 0 && simulating)
         {
+            foreach(Stats Enemy in TurnOrder)
+            {
+                if (!Enemy.isPlayer)
+                {
+                    Destroy(Enemy.gameObject);
+                }
+            }
+            TurnOrder.Clear();
             EncManager.generateEncounter();
         }
 
@@ -70,6 +78,7 @@ public class CombatManager : MonoBehaviour
     public void GetEnemies()
     {
         simulating = true;
+        Player.isDead = false;
         foreach (GameObject Enemy in EncManager.Enemies)
         {
             Enemy.GetComponent<ThingyManager>().stats.isDead = false;
@@ -151,6 +160,11 @@ public class CombatManager : MonoBehaviour
                     if (Enemy.isPoisoned)
                     {
                         Enemy.HP -= Player.poisonValue;
+                        if (Enemy.HP <= 0)
+                        {
+                            Enemy.isDead = true;
+                            Destroy(Enemy.gameObject);
+                        }
                     }
                 }
             }
@@ -169,10 +183,10 @@ public class CombatManager : MonoBehaviour
         if (_damage < 0) _damage = 0;
         _Target.HP -= _damage;
 
-        if (!_Target.isPlayer)
+        if (_Attacker.isPlayer)
         {
             // if player is attacking steal life
-            _Attacker.HP += _damage * _Attacker.lifestealValue;
+            if(_Attacker.lifesteal) _Attacker.HP += _damage * _Attacker.lifestealValue;
             // if player has posion, posion enemy
             if (_Attacker.poison)
             {
@@ -182,7 +196,15 @@ public class CombatManager : MonoBehaviour
         else
         {
             // if player is attacked reflect damage
-            _Attacker.HP -= _Target.DEF * _Target.reflectValue;
+            if (_Target.reflect)
+            {
+                _Attacker.HP -= _Target.DEF * _Target.reflectValue;
+                if (_Attacker.HP <= 0)
+                {
+                    _Attacker.isDead = true;
+                    Destroy(_Attacker.gameObject);
+                }
+            }
         }
         if (_Target.HP <= 0)
         {
@@ -193,7 +215,9 @@ public class CombatManager : MonoBehaviour
                 Debug.Log(EncManager.stage-1);
                 Debug.Log(nmbrOfAttacks);
                 simulating = false;
+                Player.HP = Player.HPMAX; // DEBUG, change to 1
                 YeetEnemies();
+                Player.gameObject.GetComponent<ThingyManager>().AddExp((int)FCManager.expGained);
                 GlobalGameManager.Instance.EndFightCub();
             }
             else
