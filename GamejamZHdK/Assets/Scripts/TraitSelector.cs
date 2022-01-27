@@ -126,6 +126,7 @@ public class TraitSelector : MonoBehaviour
         ThingyData _data = new ThingyData(child.GetComponent<ThingyManager>().stats, BodypartsOut.ToList(), mainChildAnimalType);
         child.GetComponent<ThingyManager>().data = _data;
         CurrentThingies.Instance.AddThingy(_data);
+        GlobalGameManager.Instance.SaveData();
     }   
 
     

@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &330403235065740960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 330403235065740974}
+  - component: {fileID: 330403235065740961}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &330403235065740974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330403235065740960}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1285.9375, y: 174.95001, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &330403235065740961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330403235065740960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62b9ed582dc4eb4a9fd6cbeb7eef73e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 0}
+  sounds:
+  - name: MenuMusic
+    clip: {fileID: 8300000, guid: 91074453fcf5aef4e8c9ea6266a699d8, type: 3}
+    volume: 0.371
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Victory
+    clip: {fileID: 8300000, guid: ddb512a9c6aee134ea50385ce529298d, type: 3}
+    volume: 0.371
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Hit
+    clip: {fileID: 8300000, guid: ae729f301e344ec4f96ab2148ecdcdbf, type: 3}
+    volume: 0.371
+    volumeVariance: 0.123
+    pitch: 1
+    pitchVariance: 0.123
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Click
+    clip: {fileID: 8300000, guid: 958cb27ac0d28b34bb9cbf530ccf3c63, type: 3}
+    volume: 0.371
+    volumeVariance: 0.137
+    pitch: 1
+    pitchVariance: 0.144
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Drap
+    clip: {fileID: 8300000, guid: 483ad26f3e5a9aa4081c2dad1bc52db9, type: 3}
+    volume: 0.371
+    volumeVariance: 0.123
+    pitch: 1
+    pitchVariance: 0.108
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Drop
+    clip: {fileID: 8300000, guid: f43b11e272358db45987858250f118e6, type: 3}
+    volume: 0.371
+    volumeVariance: 0.13
+    pitch: 1
+    pitchVariance: 0.123
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}

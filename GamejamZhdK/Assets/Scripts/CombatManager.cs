@@ -183,6 +183,11 @@ public class CombatManager : MonoBehaviour
         if (_damage < 0) _damage = 0;
         _Target.HP -= _damage;
 
+        if (GlobalGameManager.Instance.CameraFightClub.isActiveAndEnabled)
+        {
+            //AudioManager.instance.Play("Hit");
+        }
+
         if (_Attacker.isPlayer)
         {
             // if player is attacking steal life
@@ -218,6 +223,7 @@ public class CombatManager : MonoBehaviour
                 Player.HP = Player.HPMAX; // DEBUG, change to 1
                 YeetEnemies();
                 Player.gameObject.GetComponent<ThingyManager>().AddExp((int)FCManager.expGained);
+                AudioManager.instance.Play("Victory");
                 GlobalGameManager.Instance.EndFightCub();
             }
             else

@@ -31,7 +31,7 @@ public class GlobalGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        AudioManager.instance.Play("MenuMusic");
     }
 
     // Update is called once per frame
@@ -74,6 +74,7 @@ public class GlobalGameManager : MonoBehaviour
         Player.GetComponent<layerOrderScript>().enabled = true;
         MovePlayer(OldPlayerPos);
         SetMainWindowCamera();
+        SaveData();
     }
 
     public void SetFightClubCamera()
@@ -107,5 +108,11 @@ public class GlobalGameManager : MonoBehaviour
     public void SaveData()
     {
         SaveSystem.SaveData(CurrentThingies.Instance.thingies);
+    }
+
+    public void LoadData()
+    {
+        CurrentThingies.Instance.thingies = SaveSystem.LoadData();
+        ReloadSaveState(CurrentThingies.Instance.thingies);
     }
 }
