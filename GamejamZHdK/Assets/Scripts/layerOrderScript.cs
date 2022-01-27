@@ -21,8 +21,8 @@ public class layerOrderScript : MonoBehaviour
     animalMovement moveScript;
 
 
-    bool RLeft;
-    bool RRight;
+    public bool RLeft;
+
     void Start()
     {
        moveScript = GetComponent<animalMovement>();
@@ -97,7 +97,7 @@ public class layerOrderScript : MonoBehaviour
         
         RLeft = true;
 
-
+        
         //StartCoroutine(animationMove());
 
         yield return null;

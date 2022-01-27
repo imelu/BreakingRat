@@ -20,7 +20,7 @@ public class HeadSprites : MonoBehaviour
         }
         else
         {
-            GlobalGameManager.Instance.SelectedThingy.GetComponent<ColorManager>();
+            colorManager = GlobalGameManager.Instance.SelectedThingy.GetComponent<ColorManager>();
         }
         
         colorManager.Sprites.Add(ear1);
