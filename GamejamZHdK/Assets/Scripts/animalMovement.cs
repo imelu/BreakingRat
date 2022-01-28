@@ -59,7 +59,11 @@ public class animalMovement : MonoBehaviour
         else
         {
             mergeable = 0;
-            fallAnimal();
+            if(Camera.main!=null)
+            {
+
+                fallAnimal();
+            }
         }
     }
 
