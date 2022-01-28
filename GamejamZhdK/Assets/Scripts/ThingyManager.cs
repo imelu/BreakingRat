@@ -71,6 +71,10 @@ public class ThingyManager : MonoBehaviour
     void Update()
     {
         //UpdateThingyData();
+        if (!stats.isPlayer)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
     }
 
     public void AddExp(int _exp)

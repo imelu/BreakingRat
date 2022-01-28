@@ -242,7 +242,7 @@ public class CombatManager : MonoBehaviour
     {
         float _delay;
 
-        _delay = maxDelay / (EncManager.CalcNmbrOfAttacks / Mathf.Sqrt(_currentNmbrOfAttacks));
+        _delay = maxDelay / (5*EncManager.CalcNmbrOfAttacks / Mathf.Sqrt(_currentNmbrOfAttacks));
         if (_delay < minDelay) _delay = minDelay;
 
         return _delay;

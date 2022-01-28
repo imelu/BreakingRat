@@ -101,6 +101,7 @@ public class GlobalGameManager : MonoBehaviour
         SetMainWindowCamera();
         SaveData();
         SpawnRewardAnimal();
+        Player.transform.position = rewardSpawnPoint;
         CanvasSingleton.Instance.GetComponentInChildren<showStats>().EndFC();
     }
 

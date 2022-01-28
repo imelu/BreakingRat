@@ -83,11 +83,26 @@ public class showStats : MonoBehaviour
                     lvl = TManager.stats.LVL;
 
                     hpbar.fillAmount = 1 / TManager.stats.HPMAX * TManager.stats.HP;
+                    /*
                     stats[0].text = ((int)atk).ToString();
                     stats[1].text = ((int)def).ToString();
                     stats[2].text = ((int)spd).ToString();
                     stats[3].text = ((int)exp).ToString();
                     stats[4].text = ((int)lvl).ToString();
+                    */
+                    stats[0].text = StatDisplay((int)Selected.GetComponent<ThingyManager>().stats.ATK);
+                    stats[1].text = StatDisplay((int)Selected.GetComponent<ThingyManager>().stats.DEF);
+                    stats[2].text = StatDisplay((int)Selected.GetComponent<ThingyManager>().stats.SPD);
+                    stats[4].text = (StatDisplay((int)Selected.GetComponent<ThingyManager>().stats.LVL)) + " / " + (StatDisplay((int)Selected.GetComponent<ThingyManager>().stats.MAX));
+                    if (Selected.GetComponent<ThingyManager>().stats.LVL == Selected.GetComponent<ThingyManager>().stats.MAX)
+                    {
+                        stats[3].text = "MAX";
+                    }
+                    else
+                    {
+                        stats[3].text = (StatDisplay((int)Selected.GetComponent<ThingyManager>().stats.EXPCurrent)) + " / " + (StatDisplay((int)Selected.GetComponent<ThingyManager>().stats.EXPReq));
+                    }
+                    //stats[5].text = ((int)Selected.GetComponent<ThingyManager>().stats.HP) + " / " + ((int)Selected.GetComponent<ThingyManager>().stats.HPMAX);
                 }
                 else if (hit.collider != null && hit.collider.transform.tag == "Kill")
                 {
@@ -224,5 +239,19 @@ public class showStats : MonoBehaviour
         }
     }
 
-
+    private string StatDisplay(int _stat)
+    {
+        if (_stat > 1000000)
+        {
+            return (_stat / 1000000).ToString() + "M";
+        }
+        else if (_stat > 1000)
+        {
+            return (_stat / 1000).ToString() + "k";
+        }
+        else
+        {
+            return _stat.ToString();
+        }
+    }
 }

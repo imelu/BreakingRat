@@ -36,19 +36,19 @@ public class PlayerUI : MonoBehaviour
     void Update()
     {
         hpbar.fillAmount = Player.HP / Player.HPMAX;
-        stats[0].text = ((int)Player.ATK).ToString();
-        stats[1].text = ((int)Player.DEF).ToString();
-        stats[2].text = ((int)Player.SPD).ToString();
-        stats[3].text = ((int)Player.LVL) + " / " + ((int)Player.MAX);
+        stats[0].text = StatDisplay((int)Player.ATK);
+        stats[1].text = StatDisplay((int)Player.DEF);
+        stats[2].text = StatDisplay((int)Player.SPD);
+        stats[3].text = (StatDisplay((int)Player.LVL)) + " / " + (StatDisplay((int)Player.MAX));
         if(Player.LVL == Player.MAX)
         {
             stats[4].text = "MAX";
         }
         else
         {
-            stats[4].text = ((int)Player.EXPCurrent) + " / " + ((int)Player.EXPReq);
+            stats[4].text = (StatDisplay((int)Player.EXPCurrent)) + " / " + ((StatDisplay((int)Player.EXPReq)));
         }
-        stats[5].text = ((int)Player.HP) + " / " + ((int)Player.HPMAX);
+        stats[5].text = (StatDisplay((int)Player.HP)) + " / " + (StatDisplay((int)Player.HPMAX));
 
         CheckForTraits();
     }
@@ -91,5 +91,21 @@ public class PlayerUI : MonoBehaviour
     {
         Infobox.SetActive(false);
         Debug.Log("Exit");
+    }
+
+    private string StatDisplay(int _stat)
+    {
+        if(_stat > 1000000)
+        {
+            return (_stat / 1000000).ToString() + "M";
+        } 
+        else if (_stat > 1000)
+        {
+            return (_stat / 1000).ToString() + "k";
+        }
+        else
+        {
+            return _stat.ToString();
+        }
     }
 }

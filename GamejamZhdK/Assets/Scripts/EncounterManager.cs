@@ -22,7 +22,7 @@ public class EncounterManager : MonoBehaviour
     public int stage = 1;
     public int stagecalc = 1;
     private float avgEnemyLVL;
-    private float lvlGrowth = 0.3f;
+    private float lvlGrowth = 5f;
     private float growthMax = 0.7f;
     private float growthMin = 0.4f;
 
@@ -94,7 +94,10 @@ public class EncounterManager : MonoBehaviour
         int _selectedAnimal;
 
         BodypartsOut[0] = SpriteManager.Instance.getRandomHead(System.Enum.GetName(typeof(Animal), Random.Range(0, _nmbrOfAnimalTypes)));
-        BodypartsOut[1] = SpriteManager.Instance.getRandomBody(System.Enum.GetName(typeof(Animal), Random.Range(0, _nmbrOfAnimalTypes)));
+
+        _selectedAnimal = Random.Range(0, _nmbrOfAnimalTypes);
+        string animalColor = System.Enum.GetName(typeof(Animal), (Animal)_selectedAnimal);
+        BodypartsOut[1] = SpriteManager.Instance.getRandomBody(System.Enum.GetName(typeof(Animal), _selectedAnimal));
 
         _selectedAnimal = Random.Range(0, _nmbrOfAnimalTypes);
         BodypartsOut[2] = SpriteManager.Instance.getRandomEye(System.Enum.GetName(typeof(Animal), _selectedAnimal));
@@ -116,10 +119,10 @@ public class EncounterManager : MonoBehaviour
 
         BodypartsOut[11] = SpriteManager.Instance.getRandomTail(System.Enum.GetName(typeof(Animal), Random.Range(0, _nmbrOfAnimalTypes)));
 
-        _thingy = SpriteManager.Instance.GenerateThingy(BodypartsOut[0], BodypartsOut[1], BodypartsOut[2], BodypartsOut[3], BodypartsOut[4], BodypartsOut[5], BodypartsOut[6], BodypartsOut[7], BodypartsOut[8], BodypartsOut[9], BodypartsOut[10], BodypartsOut[11], _spawnslot.position, "nuthn" );
+        _thingy = SpriteManager.Instance.GenerateThingy(BodypartsOut[0], BodypartsOut[1], BodypartsOut[2], BodypartsOut[3], BodypartsOut[4], BodypartsOut[5], BodypartsOut[6], BodypartsOut[7], BodypartsOut[8], BodypartsOut[9], BodypartsOut[10], BodypartsOut[11], _spawnslot.position, animalColor);
         //_thingy.transform.position = _spawnslot.position;
         _thingy.transform.localScale = new Vector3(-1, 1, 1);
-        _thingy.GetComponent<ColorManager>().SetColor(new Color(Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f)));
+        //_thingy.GetComponent<ColorManager>().SetColor(new Color(Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f)));
 
         // AllocateStats(_thingy.GetComponent<ThingyManager>().stats);
         // Fetch Stats
@@ -129,6 +132,7 @@ public class EncounterManager : MonoBehaviour
         _thingy.GetComponent<ThingyManager>().stats.isDead = false;
 
         Destroy(_thingy.GetComponent<animalMovement>());
+        Destroy(_thingy.GetComponent<layerOrderScript>());
 
         _thingy.transform.parent = GlobalGameManager.Instance.FightClub.transform;
 
@@ -144,7 +148,7 @@ public class EncounterManager : MonoBehaviour
 
         _thingystats.isPlayer = false;
 
-        avgEnemyLVL = lvlGrowth * stagecalc;
+        avgEnemyLVL = lvlGrowth * stagecalc * stagecalc;
         if (avgEnemyLVL < 1) avgEnemyLVL = 1;
         _thingystats.LVL = (int)avgEnemyLVL;
 
