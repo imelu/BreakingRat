@@ -60,6 +60,7 @@ public class ThingyManager : MonoBehaviour
 {
     public Stats stats = new Stats();
     public ThingyData data;
+    public bool fighting = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -74,6 +75,14 @@ public class ThingyManager : MonoBehaviour
         if (!stats.isPlayer)
         {
             transform.localScale = new Vector3(-1, 1, 1);
+        }
+        if(stats.HP<stats.HPMAX&&fighting == false)
+        {
+            stats.HP = stats.HP + (stats.HPMAX/15+5)* Time.deltaTime;
+        }
+        else if(stats.HP>stats.HPMAX)
+        {
+            stats.HP = stats.HPMAX;
         }
     }
 

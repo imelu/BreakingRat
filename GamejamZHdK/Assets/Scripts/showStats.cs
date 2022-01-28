@@ -41,7 +41,8 @@ public class showStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Camera.main!=null)
+        Debug.Log(hpbar.fillAmount);
+        if (Camera.main!=null)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -81,8 +82,6 @@ public class showStats : MonoBehaviour
                     spd = TManager.stats.SPD;
                     exp = TManager.stats.EXPCurrent;
                     lvl = TManager.stats.LVL;
-
-                    hpbar.fillAmount = 1 / TManager.stats.HPMAX * TManager.stats.HP;
                     /*
                     stats[0].text = ((int)atk).ToString();
                     stats[1].text = ((int)def).ToString();
@@ -106,7 +105,7 @@ public class showStats : MonoBehaviour
                 }
                 else if (hit.collider != null && hit.collider.transform.tag == "Kill")
                 {
-
+                    
                     Kill();
                     Clear();
                 }
@@ -114,11 +113,21 @@ public class showStats : MonoBehaviour
                 {
                     if (Selected != null)
                     {
+                        if(Head3!=null)
+                        {
+                            Destroy(Head3);
+                        }
                         Head3 = Instantiate(Selected.transform.GetChild(0).GetChild(4).gameObject, headLoc3.position, Quaternion.identity);
                         GlobalGameManager.Instance.Player = Selected;
-                        GlobalGameManager.Instance.StartFightClub();
-                        FCButton.SetActive(false);
-                        FCButtonEmpty.SetActive(true);
+                        if (Selected.GetComponent<ThingyManager>().stats.HP>= Selected.GetComponent<ThingyManager>().stats.HPMAX)
+                        {
+                            GlobalGameManager.Instance.StartFightClub();
+                           
+                            GlobalGameManager.Instance.Player.GetComponent<ThingyManager>().fighting = true;
+                            FCButton.SetActive(false);
+                            FCButtonEmpty.SetActive(true);
+                        }
+                        
                         Clear();
 
                     }
@@ -144,7 +153,7 @@ public class showStats : MonoBehaviour
                     }
                 }
             }
-            if (TManager != null && Head != null)
+            if (TManager != null && Head != null&&Selected!=null)
             {
                 hpbar.fillAmount = 1 / TManager.stats.HPMAX * TManager.stats.HP;
             }
@@ -158,6 +167,8 @@ public class showStats : MonoBehaviour
     }
     public void EndFC()
     {
+        GlobalGameManager.Instance.Player.GetComponent<ThingyManager>().stats.HP = 1;
+        GlobalGameManager.Instance.Player.GetComponent<ThingyManager>().fighting = false;
         Destroy(Head3);
         FCButton.SetActive(true);
         FCButtonEmpty.SetActive(false);
@@ -178,12 +189,12 @@ public class showStats : MonoBehaviour
         stats[2].text = "";
         stats[3].text = "";
         stats[4].text = "";
-
+        hpbar.fillAmount = 0f;
     }
     public void Kill()
     {
         
-        if (Selected != null)
+        if (Selected != null&& CurrentThingies.Instance.thingies.Count > 2)
         {
             CurrentThingies.Instance.RemoveThingy(Selected.GetComponent<ThingyManager>().data);
             Destroy(Selected);
