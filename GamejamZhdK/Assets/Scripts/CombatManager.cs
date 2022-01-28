@@ -226,6 +226,7 @@ public class CombatManager : MonoBehaviour
                 Player.HP = Player.HPMAX; // DEBUG, change to 1
                 YeetEnemies();
                 Player.gameObject.GetComponent<ThingyManager>().AddExp((int)FCManager.expGained);
+                if(GlobalGameManager.Instance.maxStage < EncManager.stage) GlobalGameManager.Instance.maxStage = EncManager.stage;
                 AudioManager.instance.Play("Victory");
                 GlobalGameManager.Instance.EndFightCub();
             }

@@ -44,11 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f2a64717d84a854592fdcdaa825cc58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RewardStages: 0f0000003200000096000000
   Player: {fileID: 0}
   SelectedThingy: {fileID: 0}
   FightClubPrefab: {fileID: 621861779026024287, guid: 98393f0d89c2f384f98ce9c55983f8fe, type: 3}
   CameraFightClub: {fileID: 0}
   CameraMainWindow: {fileID: 0}
+  continueGame: 0
+  frogSpawned: 0
+  fatfrogSpawned: 0
+  weaselSpawned: 0
+  maxStage: 0
   FightClub: {fileID: 0}
 --- !u!114 &7031519658912521880
 MonoBehaviour:

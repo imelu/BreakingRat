@@ -9,6 +9,7 @@ TagManager:
   - Fight
   - FightProgress
   - FightCamera
+  - Quit
   layers:
   - Default
   - TransparentFX

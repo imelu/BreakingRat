@@ -40,7 +40,7 @@ public class GenericThingySpawner : MonoBehaviour
     public void GenerateRat(Vector3 _position)
     {
         List<string> BodypartsOut = new List<string>();
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < 13; i++)
         {
             BodypartsOut.Add(rat);
         }

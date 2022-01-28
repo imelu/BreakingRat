@@ -23,8 +23,23 @@ public class GameLoader : MonoBehaviour
         }
         else
         {
+            for(int i = 0; i<10; i++)
+            {
+                genThiSpawner.GenerateFatFrog(new Vector3(Random.Range(-8f, 1f), Random.Range(-2.9f, 0), 0));
+                genThiSpawner.GenerateFatFrog(new Vector3(Random.Range(-8f, 1f), Random.Range(-2.9f, 0), 0));
+            }
+            /*
             genThiSpawner.GenerateRat(new Vector3(Random.Range(-8f, 1f), Random.Range(-2.9f, 0), 0));
             genThiSpawner.GenerateRat(new Vector3(Random.Range(-8f, 1f), Random.Range(-2.9f, 0), 0));
+            
+            genThiSpawner.GenerateFrog(new Vector3(Random.Range(-8f, 1f), Random.Range(-2.9f, 0), 0));
+            genThiSpawner.GenerateFrog(new Vector3(Random.Range(-8f, 1f), Random.Range(-2.9f, 0), 0));
+
+            genThiSpawner.GenerateWeasel(new Vector3(Random.Range(-8f, 1f), Random.Range(-2.9f, 0), 0));
+            genThiSpawner.GenerateWeasel(new Vector3(Random.Range(-8f, 1f), Random.Range(-2.9f, 0), 0));
+
+            genThiSpawner.GenerateFatFrog(new Vector3(Random.Range(-8f, 1f), Random.Range(-2.9f, 0), 0));
+            genThiSpawner.GenerateFatFrog(new Vector3(Random.Range(-8f, 1f), Random.Range(-2.9f, 0), 0));*/
         }
 
         AudioManager.instance.Stop("MenuMusic");

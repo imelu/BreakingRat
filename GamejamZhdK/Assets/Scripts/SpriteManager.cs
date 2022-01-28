@@ -31,6 +31,14 @@ public class SpriteManager : MonoBehaviour
 {
     [SerializeField] private GameObject ThingyPrefab;
 
+    public Gradient ratgrad;
+
+    public Gradient froggrad;
+
+    public Gradient weaselgrad;
+
+    public Gradient fatfroggrad;
+
     public List<BodyPart> Ears = new List<BodyPart>();
     public List<BodyPart> Eyes = new List<BodyPart>();
     public List<BodyPart> Mouths = new List<BodyPart>();
@@ -179,6 +187,24 @@ public class SpriteManager : MonoBehaviour
         bodyParts.tail = _tail;
 
         if (Random.Range(1, 8193) == 420) _thingy.GetComponent<ThingyManager>().stats.shiny = true;
+
+        if (animalType.Equals("rat"))
+        {
+            _thingy.GetComponent<ColorManager>().SetColor(ratgrad.Evaluate(Random.Range(0f,1f)));
+            //_thingy.GetComponent<ColorManager>().SetColor(new Color(Random.Range(rat1.r,rat2.r), Random.Range(rat1.g, rat2.g), Random.Range(rat1.b, rat2.b)));
+        }
+        if (animalType.Equals("weasel"))
+        {
+            _thingy.GetComponent<ColorManager>().SetColor(weaselgrad.Evaluate(Random.Range(0f, 1f)));
+        }
+        if (animalType.Equals("fatfrog"))
+        {
+            _thingy.GetComponent<ColorManager>().SetColor(fatfroggrad.Evaluate(Random.Range(0f, 1f)));
+        }
+        if (animalType.Equals("frog"))
+        {
+            _thingy.GetComponent<ColorManager>().SetColor(froggrad.Evaluate(Random.Range(0f, 1f)));
+        }
 
         return _thingy;
     }

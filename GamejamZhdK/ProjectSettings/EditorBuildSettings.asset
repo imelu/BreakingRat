@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Titlescreen.unity
     guid: f037539420695bd498df5ab2fd649f5f
   - enabled: 1
-    path: Assets/Sandbox_Samuel/Evolution 1.unity
-    guid: 1cc4e1d2ed89d9f48b0b9b9937d1607b
+    path: Assets/Scenes/GameScene.unity
+    guid: 5c1219d2bbf65c44dbae8d53e2f42a0d
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 7bf27303d7de2f24ca72e9944bd98952

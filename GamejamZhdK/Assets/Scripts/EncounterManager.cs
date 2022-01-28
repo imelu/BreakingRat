@@ -6,7 +6,6 @@ using TMPro;
 public class EncounterManager : MonoBehaviour
 {
     // Bossstages
-    private List<int> FixedStages = new List<int>();
 
     public Transform[] spawnSlots = new Transform[3];
 

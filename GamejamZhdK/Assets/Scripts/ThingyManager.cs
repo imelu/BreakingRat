@@ -70,7 +70,7 @@ public class ThingyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateThingyData();
+        //UpdateThingyData();
     }
 
     public void AddExp(int _exp)
@@ -101,41 +101,81 @@ public class ThingyManager : MonoBehaviour
 
     public void UpdateThingyData()
     {
-        data.isPlayer = stats.isPlayer;
-        data.isDead = stats.isDead;
-        data.isPoisoned = stats.isPoisoned;
+        data.stats.isPlayer = stats.isPlayer;
+        data.stats.isDead = stats.isDead;
+        data.stats.isPoisoned = stats.isPoisoned;
 
-        data.LVL = stats.LVL;
-        data.MAX = stats.MAX;
+        data.stats.LVL = stats.LVL;
+        data.stats.MAX = stats.MAX;
 
-        data.EXPReq = stats.EXPReq;
-        data.EXPCurrent = stats.EXPCurrent;
-        data.expMod = stats.expMod;
+        data.stats.EXPReq = stats.EXPReq;
+        data.stats.EXPCurrent = stats.EXPCurrent;
+        data.stats.expMod = stats.expMod;
 
-        data.ATKGrowth = stats.ATKGrowth;
-        data.DEFGrowth = stats.DEFGrowth;
-        data.HPGrowth = stats.HPGrowth;
-        data.SPDGrowth = stats.SPDGrowth;
+        data.stats.ATKGrowth = stats.ATKGrowth;
+        data.stats.DEFGrowth = stats.DEFGrowth;
+        data.stats.HPGrowth = stats.HPGrowth;
+        data.stats.SPDGrowth = stats.SPDGrowth;
 
-        data.ATK = stats.ATK;
-        data.DEF = stats.DEF;
-        data.HPMAX = stats.HPMAX;
-        data.HP = stats.HP;
-        data.SPD = stats.SPD;
+        data.stats.ATK = stats.ATK;
+        data.stats.DEF = stats.DEF;
+        data.stats.HPMAX = stats.HPMAX;
+        data.stats.HP = stats.HP;
+        data.stats.SPD = stats.SPD;
 
-        data.demGeenes = stats.demGeenes;
-        data.shiny = stats.shiny;
-        data.lifesteal = stats.lifesteal;
-        data.reflect = stats.reflect;
-        data.poison = stats.poison;
-        data.looter = stats.looter;
+        data.stats.demGeenes = stats.demGeenes;
+        data.stats.shiny = stats.shiny;
+        data.stats.lifesteal = stats.lifesteal;
+        data.stats.reflect = stats.reflect;
+        data.stats.poison = stats.poison;
+        data.stats.looter = stats.looter;
 
-        data.weak = stats.weak;
-        data.frail = stats.frail;
-        data.slow = stats.slow;
+        data.stats.weak = stats.weak;
+        data.stats.frail = stats.frail;
+        data.stats.slow = stats.slow;
 
-        data.lifestealValue = stats.lifestealValue;
-        data.reflectValue = stats.reflectValue;
-        data.poisonValue = stats.poisonValue;
+        data.stats.lifestealValue = stats.lifestealValue;
+        data.stats.reflectValue = stats.reflectValue;
+        data.stats.poisonValue = stats.poisonValue;
+    }
+
+    public void InitializeThingyData()
+    {
+        stats.isPlayer = data.stats.isPlayer;
+        stats.isDead = data.stats.isDead;
+        stats.isPoisoned = data.stats.isPoisoned;
+
+        stats.LVL = data.stats.LVL;
+        stats.MAX = data.stats.MAX;
+
+        stats.EXPReq = data.stats.EXPReq;
+        stats.EXPCurrent = data.stats.EXPCurrent;
+        stats.expMod = data.stats.expMod;
+
+        stats.ATKGrowth = data.stats.ATKGrowth;
+        stats.DEFGrowth = data.stats.DEFGrowth;
+        stats.HPGrowth = data.stats.HPGrowth;
+        stats.SPDGrowth = data.stats.SPDGrowth;
+
+        stats.ATK = data.stats.ATK;
+        stats.DEF = data.stats.DEF;
+        stats.HPMAX = data.stats.HPMAX;
+        stats.HP = data.stats.HP;
+        stats.SPD = data.stats.SPD;
+
+        stats.demGeenes = data.stats.demGeenes;
+        stats.shiny = data.stats.shiny;
+        stats.lifesteal = data.stats.lifesteal;
+        stats.reflect = data.stats.reflect;
+        stats.poison = data.stats.poison;
+        stats.looter = data.stats.looter;
+
+        stats.weak = data.stats.weak;
+        stats.frail = data.stats.frail;
+        stats.slow = data.stats.slow;
+
+        stats.lifestealValue = data.stats.lifestealValue;
+        stats.reflectValue = data.stats.reflectValue;
+        stats.poisonValue = data.stats.poisonValue;
     }
 }

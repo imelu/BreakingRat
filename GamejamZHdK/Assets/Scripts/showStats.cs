@@ -6,19 +6,6 @@ using TMPro;
 
 public class showStats : MonoBehaviour
 {
-    #region Singleton
-    public static showStats Instance;
-    private void Awake()
-    {
-        if (Instance == null)
-            Instance = this;
-        else if (Instance != this)
-            Destroy(this.gameObject);
-
-        DontDestroyOnLoad(gameObject);
-    }
-    #endregion
-
     public Transform headLoc;
     public Transform headLoc2;
     public Transform headLoc3;
@@ -129,6 +116,10 @@ public class showStats : MonoBehaviour
 
                         GlobalGameManager.Instance.SetFightClubCamera();
                     }
+                } 
+                else if (hit.collider != null && hit.collider.transform.tag == "Quit")
+                {
+                    GlobalGameManager.Instance.QuitGame();
                 }
                 else
                 {
