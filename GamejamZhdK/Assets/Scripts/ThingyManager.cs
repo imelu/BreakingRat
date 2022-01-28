@@ -76,7 +76,7 @@ public class ThingyManager : MonoBehaviour
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
-        if(stats.HP<stats.HPMAX&&fighting == false)
+        if(stats.HP<stats.HPMAX&&fighting == false && !stats.isPlayer)
         {
             stats.HP = stats.HP + (stats.HPMAX/15+5)* Time.deltaTime;
         }
