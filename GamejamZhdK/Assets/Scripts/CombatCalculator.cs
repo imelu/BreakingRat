@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BigNums;
 
 public class CombatCalculator : MonoBehaviour
 {
@@ -21,8 +22,8 @@ public class CombatCalculator : MonoBehaviour
 
     private float timeOfBattle;
 
-    private float gainedExp;
-    private float expMult = 1.2f;
+    private ScienceNum gainedExp;
+    private ScienceNum expMult;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +32,8 @@ public class CombatCalculator : MonoBehaviour
         EncManager = GetComponent<EncounterManager>();
         CManager = GetComponent<CombatManager>();
         Player = FCManager.PlayerThingy.GetComponent<ThingyManager>().stats;
-        if (Player.looter) expMult *= 0.25f;
+        expMult.baseValue = 8f;
+        if (Player.looter) expMult.baseValue *= 0.25f;
     }
 
     // Update is called once per frame
@@ -69,7 +71,7 @@ public class CombatCalculator : MonoBehaviour
     public void GetEnemies()
     {
         Player.isDead = false;
-        foreach (Stats Enemy in EncManager.Stages[EncManager.stagecalc - 1])
+        foreach (Stats Enemy in EncManager.Stages[(int)EncManager.stagecalc.Conversion() - 1])
         {
             Enemies.Add(Enemy);
         }
@@ -143,7 +145,7 @@ public class CombatCalculator : MonoBehaviour
                     if (Enemy.isPoisoned && !Enemy.isPlayer)
                     {
                         Enemy.HP -= Player.poisonValue;
-                        if(Enemy.HP <= 0)
+                        if(Enemy.HP.baseValue <= 0)
                         {
                             gainedExp += expMult * Enemy.LVL;
                             Enemy.isDead = true;
@@ -159,10 +161,14 @@ public class CombatCalculator : MonoBehaviour
         }
     }
 
-    private void DealDamage(Stats _Attacker, Stats _Target, float _ATK)
+    private void DealDamage(Stats _Attacker, Stats _Target, ScienceNum _ATK)
     {
-        float _damage = _ATK - _Target.DEF;
-        if (_damage < 0) _damage = 0;
+        ScienceNum _damage = _ATK - _Target.DEF;
+        if (_damage.baseValue < 0)
+        {
+            _damage.baseValue = 0;
+            _damage.eFactor = 0;
+        }
         _Target.HP -= _damage;
 
         if (_Attacker.isPlayer)
@@ -181,16 +187,16 @@ public class CombatCalculator : MonoBehaviour
             if (_Target.reflect)
             {
                 _Attacker.HP -= _Target.DEF * _Target.reflectValue;
-                if (_Attacker.HP <= 0)
+                if (_Attacker.HP.baseValue <= 0)
                 {
                     gainedExp += expMult * _Target.LVL;
                     _Attacker.isDead = true;
                 }
             }
         }
-        if (_Target.HP <= 0)
+        if (_Target.HP.baseValue <= 0)
         {
-            _Target.HP = 0;
+            _Target.HP.baseValue = 0;
             if (_Target.isPlayer)
             {
                 playerDefeated = true;

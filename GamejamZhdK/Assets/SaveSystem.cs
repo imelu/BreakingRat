@@ -9,7 +9,7 @@ public static class SaveSystem
     public static void SaveData(List<ThingyData> _data)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/data.rat";
+        string path = Application.persistentDataPath + "/data2.rat";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         formatter.Serialize(stream, _data);
@@ -20,7 +20,7 @@ public static class SaveSystem
 
     public static List<ThingyData> LoadData()
     {
-        string path = Application.persistentDataPath + "/data.rat";
+        string path = Application.persistentDataPath + "/data2.rat";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();

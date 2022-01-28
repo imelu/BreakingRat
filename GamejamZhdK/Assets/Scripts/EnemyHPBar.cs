@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using BigNums;
 
 public class EnemyHPBar : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class EnemyHPBar : MonoBehaviour
     {
         foreach(Stats stat in stats)
         {
-            images[stats.IndexOf(stat)].fillAmount = stat.HP / stat.HPMAX;
+            images[stats.IndexOf(stat)].fillAmount = (stat.HP / stat.HPMAX).Conversion();
         }
     }
 

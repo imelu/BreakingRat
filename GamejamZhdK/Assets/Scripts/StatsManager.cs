@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BigNums;
 
 public class StatsManager : MonoBehaviour
 {
@@ -8,14 +9,16 @@ public class StatsManager : MonoBehaviour
     private int percentDown = 8; 
     private int percentUp = 15;
 
-    private float levelAffectGrowth = 0.5f; // level * growth values * levelAffect = growth parentX
-    private float levelAffectMaxLevel = 0.15f;
+    private ScienceNum levelAffectGrowth; // = 0.5f; // level * growth values * levelAffect = growth parentX
+    private ScienceNum levelAffectMaxLevel; // = 0.15f;
 
-    public int baseStatLevel = 4; // baseStatLevel * all growth values determines base stats
-    
+    public ScienceNum baseStatLevel;// = 4; // baseStatLevel * all growth values determines base stats
+
     // Trait Settings
-    private float buff = 1.5f;
-    private float debuff = 0.7f;
+    private ScienceNum buff; // = 1.5f;
+    private ScienceNum debuff; // = 0.7f;
+    //private ScienceNum demGeenesMult; // = 0.5f;
+
     private float demGeenesMult = 0.5f;
 
     // Trait inherit settings
@@ -45,7 +48,23 @@ public class StatsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        baseStatLevel.baseValue = 4;
+        baseStatLevel.eFactor = 0;
+
+        levelAffectGrowth.baseValue = 1;
+        levelAffectGrowth.eFactor = -1;
+
+        levelAffectMaxLevel.baseValue = 1;
+        levelAffectMaxLevel.eFactor = -1;
+
+        buff.baseValue = 1.5f;
+        buff.eFactor = 0;
+
+        debuff.baseValue = 7;
+        debuff.eFactor = -1;
+
+        //demGeenesMult.baseValue = 5;
+        //demGeenesMult.eFactor = -1;
     }
 
     // Update is called once per frame
@@ -66,20 +85,36 @@ public class StatsManager : MonoBehaviour
         ThingyManager _p2s = _Parent2.GetComponent<ThingyManager>();
         ThingyManager _cs = _Child.GetComponent<ThingyManager>();
 
-        float _shiny = 1;
-        float _frail = 1;
-        float _weak = 1;
-        float _slow = 1;
+        ScienceNum one;
+        one.baseValue = 1;
+        one.eFactor = 0;
 
-        float p1mult = _p1s.stats.LVL * levelAffectGrowth;
-        if (p1mult < 1) p1mult = 1;
-        float p2mult = _p2s.stats.LVL * levelAffectGrowth;
-        if (p2mult < 1) p2mult = 1;
+        ScienceNum two;
+        two.baseValue = 2;
+        two.eFactor = 0;
 
-        float p1multLVL = _p1s.stats.LVL * levelAffectMaxLevel;
-        if (p1multLVL < 1) p1multLVL = 1;
-        float p2multLVL = _p2s.stats.LVL * levelAffectMaxLevel;
-        if (p2multLVL < 1) p2multLVL = 1;
+        ScienceNum three;
+        three.baseValue = 3;
+        three.eFactor = 0;
+
+        ScienceNum _shiny = one;
+        ScienceNum _frail = one;
+        ScienceNum _weak = one;
+        ScienceNum _slow = one;
+
+        ScienceNum p1mult = _p1s.stats.LVL * levelAffectGrowth;
+        if (p1mult < one) p1mult = one;
+        if (p1mult > three) p1mult = three;
+        ScienceNum p2mult = _p2s.stats.LVL * levelAffectGrowth;
+        if (p2mult < one) p2mult = one;
+        if (p2mult > three) p2mult = three;
+
+        ScienceNum p1multLVL = _p1s.stats.LVL * levelAffectMaxLevel;
+        if (p1multLVL < one) p1multLVL = one;
+        if (p1multLVL > two) p1multLVL = two;
+        ScienceNum p2multLVL = _p2s.stats.LVL * levelAffectMaxLevel;
+        if (p2multLVL < one) p2multLVL = one;
+        if (p2multLVL > two) p2multLVL = two;
 
         float _percentUp = percentUp;
         float _percentDown = percentDown;
@@ -101,27 +136,79 @@ public class StatsManager : MonoBehaviour
             _percentDown = percentDown - percentDown * demGeenesMult;
         }
 
-        _cs.stats.ATKGrowth = _shiny * _weak * ((_p1s.stats.ATKGrowth * p1mult + _p2s.stats.ATKGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
-        _cs.stats.DEFGrowth = _shiny * _frail * ((_p1s.stats.DEFGrowth * p1mult + _p2s.stats.DEFGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
-        _cs.stats.HPGrowth = _shiny * ((_p1s.stats.HPGrowth * p1mult + _p2s.stats.HPGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
-        _cs.stats.SPDGrowth = _shiny * _slow * ((_p1s.stats.SPDGrowth * p1mult + _p2s.stats.SPDGrowth * p2mult) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
+        _cs.stats.ATKGrowth = _shiny * _weak * ((_p1s.stats.ATKGrowth * p1mult + _p2s.stats.ATKGrowth * p2mult) / two) * getRandomChance(_percentDown, _percentUp);
+        _cs.stats.DEFGrowth = _shiny * _frail * ((_p1s.stats.DEFGrowth * p1mult + _p2s.stats.DEFGrowth * p2mult) / two) * getRandomChance(_percentDown, _percentUp);
+        _cs.stats.HPGrowth = _shiny * ((_p1s.stats.HPGrowth * p1mult + _p2s.stats.HPGrowth * p2mult) / two) * getRandomChance(_percentDown, _percentUp);
+        _cs.stats.SPDGrowth = _shiny * _slow * ((_p1s.stats.SPDGrowth * p1mult + _p2s.stats.SPDGrowth * p2mult) / two) * getRandomChance(_percentDown, _percentUp);
 
-        _cs.stats.MAX = (int)(((_p1s.stats.MAX * p1multLVL + _p2s.stats.MAX * p2multLVL) / 2) * ((100 + Random.Range(-_percentDown, _percentUp)) / 100));
+        _cs.stats.MAX = (((_p1s.stats.MAX * p1multLVL + _p2s.stats.MAX * p2multLVL) / two) * getRandomChance(_percentDown, _percentUp));
 
         _cs.stats.ATK = baseStatLevel * _cs.stats.ATKGrowth;
         _cs.stats.DEF = baseStatLevel * _cs.stats.DEFGrowth;
         _cs.stats.HPMAX = baseStatLevel * _cs.stats.HPGrowth;
         _cs.stats.SPD = baseStatLevel * _cs.stats.SPDGrowth;
+        
+        _cs.stats.LVL.baseValue = 1;
+        _cs.stats.LVL.eFactor = 0;
+
+        _cs.stats.expMod.baseValue = 5;
+        _cs.stats.expMod.eFactor = 0;
+
+        UpdateStats(_cs.stats);
+    }
+
+    private ScienceNum getRandomChance(float _percentDown, float _percentUp)
+    {
+        ScienceNum rand;
+        float randf;
+        randf = ((100 + Random.Range(-_percentDown, _percentUp)) / 100);
+        if(randf >= 100)
+        {
+            rand.baseValue = randf / 100;
+            rand.eFactor = 2;
+        } else if(randf >= 10)
+        {
+            rand.baseValue = randf / 10;
+            rand.eFactor = 1;
+        }
+        else if (randf < 1)
+        {
+            rand.baseValue = randf * 10;
+            rand.eFactor = - 1;
+        }
+        else
+        {
+            rand.baseValue = randf;
+            rand.eFactor = 0;
+        }
+
+        return rand;
     }
 
     public void UpdateStats(Stats _stats)
     {
-        _stats.ATK = (baseStatLevel + _stats.LVL) * _stats.ATKGrowth;
-        _stats.DEF = (baseStatLevel + _stats.LVL) * _stats.DEFGrowth;
-        _stats.HPMAX = (baseStatLevel + _stats.LVL) * _stats.HPGrowth;
-        _stats.HP = _stats.HPMAX;
-        _stats.SPD = (baseStatLevel + _stats.LVL) * _stats.SPDGrowth;
-        _stats.EXPReq = _stats.LVL * _stats.LVL * _stats.expMod;
+        ScienceNum _basestatlevel;
+        _basestatlevel.baseValue = 9;
+        _basestatlevel.eFactor = 0;
+        if (_stats.isPlayer)
+        {
+            _stats.ATK = (_basestatlevel + _stats.LVL) * _stats.ATKGrowth;
+            _stats.DEF = (_basestatlevel + _stats.LVL) * _stats.DEFGrowth;
+            _stats.HPMAX = (_basestatlevel + _stats.LVL) * _stats.HPGrowth;
+            _stats.HP = _stats.HPMAX;
+            _stats.SPD = (_basestatlevel + _stats.LVL) * _stats.SPDGrowth;
+            _stats.EXPReq = _stats.LVL * _stats.LVL * _stats.expMod;
+        }
+        else
+        {
+            _stats.ATK = (baseStatLevel + _stats.LVL) * _stats.ATKGrowth;
+            _stats.DEF = (baseStatLevel + _stats.LVL) * _stats.DEFGrowth;
+            _stats.HPMAX = (baseStatLevel + _stats.LVL) * _stats.HPGrowth;
+            _stats.HP = _stats.HPMAX;
+            _stats.SPD = (baseStatLevel + _stats.LVL) * _stats.SPDGrowth;
+            _stats.EXPReq = _stats.LVL * _stats.LVL * _stats.expMod;
+        }
+        
     }
 
     private void CalculateTraits(Stats _p1s, Stats _p2s, Stats _cs)

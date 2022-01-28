@@ -56,8 +56,8 @@ public class GlobalGameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             StartFightClub();
-        }
-        
+        }*/
+        /*
         if (Input.GetKeyDown(KeyCode.S))
         {
             SaveSystem.SaveData(CurrentThingies.Instance.thingies);
@@ -67,6 +67,11 @@ public class GlobalGameManager : MonoBehaviour
         {
             CurrentThingies.Instance.thingies = SaveSystem.LoadData();
             ReloadSaveState(CurrentThingies.Instance.thingies);
+        }*/
+        /*
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            genThiSpawner.GenerateRat(new Vector3(Random.Range(-8f, 1f), Random.Range(-2.9f, 0), 0));
         }*/
 
         if(CameraMainWindow == null || CameraFightClub == null)

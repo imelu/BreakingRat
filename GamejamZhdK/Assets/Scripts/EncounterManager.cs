@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using BigNums;
 
 public class EncounterManager : MonoBehaviour
 {
@@ -20,9 +21,10 @@ public class EncounterManager : MonoBehaviour
     private int maxEnemies = 3;
     private int nmbrOfEnemies;
     public int stage = 1;
-    public int stagecalc = 1;
-    private float avgEnemyLVL;
-    private float lvlGrowth = 5f;
+    public ScienceNum stagecalc;// = 1;
+    private ScienceNum one;
+    private ScienceNum avgEnemyLVL;
+    private ScienceNum lvlGrowth;// = 5f;
     private float growthMax = 0.7f;
     private float growthMin = 0.4f;
 
@@ -39,6 +41,15 @@ public class EncounterManager : MonoBehaviour
     {
         CManager = GetComponent<CombatManager>();
         CCalc = GetComponent<CombatCalculator>();
+
+        stagecalc.baseValue = 1;
+        stagecalc.eFactor = 0;
+
+        lvlGrowth.baseValue = 5;
+        lvlGrowth.eFactor = 0;
+
+        one.baseValue = 1;
+        one.eFactor = 0;
     }
 
     // Update is called once per frame
@@ -68,7 +79,7 @@ public class EncounterManager : MonoBehaviour
         }
         Stages.Add(StageSetup);
         CCalc.GetEnemies();
-        stagecalc++;
+        stagecalc += one;
     }
 
     public void generateEncounter()
@@ -126,10 +137,14 @@ public class EncounterManager : MonoBehaviour
 
         // AllocateStats(_thingy.GetComponent<ThingyManager>().stats);
         // Fetch Stats
+        _thingy.GetComponent<ThingyManager>().InitializeNewThingyData();
+
         _thingy.GetComponent<ThingyManager>().stats = _Enemy;
         _thingy.GetComponent<ThingyManager>().stats.isPoisoned = false;
         _thingy.GetComponent<ThingyManager>().stats.HP = _thingy.GetComponent<ThingyManager>().stats.HPMAX;
         _thingy.GetComponent<ThingyManager>().stats.isDead = false;
+
+        _thingy.GetComponent<ThingyManager>().stats.gameObject = _thingy;
 
         Destroy(_thingy.GetComponent<animalMovement>());
         Destroy(_thingy.GetComponent<layerOrderScript>());
@@ -141,19 +156,24 @@ public class EncounterManager : MonoBehaviour
 
     private void AllocateEnemyStats(Stats _thingystats)
     {
-        _thingystats.ATKGrowth = Random.Range(growthMin, growthMax);
-        _thingystats.HPGrowth = Random.Range(growthMin * hpMult, growthMax * hpMult);
-        _thingystats.SPDGrowth = Random.Range(growthMin * spdMult, growthMax * spdMult);
-        _thingystats.DEFGrowth = 0;
+        _thingystats.ATKGrowth.baseValue = Random.Range(growthMin, growthMax);
+        _thingystats.ATKGrowth.eFactor = 0;
+        _thingystats.HPGrowth.baseValue = Random.Range(growthMin * hpMult, growthMax * hpMult);
+        _thingystats.HPGrowth.eFactor = 0;
+        _thingystats.SPDGrowth.baseValue = Random.Range(growthMin * spdMult, growthMax * spdMult);
+        _thingystats.SPDGrowth.eFactor = 0;
+        _thingystats.DEFGrowth.baseValue = 0;
+        _thingystats.DEFGrowth.eFactor = 0;
 
         _thingystats.isPlayer = false;
 
-        avgEnemyLVL = lvlGrowth * stagecalc * stagecalc;
-        if (avgEnemyLVL < 1) avgEnemyLVL = 1;
-        _thingystats.LVL = (int)avgEnemyLVL;
+        avgEnemyLVL = lvlGrowth * stagecalc;// * stagecalc;
+        if (avgEnemyLVL < one) avgEnemyLVL = one;
+        _thingystats.LVL = avgEnemyLVL;
 
         _thingystats.ATK = (StatsManager.Instance.baseStatLevel + _thingystats.LVL) * _thingystats.ATKGrowth;
-        _thingystats.DEF = 0;
+        _thingystats.DEF.baseValue = 0;
+        _thingystats.DEF.eFactor = 0;
         _thingystats.HPMAX = (StatsManager.Instance.baseStatLevel + _thingystats.LVL) * _thingystats.HPGrowth;
         _thingystats.HP = _thingystats.HPMAX;
         _thingystats.SPD = (StatsManager.Instance.baseStatLevel + _thingystats.LVL) * _thingystats.SPDGrowth;

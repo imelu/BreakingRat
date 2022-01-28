@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using BigNums;
 
 public class showStats : MonoBehaviour
 {
@@ -31,9 +32,13 @@ public class showStats : MonoBehaviour
     [SerializeField] GameObject Infobox;
     [SerializeField] TMP_Text Infotext;
     private Stats Player;
+
+    ScienceNum one;
+    
     void Start()
     {
-
+        one.baseValue = 1;
+        one.eFactor = 0;
         
         
     }
@@ -41,7 +46,7 @@ public class showStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(hpbar.fillAmount);
+        //Debug.Log(hpbar.fillAmount);
         if (Camera.main!=null)
         {
             if (Input.GetMouseButtonDown(0))
@@ -62,13 +67,13 @@ public class showStats : MonoBehaviour
                     Infotexts.Add("Has 30% reduced ATK");
                     Infotexts.Add("Has 30% reduced DEF");
                     Infotexts.Add("Has 30% reduced SPD");
-                    Infotexts.Add("Heals for " + (int)(100 * Player.lifestealValue) + "% of damage dealt");
-                    Infotexts.Add("Deals " + (int)(Player.poisonValue * 100) + "% of ATK per tick when applied to enemies");
-                    Infotexts.Add("Throws " + (int)(Player.reflectValue * 100) + "% of blocked damage back to the attacker");
+                    Infotexts.Add("Heals for " + (int)(100 * Player.lifestealValue.Conversion()) + "% of damage dealt");
+                    Infotexts.Add("Deals " + (int)(Player.poisonValue.Conversion() * 100) + "% of ATK per tick when applied to enemies");
+                    Infotexts.Add("Throws " + (int)(Player.reflectValue.Conversion() * 100) + "% of blocked damage back to the attacker");
                     Infotexts.Add("Gains 25% more exp from battles");
                     Infotexts.Add("Increases chance for inherited, mutated traits and stats by 50%");
-                    Infotexts.Add("Deals " + (int)Player.ATK + " damage on every Attack");
-                    Infotexts.Add("Blocks " + (int)Player.DEF + " damage when attacked");
+                    Infotexts.Add("Deals " + Player.ATK.ToString() + " damage on every Attack");
+                    Infotexts.Add("Blocks " + Player.DEF.ToString() + " damage when attacked");
                     Infotexts.Add("Determines who strikes first in battle");
 
                     GlobalGameManager.Instance.SelectedThingy = hit.collider.transform.parent.gameObject;
@@ -77,11 +82,11 @@ public class showStats : MonoBehaviour
 
 
                     TManager = hit.collider.transform.parent.GetComponent<ThingyManager>();
-                    atk = TManager.stats.ATK;
+                    /*atk = TManager.stats.ATK;
                     def = TManager.stats.DEF;
                     spd = TManager.stats.SPD;
                     exp = TManager.stats.EXPCurrent;
-                    lvl = TManager.stats.LVL;
+                    lvl = TManager.stats.LVL;*/
                     /*
                     stats[0].text = ((int)atk).ToString();
                     stats[1].text = ((int)def).ToString();
@@ -89,19 +94,20 @@ public class showStats : MonoBehaviour
                     stats[3].text = ((int)exp).ToString();
                     stats[4].text = ((int)lvl).ToString();
                     */
-                    stats[0].text = StatDisplay((int)Selected.GetComponent<ThingyManager>().stats.ATK);
-                    stats[1].text = StatDisplay((int)Selected.GetComponent<ThingyManager>().stats.DEF);
-                    stats[2].text = StatDisplay((int)Selected.GetComponent<ThingyManager>().stats.SPD);
-                    stats[4].text = (StatDisplay((int)Selected.GetComponent<ThingyManager>().stats.LVL)) + " / " + (StatDisplay((int)Selected.GetComponent<ThingyManager>().stats.MAX));
-                    if (Selected.GetComponent<ThingyManager>().stats.LVL == Selected.GetComponent<ThingyManager>().stats.MAX)
+                    hpbar.fillAmount = (Player.HP / Player.HPMAX).Conversion();
+                    stats[0].text = Player.ATK.ToString();
+                    stats[1].text = Player.DEF.ToString();
+                    stats[2].text = Player.SPD.ToString();
+                    stats[4].text = (Player.LVL.ToString()) + " / " + (Player.MAX.ToString());
+                    if (Player.LVL >= Player.MAX)
                     {
                         stats[3].text = "MAX";
                     }
                     else
                     {
-                        stats[3].text = (StatDisplay((int)Selected.GetComponent<ThingyManager>().stats.EXPCurrent)) + " / " + (StatDisplay((int)Selected.GetComponent<ThingyManager>().stats.EXPReq));
+                        stats[3].text = (Player.EXPCurrent.ToString()) + " / " + (Player.EXPReq.ToString());
                     }
-                    //stats[5].text = ((int)Selected.GetComponent<ThingyManager>().stats.HP) + " / " + ((int)Selected.GetComponent<ThingyManager>().stats.HPMAX);
+                    //stats[5].text = (Player.HP.ToString()) + " / " + (Player.HPMAX.ToString());
                 }
                 else if (hit.collider != null && hit.collider.transform.tag == "Kill")
                 {
@@ -155,7 +161,7 @@ public class showStats : MonoBehaviour
             }
             if (TManager != null && Head != null&&Selected!=null)
             {
-                hpbar.fillAmount = 1 / TManager.stats.HPMAX * TManager.stats.HP;
+                hpbar.fillAmount = (TManager.stats.HP / TManager.stats.HPMAX).Conversion();
             }
             if (Player != null)
             {
@@ -167,7 +173,7 @@ public class showStats : MonoBehaviour
     }
     public void EndFC()
     {
-        GlobalGameManager.Instance.Player.GetComponent<ThingyManager>().stats.HP = 1;
+        GlobalGameManager.Instance.Player.GetComponent<ThingyManager>().stats.HP = one;
         GlobalGameManager.Instance.Player.GetComponent<ThingyManager>().fighting = false;
         Destroy(Head3);
         FCButton.SetActive(true);

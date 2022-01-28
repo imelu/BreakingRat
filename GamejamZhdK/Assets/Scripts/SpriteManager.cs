@@ -206,6 +206,8 @@ public class SpriteManager : MonoBehaviour
             _thingy.GetComponent<ColorManager>().SetColor(froggrad.Evaluate(Random.Range(0f, 1f)));
         }
 
+        _thingy.GetComponent<ThingyManager>().stats.gameObject = _thingy;
+
         return _thingy;
     }
 

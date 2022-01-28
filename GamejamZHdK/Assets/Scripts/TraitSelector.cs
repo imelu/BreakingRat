@@ -44,9 +44,9 @@ public class TraitSelector : MonoBehaviour
         */
         
         float rand = Random.value;
-        if (rand <= .47f)
+        if (rand <= .42f)
             return 1;
-        if (rand <= .94f)
+        if (rand <= .86f)
             return 2;
         
         return 3;
@@ -263,8 +263,11 @@ public class TraitSelector : MonoBehaviour
     }
     void otherBodyParts(int traitOrigin, int bodyPartCounter, GameObject[] Parents, string bodypart)
     {
-            string animalType;
+        string animalType;
         GameObject ChosenParent;
+
+
+
         if (traitOrigin == 1)
         {
             if (bodypart == "body")
@@ -288,32 +291,60 @@ public class TraitSelector : MonoBehaviour
         }
         else if (traitOrigin == 3)
         {
-            int index = Random.Range(0, 2);
-            ChosenParent = Parents[index];
-
-
-
-
-
-            animalType = ChosenParent.GetComponent<TraitSelector>().mainAnimalType;
-
-            if (bodypart == "body")
+            if (!GlobalGameManager.Instance.fatfrogSpawned)
             {
-                mainChildAnimalType = ChosenParent.GetComponent<TraitSelector>().mainAnimalType;
-                BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomBody(animalType);
+                int index = Random.Range(0, 2);
+                ChosenParent = Parents[index];
+
+                animalType = ChosenParent.GetComponent<TraitSelector>().mainAnimalType;
+
+                if (bodypart == "body")
+                {
+                    mainChildAnimalType = ChosenParent.GetComponent<TraitSelector>().mainAnimalType;
+                    BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomBody(animalType);
+                }
+                else if (bodypart == "head")
+                {
+                    BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomHead(animalType);
+                }
+                else if (bodypart == "tail")
+                {
+                    BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomTail(animalType);
+                }
+                else if (bodypart == "mouth")
+                {
+                    BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomMouth(animalType);
+                }
             }
-            else if (bodypart == "head")
+            else
             {
-                BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomHead(animalType);
+                int _nmbrOfAnimalTypes = (int)Animal.END - 1; // -1 bc of the "generic" animal type
+                int _selectedAnimal;
+
+                if (bodypart == "body")
+                {
+                    _selectedAnimal = Random.Range(0, _nmbrOfAnimalTypes);
+                    mainChildAnimalType = System.Enum.GetName(typeof(Animal),(Animal)_selectedAnimal);
+                    BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomBody(mainChildAnimalType);
+                }
+                else if (bodypart == "head")
+                {
+                    _selectedAnimal = Random.Range(0, _nmbrOfAnimalTypes);
+                    BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomHead(System.Enum.GetName(typeof(Animal), (Animal)_selectedAnimal));
+                }
+                else if (bodypart == "tail")
+                {
+                    _selectedAnimal = Random.Range(0, _nmbrOfAnimalTypes);
+                    BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomTail(System.Enum.GetName(typeof(Animal), (Animal)_selectedAnimal));
+                }
+                else if (bodypart == "mouth")
+                {
+                    _selectedAnimal = Random.Range(0, _nmbrOfAnimalTypes);
+                    BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomMouth(System.Enum.GetName(typeof(Animal), (Animal)_selectedAnimal));
+                }
+
             }
-            else if (bodypart == "tail")
-            {
-                BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomTail(animalType);
-            }
-            else if (bodypart == "mouth")
-            {
-                BodypartsOut[bodyPartCounter] = SpriteManager.Instance.getRandomMouth(animalType);
-            }
+            
             //augen: andere Augen, aber anderes Auge von gleichem Tier
 
 

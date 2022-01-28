@@ -30,6 +30,7 @@ public class GenericThingySpawner : MonoBehaviour
         }
         GameObject child;
         child = SpriteManager.Instance.GenerateThingy(weasel, weasel, weasel, weasel, weasel, weasel, weasel, weasel, weasel, weasel, weasel, weasel, _position, "weasel");
+        child.GetComponent<ThingyManager>().InitializeNewThingyData();
         StatsManager.Instance.UpdateStats(child.GetComponent<ThingyManager>().stats);
         ThingyData _data = new ThingyData(child.GetComponent<ThingyManager>().stats, BodypartsOut, "weasel");
         child.GetComponent<ThingyManager>().data = _data;
@@ -46,6 +47,7 @@ public class GenericThingySpawner : MonoBehaviour
         }
         GameObject child;
         child = SpriteManager.Instance.GenerateThingy(rat, rat, rat, rat, rat, rat, rat, rat, rat, rat, rat, rat, _position, "rat");
+        child.GetComponent<ThingyManager>().InitializeNewThingyData();
         StatsManager.Instance.UpdateStats(child.GetComponent<ThingyManager>().stats);
         ThingyData _data = new ThingyData(child.GetComponent<ThingyManager>().stats, BodypartsOut, "rat");
         child.GetComponent<ThingyManager>().data = _data;
@@ -62,6 +64,7 @@ public class GenericThingySpawner : MonoBehaviour
         }
         GameObject child;
         child = SpriteManager.Instance.GenerateThingy(frog, frog, frog, frog, frog, frog, frog, frog, frog, frog, frog, frog, _position, "frog");
+        child.GetComponent<ThingyManager>().InitializeNewThingyData();
         StatsManager.Instance.UpdateStats(child.GetComponent<ThingyManager>().stats);
         ThingyData _data = new ThingyData(child.GetComponent<ThingyManager>().stats, BodypartsOut, "frog");
         child.GetComponent<ThingyManager>().data = _data;
@@ -78,6 +81,7 @@ public class GenericThingySpawner : MonoBehaviour
         }
         GameObject child;
         child = SpriteManager.Instance.GenerateThingy(fatfrog, fatfrog, fatfrog, fatfrog, fatfrog, fatfrog, fatfrog, fatfrog, fatfrog, fatfrog, fatfrog, fatfrog, _position, "fatfrog");
+        child.GetComponent<ThingyManager>().InitializeNewThingyData();
         StatsManager.Instance.UpdateStats(child.GetComponent<ThingyManager>().stats);
         ThingyData _data = new ThingyData(child.GetComponent<ThingyManager>().stats, BodypartsOut, "fatfrog");
         child.GetComponent<ThingyManager>().data = _data;

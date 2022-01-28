@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BigNums;
 
 public class FightClubManager : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class FightClubManager : MonoBehaviour
     [SerializeField] private GameObject RetreatPanel;
     [SerializeField] private Canvas canvas;
     [SerializeField] private Transform PlayerSpawn;
-    public float expGained;
+    public ScienceNum expGained;
 
     // Start is called before the first frame update
     void Start()

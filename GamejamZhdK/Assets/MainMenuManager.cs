@@ -14,7 +14,7 @@ public class MainMenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string path = Application.persistentDataPath + "/data.rat";
+        string path = Application.persistentDataPath + "/data2.rat";
         if(ContinueButton != null)
         {
             if (File.Exists(path))

@@ -22,33 +22,33 @@ public class PlayerUI : MonoBehaviour
         Infotexts.Add("Has 30% reduced ATK");
         Infotexts.Add("Has 30% reduced DEF");
         Infotexts.Add("Has 30% reduced SPD");
-        Infotexts.Add("Heals for " + (int)(100*Player.lifestealValue) + "% of damage dealt");
-        Infotexts.Add("Deals " +(int)(Player.poisonValue*100)+"% of ATK per tick when applied to enemies");
-        Infotexts.Add("Throws " + (int)(Player.reflectValue*100) + "% of blocked damage back to the attacker");
+        Infotexts.Add("Heals for " + (int)(100*Player.lifestealValue.Conversion()) + "% of damage dealt");
+        Infotexts.Add("Deals " +(int)(Player.poisonValue.Conversion() * 100)+"% of ATK per tick when applied to enemies");
+        Infotexts.Add("Throws " + (int)(Player.reflectValue.Conversion() * 100) + "% of blocked damage back to the attacker");
         Infotexts.Add("Gains 25% more exp from battles");
         Infotexts.Add("Increases chance for inherited, mutated traits and stats by 50%");
-        Infotexts.Add("Deals " + (int)Player.ATK + " damage on every Attack");
-        Infotexts.Add("Blocks " + (int)Player.DEF + " damage when attacked");
+        Infotexts.Add("Deals " + Player.ATK.ToString() + " damage on every Attack");
+        Infotexts.Add("Blocks " + Player.DEF.ToString() + " damage when attacked");
         Infotexts.Add("Determines who strikes first in battle");
     }
 
     // Update is called once per frame
     void Update()
     {
-        hpbar.fillAmount = Player.HP / Player.HPMAX;
-        stats[0].text = StatDisplay((int)Player.ATK);
-        stats[1].text = StatDisplay((int)Player.DEF);
-        stats[2].text = StatDisplay((int)Player.SPD);
-        stats[3].text = (StatDisplay((int)Player.LVL)) + " / " + (StatDisplay((int)Player.MAX));
-        if(Player.LVL == Player.MAX)
+        hpbar.fillAmount = (Player.HP / Player.HPMAX).Conversion();
+        stats[0].text = Player.ATK.ToString();
+        stats[1].text = Player.DEF.ToString();
+        stats[2].text = Player.SPD.ToString();
+        stats[3].text = (Player.LVL.ToString()) + " / " + (Player.MAX.ToString());
+        if(Player.LVL >= Player.MAX)
         {
             stats[4].text = "MAX";
         }
         else
         {
-            stats[4].text = (StatDisplay((int)Player.EXPCurrent)) + " / " + ((StatDisplay((int)Player.EXPReq)));
+            stats[4].text = (Player.EXPCurrent.ToString()) + " / " + (Player.EXPReq.ToString());
         }
-        stats[5].text = (StatDisplay((int)Player.HP)) + " / " + (StatDisplay((int)Player.HPMAX));
+        stats[5].text = (Player.HP.ToString()) + " / " + (Player.HPMAX.ToString());
 
         CheckForTraits();
     }

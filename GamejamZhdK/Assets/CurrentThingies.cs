@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BigNums;
 
 [System.Serializable]
 public class ThingyData
@@ -25,23 +26,23 @@ public class StatsData
     public bool isDead = false;
     public bool isPoisoned = false;
 
-    public int LVL = 1;
-    public int MAX = 10;
+    public ScienceNum LVL; // = 1;
+    public ScienceNum MAX; // = 10;
+    
+    public ScienceNum EXPReq;
+    public ScienceNum EXPCurrent;
+    public ScienceNum expMod;
 
-    public int EXPReq;
-    public int EXPCurrent;
-    public int expMod = 5;
+    public ScienceNum ATKGrowth; // 0.5f;
+    public ScienceNum DEFGrowth; //= 0.15f;
+    public ScienceNum HPGrowth; // = 5f;
+    public ScienceNum SPDGrowth; // = 1f;
 
-    public float ATKGrowth = 0.5f;
-    public float DEFGrowth = 0.15f;
-    public float HPGrowth = 5f;
-    public float SPDGrowth = 1f;
-
-    public float ATK;               // deals ATK damage on every Attack
-    public float DEF;               // blocks DEF damage when attacked
-    public float HPMAX;
-    public float HP;
-    public float SPD;               // determines who strikes first in battle
+    public ScienceNum ATK;               // deals ATK damage on every Attack
+    public ScienceNum DEF;               // blocks DEF damage when attacked
+    public ScienceNum HPMAX;
+    public ScienceNum HP;
+    public ScienceNum SPD;               // determines who strikes first in battle
 
     public bool demGeenes = false;  // increases chance for inherited, mutated traits and stats by 50%
     public bool shiny = false;
@@ -54,9 +55,11 @@ public class StatsData
     public bool frail = false;      // has 30% reduced DEF
     public bool slow = false;       // has 30% reduced SPD
 
-    public float lifestealValue = 0.3f;
-    public float reflectValue = 0.3f;
-    public float poisonValue = 0.15f;
+    public ScienceNum lifestealValue; //  = 0.3f;
+    public ScienceNum reflectValue; // = 0.3f;
+    public ScienceNum poisonValue; // = 0.15f;
+
+    //public GameObject gameObject;
 
     public StatsData(Stats _stats)
     {
@@ -66,7 +69,7 @@ public class StatsData
 
         LVL = _stats.LVL;
         MAX = _stats.MAX;
-
+        
         EXPReq = _stats.EXPReq;
         EXPCurrent = _stats.EXPCurrent;
         expMod = _stats.expMod;

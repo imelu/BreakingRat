@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BigNums;
 
 public class CombatManager : MonoBehaviour
 {
@@ -59,7 +60,23 @@ public class CombatManager : MonoBehaviour
                 }
             }
             TurnOrder.Clear();
-            EncManager.generateEncounter();
+            if(EncManager.Stages.Count > EncManager.stage-1)
+            {
+                EncManager.generateEncounter();
+            }
+            else
+            {
+                Debug.Log("caught null error");
+                playerDefeated = true;
+                simulating = false;
+                Player.HP = Player.HPMAX; // DEBUG, change to 1
+                YeetEnemies();
+                Player.gameObject.GetComponent<ThingyManager>().AddExp(FCManager.expGained);
+                if (GlobalGameManager.Instance.maxStage < EncManager.stage) GlobalGameManager.Instance.maxStage = EncManager.stage;
+                AudioManager.instance.Play("Victory");
+                GlobalGameManager.Instance.EndFightCub();
+            }
+            
         }
     }
 
@@ -162,7 +179,7 @@ public class CombatManager : MonoBehaviour
                     if (Enemy.isPoisoned)
                     {
                         Enemy.HP -= Player.poisonValue;
-                        if (Enemy.HP <= 0)
+                        if (Enemy.HP.baseValue <= 0)
                         {
                             Enemy.isDead = true;
                             Destroy(Enemy.gameObject);
@@ -179,10 +196,14 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private void DealDamage(Stats _Attacker, Stats _Target, float _ATK)
+    private void DealDamage(Stats _Attacker, Stats _Target, ScienceNum _ATK)
     {
-        float _damage = _ATK - _Target.DEF;
-        if (_damage < 0) _damage = 0;
+        ScienceNum _damage = _ATK - _Target.DEF;
+        if (_damage.baseValue < 0)
+        {
+            _damage.baseValue = 0;
+            _damage.eFactor = 0;
+        }
         _Target.HP -= _damage;
 
         if (GlobalGameManager.Instance.CameraFightClub.isActiveAndEnabled)
@@ -207,31 +228,34 @@ public class CombatManager : MonoBehaviour
             if (_Target.reflect)
             {
                 _Attacker.HP -= _Target.DEF * _Target.reflectValue;
-                if (_Attacker.HP <= 0)
+                if (_Attacker.HP.baseValue <= 0)
                 {
                     _Attacker.isDead = true;
                     Destroy(_Attacker.gameObject);
                 }
             }
         }
-        if (_Target.HP <= 0)
+        if (_Target.HP.baseValue <= 0)
         {
-            _Target.HP = 0;
+            //Debug.Log("cheesus chrisp");
+            _Target.HP.baseValue = 0;
             if (_Target.isPlayer)
             {
+                //Debug.Log("fuck that");
                 playerDefeated = true;
-                Debug.Log(EncManager.stage-1);
-                Debug.Log(nmbrOfAttacks);
+                //Debug.Log(EncManager.stage-1);
+                //Debug.Log(nmbrOfAttacks);
                 simulating = false;
                 Player.HP = Player.HPMAX; // DEBUG, change to 1
                 YeetEnemies();
-                Player.gameObject.GetComponent<ThingyManager>().AddExp((int)FCManager.expGained);
+                Player.gameObject.GetComponent<ThingyManager>().AddExp(FCManager.expGained);
                 if(GlobalGameManager.Instance.maxStage < EncManager.stage) GlobalGameManager.Instance.maxStage = EncManager.stage;
                 AudioManager.instance.Play("Victory");
                 GlobalGameManager.Instance.EndFightCub();
             }
             else
             {
+                //Debug.Log("fuck this");
                 _Target.isDead = true;
                 Destroy(_Target.gameObject);
             }
